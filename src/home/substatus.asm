@@ -487,8 +487,7 @@ IsClairvoyanceActive::
 	ccf
 	ret nc
 	ld a, OMANYTE
-	call CountTurnDuelistPokemonWithActivePkmnPower
-	ret
+	jp CountTurnDuelistPokemonWithActivePkmnPower
 
 ; returns carry if turn holder's arena card is paralyzed, asleep, confused,
 ; and/or toxic gas in play (i.e. its pkmn power cannot be used)
@@ -777,8 +776,7 @@ HandleDestinyBondSubstatus::
 	ld l, a
 	call LoadTxRam2
 	ldtx hl, KnockedOutDueToDestinyBondText
-	call DrawWideTextBox_WaitForInput
-	ret
+	jp DrawWideTextBox_WaitForInput
 
 ; when MACHAMP is damaged, if its Strikes Back is active, the
 ; attacking Pokemon (turn holder's arena Pokemon) takes 10 damage.

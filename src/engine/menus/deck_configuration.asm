@@ -158,8 +158,7 @@ DrawDecksScreen:
 	ld [sCurrentlySelectedDeck], a
 	call DisableSRAM
 	call DrawHandCardsTileOnCurDeck
-	call EnableLCD
-	ret
+	jp EnableLCD
 
 DeckNameMenuData:
 	textitem 4,  2, Deck1Text
@@ -182,8 +181,7 @@ CopyDeckName:
 	ld d, h
 	ld e, l
 	ld hl, DeckNameSuffix
-	call CopyListFromHLToDE
-	ret
+	jp CopyListFromHLToDE
 
 ; prints deck name given in hl in position de
 ; if it's an empty deck, print "NEW DECK" instead
@@ -241,8 +239,7 @@ CopyListFromHLToDE:
 CopyListFromHLToDEInSRAM:
 	call EnableSRAM
 	call CopyListFromHLToDE
-	call DisableSRAM
-	ret
+	jp DisableSRAM
 
 ; appends text in hl to wDefaultText
 ; then adds "deck" to the end
@@ -331,8 +328,7 @@ DrawHandCardsTileAtDE:
 	ld a, $38 ; hand cards tile
 	lb hl, 1, 2
 	lb bc, 2, 2
-	call FillRectangle
-	ret
+	jp FillRectangle
 
 ; handles user input when selecting a card filter
 ; when building a deck configuration
@@ -743,8 +739,7 @@ CheckIfCurrentDeckWasChanged:
 	inc hl
 	or a
 	jr nz, .loop_name
-	call DisableSRAM
-	ret
+	jp DisableSRAM
 
 .set_carry
 	call DisableSRAM
@@ -857,8 +852,7 @@ DrawCardTypeIconsAndPrintCardCounts:
 	call PrintTotalCardCount
 	lb de, 17, 0
 	call PrintSlashSixty
-	call EnableLCD
-	ret
+	jp EnableLCD
 
 ; fills one line at coordinate bc in BG Map
 ; with the byte in register a
@@ -872,8 +866,7 @@ FillBGMapLineWithA:
 	ld b, SCREEN_WIDTH
 	call BankswitchVRAM1
 	call FillDEWithA
-	call BankswitchVRAM0
-	ret
+	jp BankswitchVRAM0
 
 ; saves the count of each type of card that is in wCurDeckCards
 ; stores these values in wCardFilterCounts
@@ -975,8 +968,7 @@ PrintSlashSixty:
 	ld [hl], TX_END
 	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; creates two separate lists given the card type in register a
 ; if a card matches the card type given, then it's added to wFilteredCardList
@@ -1365,8 +1357,7 @@ PrintCardTypeCounts:
 	lb de, 1, 4
 	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; prints the list of cards, applying the filter from register a
 ; the counts of each card displayed is taken from wCurDeck
@@ -1448,8 +1439,7 @@ PrintTotalCardCount:
 	pop de
 	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; prints the name, level and storage count of the cards
 ; that are visible in the list window
@@ -2046,8 +2036,7 @@ AddCardToDeckAndUpdateCount:
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
-	call PrintNumberValueInCursorYPos
-	ret
+	jp PrintNumberValueInCursorYPos
 
 ; tries to add card ID in register e to wCurDeckCards
 ; fails to add card if one of the following conditions are met:
@@ -2210,8 +2199,7 @@ PrintNumberValueInCursorYPos:
 	ld d, 14
 	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; removes card in register e from deck configuration
 ; and updates the values shown for its count
@@ -2227,8 +2215,7 @@ RemoveCardFromDeckAndUpdateCount:
 	call PrintTotalCardCount
 	pop de
 	call GetCountOfCardInCurDeck
-	call PrintNumberValueInCursorYPos
-	ret
+	jp PrintNumberValueInCursorYPos
 
 ; removes card ID in e from wCurDeckCards
 RemoveCardFromDeck:
@@ -2471,8 +2458,7 @@ ShowDeckInfoHeaderAndWaitForBButton:
 	and B_BUTTON
 	jr z, .wait_input
 	ld a, $ff
-	call PlaySFXConfirmOrCancel
-	ret
+	jp PlaySFXConfirmOrCancel
 
 ShowConfirmationCardScreen:
 	call ShowDeckInfoHeader
@@ -2481,8 +2467,7 @@ ShowConfirmationCardScreen:
 	ld [hl], e
 	inc hl
 	ld [hl], d
-	call PrintConfirmationCardList
-	ret
+	jp PrintConfirmationCardList
 
 ; counts all values stored in wCardFilterCounts
 ; if the total count is 0, then
@@ -2504,8 +2489,7 @@ TallyCardsInCardFilterLists:
 	lb de, 11, 1
 	call InitTextPrinting
 	ldtx hl, NoCardsChosenText
-	call ProcessTextFromID
-	ret
+	jp ProcessTextFromID
 
 ; draws a box on the top of the screen
 ; with wCurDeck's number, name and card count
@@ -2538,8 +2522,7 @@ ShowDeckInfoHeader:
 	lb de, 16, 1
 	call PrintSlashSixty
 	call TallyCardsInCardFilterLists
-	call EnableLCD
-	ret
+	jp EnableLCD
 
 ; prints the name of wCurDeck in the form
 ; "X・ <deck name> deck", where X is the number
@@ -2591,15 +2574,13 @@ PrintCurDeckNumberAndName:
 	lb de, 6, 2
 	ld hl, wDefaultText
 	call InitTextPrinting
-	call ProcessText
-	ret
+	jp ProcessText
 
 .blank_deck_name
 	lb de, 2, 2
 	ld hl, wDefaultText
 	call InitTextPrinting
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; sorts wCurDeckCards by ID
 SortCurDeckCardsByID:
@@ -2914,8 +2895,7 @@ PrepareToBuildDeckConfigurationToSend:
 	call CopyListFromHLToDE
 	ld hl, .DeckConfigurationParams
 	call InitDeckBuildingParams
-	call HandleDeckBuildScreen
-	ret
+	jp HandleDeckBuildScreen
 
 .text
 	text "Cards chosen to send"
@@ -3216,8 +3196,7 @@ CreateCardCollectionListWithDeckCards:
 	bit DECK_4_F, a
 	ret z
 	ld de, sDeck4Cards
-	call IncrementDeckCardsInTempCollection
-	ret
+	jp IncrementDeckCardsInTempCollection
 
 ; goes through cards in deck in de
 ; and for each card ID, increments its corresponding
@@ -3240,8 +3219,7 @@ IncrementDeckCardsInTempCollection:
 	dec h
 	jr nz, .loop
 .done
-	call DisableSRAM
-	ret
+	jp DisableSRAM
 
 ; prints the name, level and storage count of the cards
 ; that are visible in the list window
@@ -3378,8 +3356,7 @@ PrintPlayersCardsHeaderInfo:
 	call FillBGMapLineWithA
 	call PrintTotalNumberOfCardsInCollection
 	call PrintPlayersCardsText
-	call DrawCardTypeIcons
-	ret
+	jp DrawCardTypeIcons
 
 ; prints "<PLAYER>'s cards"
 PrintPlayersCardsText:
@@ -3396,8 +3373,7 @@ PrintPlayersCardsText:
 	ld e, 0
 	call InitTextPrinting
 	ldtx hl, SCardsText
-	call ProcessTextFromID
-	ret
+	jp ProcessTextFromID
 
 PrintTotalNumberOfCardsInCollection:
 	ld a, ALL_DECKS
@@ -3437,8 +3413,7 @@ PrintTotalNumberOfCardsInCollection:
 	lb de, 13, 0
 	call InitTextPrinting
 	ld hl, wTempCardCollection
-	call ProcessText
-	ret
+	jp ProcessText
 
 ; places a numerical character in hl from de
 ; doesn't place a 0 if no non-0

@@ -531,8 +531,7 @@ AIDecideBenchPokemonToSwitchTo:
 	ld a, [wDamage]
 	call ConvertHPToDamageCounters_Bank5
 	inc a
-	call AIEncourage
-	ret
+	jp AIEncourage
 
 ; if an energy card that is needed is found in hand
 ; calculate damage of the move and raise AI score
