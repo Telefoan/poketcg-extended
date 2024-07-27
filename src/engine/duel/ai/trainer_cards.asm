@@ -3117,7 +3117,6 @@ AIDecide_PokemonCenter:
 	push de
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
-	ld a, e ; useless instruction
 	pop de
 
 ; get this Pokemon's current HP in number of counters
