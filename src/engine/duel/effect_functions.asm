@@ -94,17 +94,8 @@ TossCoin_BankB:
 TossCoinATimes_BankB:
 	jp TossCoinATimes
 
-CommentedOut_2c086:
-	ret
-
-Serial_TossZeroCoins:
-	xor a
-	jr Serial_TossCoinATimes
-
-Serial_TossCoin:
-	ld a, $1
-
 Serial_TossCoinATimes:
+	ld a, $1
 	push de
 	push af
 	ld a, OPPACTION_TOSS_COIN_A_TIMES
@@ -121,20 +112,6 @@ SetNoEffectFromStatus:
 SetWasUnsuccessful:
 	ld a, EFFECT_FAILED_UNSUCCESSFUL
 	ld [wEffectFailed], a
-	ret
-
-Func_2c0a8:
-	ldh a, [hTemp_ffa0]
-	push af
-	ldh a, [hWhoseTurn]
-	ldh [hTemp_ffa0], a
-	ld a, OPPACTION_6B30
-	ldh [hOppActionTableIndex], a
-	bank1call PlayDeckShuffleAnimation
-	ld c, a
-	pop af
-	ldh [hTemp_ffa0], a
-	ld a, c
 	ret
 
 ShuffleCardsInDeck:
