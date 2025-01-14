@@ -1,7 +1,7 @@
-	const_def 1
+	const_def 
 
 TextOffsets::
-	dwb $0000, $00
+	textpointer NullText
 	textpointer HandText
 	textpointer CheckText
 	textpointer AttackText
@@ -2899,3 +2899,6 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer AreYouBoyOrGirlText
+	textpointer BoyText
+	textpointer GirlText
