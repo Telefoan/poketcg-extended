@@ -674,17 +674,27 @@ Func_c49c:
 	ld [wPlayerYCoordPixels], a
 	ret
 
-Func_c4b9:
+Func_c4b9: ; could be named something like "Overworld_Sprite_Load_function"
 	xor a
 	ld [wVRAMTileOffset], a
-	ld [wd4cb], a
+	ld [wd4cb], ae
 	ld a, PALETTE_29
 	farcall LoadPaletteData
 	ld a, SPRITE_ANIM_RED_NPC_UP
+	jr z, .got_anim
+	ld b, SPRITE_ANIM_BLUE_NPC_UP
+.got_anim
+	; ld a, b
 	ld [wPlayerSpriteBaseAnimation], a
 
 	; load Player's sprite for overworld
+	ld a, EVENT_PLAYER_GENDER
+	farcall GetEventValue
+	or a
 	ld a, SPRITE_OW_PLAYER
+	jr z, .got_player_ow_sprite
+	ld a, SPRITE_OW_MINT
+.got_player_ow_sprite
 	farcall CreateSpriteAndAnimBufferEntry
 	ld a, [wWhichSprite]
 	ld [wPlayerSpriteIndex], a

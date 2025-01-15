@@ -44,7 +44,18 @@ HandleTitleScreen:
 	farcall FadeScreenToWhite
 
 	call CheckIfHasSaveData
+	ld a, [wHasSaveData]
+	or a
+	call nz, LoadEventsFromSRAM
 	call HandleStartMenu
+
++LoadEventsFromSRAM
+	ld hl, sEventVars
+	ld de, wEventVars
+	ld bc, EVENT_VAR_BYTES
+	call EnableSRAM
+	call CopyDataHLtoDE
+	jp DisableSRAM
 
 ; new game
 	ld a, [wStartMenuChoice]
