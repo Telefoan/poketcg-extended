@@ -44,7 +44,7 @@ ENDM
 
 MACRO textpointer
 	dw ((\1 + ($4000 * (BANK(\1) - 1))) - (STARTOF("Text 1") + ($4000 * (BANK("Text 1") - 1)))) & $ffff
-+	db ((\1 + ($4000 * (BANK(\1) - 1))) - (STARTOF("Text 1") + ($4000 * (BANK("Text 1") - 1)))) >> 16
+	db ((\1 + ($4000 * (BANK(\1) - 1))) - (STARTOF("Text 1") + ($4000 * (BANK("Text 1") - 1)))) >> 16
 	const \1_
 	EXPORT \1_
 ENDM
