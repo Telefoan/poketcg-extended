@@ -677,9 +677,14 @@ Func_c49c:
 Func_c4b9: ; could be named something like "Overworld_Sprite_Load_function"
 	xor a
 	ld [wVRAMTileOffset], a
-	ld [wd4cb], ae
+	ld [wd4cb], a
 	ld a, PALETTE_29
 	farcall LoadPaletteData
+	jr nz, .got_anim
+
+	ld a, EVENT_PLAYER_GENDER
+	farcall GetEventValue
+	or a
 	ld a, SPRITE_ANIM_RED_NPC_UP
 	jr z, .got_anim
 	ld b, SPRITE_ANIM_BLUE_NPC_UP

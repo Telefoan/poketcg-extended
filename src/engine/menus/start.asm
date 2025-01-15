@@ -49,7 +49,7 @@ HandleTitleScreen:
 	call nz, LoadEventsFromSRAM
 	call HandleStartMenu
 
-+LoadEventsFromSRAM
+LoadEventsFromSRAM
 	ld hl, sEventVars
 	ld de, wEventVars
 	ld bc, EVENT_VAR_BYTES
