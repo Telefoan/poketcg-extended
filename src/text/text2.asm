@@ -1238,6 +1238,9 @@ CharmanderAndFriendsDeckName:
 	text "Charmander & Friends"
 	done
 
+LovebirdsDeckName:
+	text "Lovebirds"
+
 CharmanderExtraDeckName:
 	text "Charmander extra"
 	done

@@ -181,6 +181,8 @@ NidokingThrashEffectCommands:
 	dbw EFFECTCMDTYPE_AI, Thrash_AIEffect
 	db  $00
 
+
+
 NidokingToxicEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Toxic_DoublePoisonEffect
 	dbw EFFECTCMDTYPE_AI, Toxic_AIEffect

@@ -438,6 +438,7 @@ TextOffsets::
 	textpointer PracticePlayerDeckName
 	textpointer SamsPracticeDeckName
 	textpointer CharmanderAndFriendsDeckName
+	textpointer LovebirdsDeckName
 	textpointer CharmanderExtraDeckName
 	textpointer SquirtleAndFriendsDeckName
 	textpointer SquirtleExtraDeckName
@@ -633,6 +634,7 @@ TextOffsets::
 	textpointer FirePokemonDeckText
 	textpointer FireChargeText
 	textpointer CharmanderAndFriendsText
+	textpointer LovebirdsText
 	textpointer SquirtleAndFriendsText
 	textpointer BulbasaurAndFriendsText
 	textpointer PsychicMachampText
@@ -683,6 +685,7 @@ TextOffsets::
 	textpointer FirePokemonDescriptionText
 	textpointer FireChargeDescriptionText
 	textpointer CharmanderAndFriendsDescriptionText
+	textpointer LovebirdsDescriptionText
 	textpointer SquirtleAndFriendsDescriptionText
 	textpointer BulbasaurAndFriendsDescriptionText
 	textpointer PsychicMachampDescriptionText
@@ -928,6 +931,7 @@ TextOffsets::
 	textpointer GrassAndPsychicDeckChoiceText
 	textpointer SelectDeckToDuelText
 	textpointer CharmanderAndFriendsDeckChoiceText
+	textpointer LovebirdsDeckChoiceText
 	textpointer SquirtleAndFriendsDeckChoiceText
 	textpointer BulbasaurAndFriendsDeckChoiceText
 	textpointer SelectDeckToTakeText
@@ -2059,6 +2063,8 @@ TextOffsets::
 	textpointer NidokingName
 	textpointer ThrashName
 	textpointer ThrashDescription
+	textpointer ReversalName
+	textpointer ReversalDescription
 	textpointer ToxicName
 	textpointer ToxicDescription
 	textpointer NidokingDescription

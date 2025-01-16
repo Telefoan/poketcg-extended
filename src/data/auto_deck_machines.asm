@@ -74,6 +74,7 @@ AutoDeckMachineEntries:
 	auto_deck BulbasaurAndFriendsCardList,  BulbasaurAndFriendsText,  BulbasaurAndFriendsDescriptionText
 	auto_deck PsychicMachampCardList,       PsychicMachampText,       PsychicMachampDescriptionText
 	auto_deck WaterBeetleCardList,          WaterBeetleText,          WaterBeetleDescriptionText
+	auto_deck LovebirdsCardList,			LovebirdsText, 			  LovebirdsDescriptionText
 
 ; Legendary Auto Deck Machine
 	auto_deck LegendaryMoltresCardList,     LegendaryMoltresText,     LegendaryMoltresDescriptionText

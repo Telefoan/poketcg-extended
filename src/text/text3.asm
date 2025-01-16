@@ -288,6 +288,10 @@ CharmanderAndFriendsText:
 	text "Charmander & Friends"
 	done
 
+LovebirdsText:
+	text "Lovebirds"
+	done
+
 SquirtleAndFriendsText:
 	text "Squirtle & Friends"
 	done
@@ -527,6 +531,11 @@ FireChargeDescriptionText:
 CharmanderAndFriendsDescriptionText:
 	text "A Fire, Grass and Water Deck:"
 	line "Charmander, Pinsir and Seel"
+	done
+
+LovebirdsDescriptionText:
+	text "A WatermelonPrincess Special:"
+	line "all the nidos in one place"
 	done
 
 SquirtleAndFriendsDescriptionText:
@@ -1751,6 +1760,10 @@ SelectDeckToDuelText:
 
 CharmanderAndFriendsDeckChoiceText:
 	text "CHARMANDER & Friends Deck"
+	done
+
+LovebirdsDeckChoiceText:
+	text "Lovebirds Deck"
 	done
 
 SquirtleAndFriendsDeckChoiceText:
