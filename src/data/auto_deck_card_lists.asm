@@ -964,7 +964,7 @@ CharmanderAndFriendsCardList:
 	;deck_list_end
 	db 0 ; end of list
 
-LovebirdsDeckCardList:
+LovebirdsCardList:
 	deck_list_start
 	card_item GRASS_ENERGY,		10
 	card_item NIDORANF, 		4
