@@ -268,7 +268,7 @@ LovebirdsDeck:
 	card_item PROFESSOR_OAK,	4
 	card_item BILL,				4
 	card_item COMPUTER_SEARCH, 	4
-	card_item TRADER,			4
+	card_item POKEMON_TRADER,	4
 	card_item ENERGY_SEARCH, 	4
 	card_item POTION, 			4
 	card_item GUST_OF_WIND, 	2
