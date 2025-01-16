@@ -216,13 +216,13 @@ ThrashDescription:
 	done
 
 ReversalName:
-	Text: "Reversal"
+	text "Reversal"
 	done
 
 ReversalDescription:
-	Text: "This attack does 10 damage plus"
-	line: "10 damage for each damage counter"
-	line: "on this Pokemon."
+	text "This attack does 10 damage plus"
+	line "10 damage for each damage counter"
+	line "on this Pokemon."
 	done
 
 ToxicName:
