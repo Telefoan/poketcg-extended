@@ -69,7 +69,7 @@ AutoDeckMachineEntries:
 	auto_deck FireChargeCardList,           FireChargeText,           FireChargeDescriptionText
 
 ; Auto Deck Machine
-	auto_deck CharmanderAndFriendsCardList, CharmanderAndFriendsText, CharmanderAndFriendsDescriptionText
+	;auto_deck CharmanderAndFriendsCardList, CharmanderAndFriendsText, CharmanderAndFriendsDescriptionText
 	auto_deck SquirtleAndFriendsCardList,   SquirtleAndFriendsText,   SquirtleAndFriendsDescriptionText
 	auto_deck BulbasaurAndFriendsCardList,  BulbasaurAndFriendsText,  BulbasaurAndFriendsDescriptionText
 	auto_deck PsychicMachampCardList,       PsychicMachampText,       PsychicMachampDescriptionText

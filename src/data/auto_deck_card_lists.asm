@@ -977,7 +977,7 @@ LovebirdsDeckCardList:
 	card_item BILL,				4
 	card_item COMPUTER_SEARCH, 	4
 	card_item TRADER,			4
-	card_Item ENERGY_SEARCH, 	4
+	card_item ENERGY_SEARCH, 	4
 	card_item POTION, 			4
 	card_item GUST_OF_WIND, 	2
 	deck_list_end
