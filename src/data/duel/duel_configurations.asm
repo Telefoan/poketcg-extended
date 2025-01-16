@@ -368,5 +368,13 @@ DeckIDDuelConfigurations:
 	tx StrangeLifeformText ; rank
 	dw NULL ; element
 
+	db LOVEBIRDS_DECK_ID ; deck ID
+	db IMAKUNI_PIC ; NPC portrait
+	tx ImakuniNPCName ; name text ID
+	db PRIZES_6 ; number of prize cards
+	db MUSIC_IMAKUNI ; theme
+	tx StrangeLifeformText ; rank
+	dw NULL ; element
+
 	assert_table_length NUM_AI_DECK_IDS
 	db -1 ; end

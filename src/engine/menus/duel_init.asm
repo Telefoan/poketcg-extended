@@ -226,4 +226,7 @@ OpponentTitlesAndDeckNames:
 	tx StrangeLifeformText
 	tx ImakuniDeckName
 
+	tx LovebirdsText
+	tx LovebirdsDeckName
+
 	assert_table_length NUM_DECK_IDS
