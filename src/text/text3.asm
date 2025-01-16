@@ -288,10 +288,6 @@ CharmanderAndFriendsText:
 	text "Charmander & Friends"
 	done
 
-LovebirdsText:
-	text "Lovebirds"
-	done
-
 SquirtleAndFriendsText:
 	text "Squirtle & Friends"
 	done
@@ -531,11 +527,6 @@ FireChargeDescriptionText:
 CharmanderAndFriendsDescriptionText:
 	text "A Fire, Grass and Water Deck:"
 	line "Charmander, Pinsir and Seel"
-	done
-
-LovebirdsDescriptionText:
-	text "A WatermelonPrincess Special:"
-	line "all the nidos in one place"
 	done
 
 SquirtleAndFriendsDescriptionText:
@@ -1762,10 +1753,6 @@ CharmanderAndFriendsDeckChoiceText:
 	text "CHARMANDER & Friends Deck"
 	done
 
-LovebirdsDeckChoiceText:
-	text "Lovebirds Deck"
-	done
-
 SquirtleAndFriendsDeckChoiceText:
 	text "SQUIRTLE & Friends Deck"
 	done
@@ -1858,4 +1845,17 @@ Mail2Part2Text:
 	line "Go win the Fighting Medal!"
 	line "Mason Laboratory"
 	line "      Doctor Mason ;)"
+	done
+
+LovebirdsText:
+	text "Lovebirds"
+	done
+
+LovebirdsDescriptionText:
+	text "A WatermelonPrincess Special:"
+	line "all the nidos in one place"
+	done
+	
+LovebirdsDeckChoiceText:
+	text "Lovebirds Deck"
 	done

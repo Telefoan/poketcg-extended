@@ -962,26 +962,6 @@ CharmanderAndFriendsCardList:
 	card_item FULL_HEAL,        2
 	; this list has an extra card
 	;deck_list_end
-	db 0 ; end of list
-
-LovebirdsCardList:
-	deck_list_start
-	card_item GRASS_ENERGY,		10
-	card_item NIDORANF, 		4
-	card_item NIDORINA, 		4
-	card_item NIDOQUEEN, 		4
-	card_item NIDORANM, 		4
-	card_item NIDORINO, 		4
-	card_item NIDOKING, 		4
-	card_item PROFESSOR_OAK,	4
-	card_item BILL,				4
-	card_item COMPUTER_SEARCH, 	4
-	card_item POKEMON_TRADER,			4
-	card_item ENERGY_SEARCH, 	4
-	card_item POTION, 			4
-	card_item GUST_OF_WIND, 	2
-	deck_list_end
-	tx LovebirdsDeckName
 
 SquirtleAndFriendsCardList:
 	deck_list_start
@@ -1227,3 +1207,24 @@ MysteriousPokemonCardList:
 	card_item SWITCH,           2
 	card_item POKEMON_CENTER,   1
 	deck_list_end
+
+LovebirdsCardList:
+	deck_list_start
+	card_item GRASS_ENERGY,		10
+	card_item NIDORANF, 		4
+	card_item NIDORINA, 		4
+	card_item NIDOQUEEN, 		4
+	card_item NIDORANM, 		4
+	card_item NIDORINO, 		4
+	card_item NIDOKING, 		4
+	card_item PROFESSOR_OAK,	4
+	card_item BILL,				4
+	card_item COMPUTER_SEARCH, 	4
+	card_item POKEMON_TRADER,			4
+	card_item ENERGY_SEARCH, 	4
+	card_item POTION, 			4
+	card_item GUST_OF_WIND, 	2
+	deck_list_end
+
+
+	db 0 ; end of list

@@ -1238,9 +1238,6 @@ CharmanderAndFriendsDeckName:
 	text "Charmander & Friends"
 	done
 
-LovebirdsDeckName:
-	text "Lovebirds"
-
 CharmanderExtraDeckName:
 	text "Charmander extra"
 	done
@@ -1765,3 +1762,6 @@ ThisDeckCanOnlyBeBuiltIfYouDismantleText:
 	text "This Deck can only be built if"
 	line "you dismantle another Deck."
 	done
+
+LovebirdsDeckName:
+	text "Lovebirds"

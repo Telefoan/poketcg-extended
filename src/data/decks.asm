@@ -6,7 +6,6 @@ DeckPointers::
 	dw PracticePlayerDeck
 	dw SamsPracticeDeck
 	dw CharmanderAndFriendsDeck
-	dw LovebirdsDeck
 	dw CharmanderExtraDeck
 	dw SquirtleAndFriendsDeck
 	dw SquirtleExtraDeck
@@ -55,7 +54,8 @@ DeckPointers::
 	dw AngerDeck
 	dw FlamethrowerDeck
 	dw ReshuffleDeck
-	dw ImakuniDeck
+	dw ImakuniDeck	
+	dw LovebirdsDeck
 	dw NULL
 	assert_table_length NUM_VALID_DECKS + 1
 
@@ -255,25 +255,6 @@ CharmanderAndFriendsDeck:
 	card_item FULL_HEAL,         2
 	deck_list_end
 	tx CharmanderAndFriendsDeckName
-
-LovebirdsDeck:
-	deck_list_start
-	card_item GRASS_ENERGY,		10
-	card_item NIDORANF, 		4
-	card_item NIDORINA, 		4
-	card_item NIDOQUEEN, 		4
-	card_item NIDORANM, 		4
-	card_item NIDORINO, 		4
-	card_item NIDOKING, 		4
-	card_item PROFESSOR_OAK,	4
-	card_item BILL,				4
-	card_item COMPUTER_SEARCH, 	4
-	card_item POKEMON_TRADER,	4
-	card_item ENERGY_SEARCH, 	4
-	card_item POTION, 			4
-	card_item GUST_OF_WIND, 	2
-	deck_list_end
-	tx LovebirdsDeckName
 
 CharmanderExtraDeck:
 	deck_list_start
@@ -1469,3 +1450,23 @@ ImakuniDeck:
 	card_item GAMBLER,         1
 	deck_list_end
 	tx ImakuniDeckName
+
+LovebirdsDeck:
+	deck_list_start
+	card_item GRASS_ENERGY,		10
+	card_item NIDORANF, 		4
+	card_item NIDORINA, 		4
+	card_item NIDOQUEEN, 		4
+	card_item NIDORANM, 		4
+	card_item NIDORINO, 		4
+	card_item NIDOKING, 		4
+	card_item PROFESSOR_OAK,	4
+	card_item BILL,				4
+	card_item COMPUTER_SEARCH, 	4
+	card_item POKEMON_TRADER,	4
+	card_item ENERGY_SEARCH, 	4
+	card_item POTION, 			4
+	card_item GUST_OF_WIND, 	2
+	deck_list_end
+	tx LovebirdsDeckName
+
