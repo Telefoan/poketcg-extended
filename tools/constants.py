@@ -318,6 +318,7 @@ decks = {
 	0x32: "FLAMETHROWER_DECK_ID",
 	0x33: "RESHUFFLE_DECK_ID",
 	0x34: "IMAKUNI_DECK_ID",
+	0x35: "LOVEBIRDS_DECK_ID",
 	0xff: "$ff",
 }
 

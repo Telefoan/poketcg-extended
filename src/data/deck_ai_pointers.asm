@@ -53,4 +53,5 @@ DeckAIPointerTable::
 	dw AIActionTable_GeneralDecks        ; FLAMETHROWER_DECK
 	dw AIActionTable_GeneralDecks        ; RESHUFFLE_DECK
 	dw AIActionTable_GeneralNoRetreat    ; IMAKUNI_DECK
+	dw AIActionTable_GeneralDecks		 ; LOVEBIRDS_DECK
 	assert_table_length NUM_DECK_IDS
