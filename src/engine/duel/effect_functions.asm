@@ -1812,6 +1812,8 @@ BoyfriendsEffect:
 ; c holds number of Nidoking found in Play Area
 	ld a, c
 	add a
+	add a
+	add c
 	call ATimes10
 	call AddToDamage ; adds 2 * 10 * c
 	ret

@@ -929,40 +929,59 @@ FireChargeCardList:
 	card_item GAMBLER,                  1
 	deck_list_end
 
-CharmanderAndFriendsCardList:
-	; deck_list_start
-	card_item GRASS_ENERGY,     8
-	card_item FIRE_ENERGY,     10
-	card_item WATER_ENERGY,     6
-	card_item CATERPIE,         2
-	card_item METAPOD,          1
-	card_item NIDORANF,         2
-	card_item NIDORANM,         1
-	card_item PINSIR,           1
-	card_item CHARMANDER,       2
-	card_item CHARMELEON,       1
-	card_item CHARIZARD,        1
-	card_item GROWLITHE,        2
-	card_item ARCANINE_LV45,    1
-	card_item PONYTA,           2
-	card_item MAGMAR_LV24,      1
-	card_item SEEL,             2
-	card_item DEWGONG,          1
-	card_item GOLDEEN,          2
-	card_item SEAKING,          1
-	card_item RATTATA,          2
-	card_item RATICATE,         1
-	card_item MEOWTH_LV14,      1
-	card_item PROFESSOR_OAK,    1
-	card_item BILL,             2
-	card_item SWITCH,           1
-	card_item COMPUTER_SEARCH,  1
-	card_item PLUSPOWER,        1
-	card_item POTION,           2
-	card_item FULL_HEAL,        2
-	; this list has an extra card
-	;deck_list_end
-	db 0 ; end of list
+;CharmanderAndFriendsCardList:
+	;; deck_list_start
+	;card_item GRASS_ENERGY,     8
+	;card_item FIRE_ENERGY,     10
+	;card_item WATER_ENERGY,     6
+	;card_item CATERPIE,         2
+	;card_item METAPOD,          1
+	;card_item NIDORANF,         2
+	;card_item NIDORANM,         1
+	;card_item PINSIR,           1
+	;card_item CHARMANDER,       2
+	;card_item CHARMELEON,       1
+	;card_item CHARIZARD,        1
+	;card_item GROWLITHE,        2
+	;card_item ARCANINE_LV45,    1
+	;card_item PONYTA,           2
+	;card_item MAGMAR_LV24,      1
+	;card_item SEEL,             2
+	;card_item DEWGONG,          1
+	;card_item GOLDEEN,          2
+	;card_item SEAKING,          1
+	;card_item RATTATA,          2
+	;card_item RATICATE,         1
+	;card_item MEOWTH_LV14,      1
+	;card_item PROFESSOR_OAK,    1
+	;card_item BILL,             2
+	;card_item SWITCH,           1
+	;card_item COMPUTER_SEARCH,  1
+	;card_item PLUSPOWER,        1
+	;card_item POTION,           2
+	;card_item FULL_HEAL,        2
+	;; this list has an extra card
+	;;deck_list_end
+	;db 0 ; end of list
+
+LovebirdsCardList:
+	deck_list_start
+	card_item GRASS_ENERGY, 12
+	card_item NIDORANF, 4
+	card_item NIDORINA, 4
+	card_item NIDOQUEEN, 4
+	card_item NIDORANM, 4
+	card_item NIDORINO, 4
+	card_item NIDOKING, 4
+	card_item PROFESSOR_OAK, 2
+	card_item BILL, 4
+	card_item COMPUTER_SEARCH, 2
+	card_item POKEMON_TRADER, 2
+	card_item ENERGY_SEARCH, 4
+	card_item POTION, 4
+	card_item SWITCH, 4
+	card_item POKEMON_BREEDER, 2
+	deck_list_end
 
 SquirtleAndFriendsCardList:
 	deck_list_start

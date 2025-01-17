@@ -1234,8 +1234,12 @@ SamsPracticeDeckName:
 	text "Sam's Practice"
 	done
 
-CharmanderAndFriendsDeckName:
-	text "Charmander & Friends"
+;CharmanderAndFriendsDeckName:
+;	text "Charmander & Friends"
+;	done
+
+LovebirdsDeckName:
+	text "Lovebirds"
 	done
 
 CharmanderExtraDeckName:
