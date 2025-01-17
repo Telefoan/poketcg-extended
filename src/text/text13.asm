@@ -183,3 +183,16 @@ RecycleDescription:
 	line "in your discard pile on top of your"
 	line "deck."
 	done
+
+AreYouBoyOrGirlText:
+	text "Are you a boy"
+	line "or a girl?"
+	done
+
+BoyText:
+	text "Boy"
+	done
+
+GirlText:
+	text "Girl"
+	done

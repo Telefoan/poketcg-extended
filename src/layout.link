@@ -71,6 +71,8 @@ ROMX $07
 	"Booster Packs"
 ROMX $08
 	"AI Logic 2"
+ROMX $09
+	"Text Offsets"
 ROMX $0a
 	"Card Pointers"
 	"Cards"
@@ -141,6 +143,8 @@ ROMX $2d
 	"Palettes1"
 ROMX $2e
 	"Palettes2"
+ROMX $2f
+	"Gfx 13"
 ROMX $31
 	"Card Gfx 1"
 ROMX $32
