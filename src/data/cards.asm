@@ -655,7 +655,7 @@ NidorinaCard:
 	db DIAMOND ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw NIDORINA
-	db 70 ; hp
+	db 90 ; hp
 	db STAGE1 ; stage
 	tx NidoranFName ; pre-evo name
 
@@ -705,7 +705,7 @@ NidoqueenCard:
 	db STAR ; rarity
 	db MYSTERY | JUNGLE ; sets
 	dw NIDOQUEEN
-	db 90 ; hp
+	db 110 ; hp
 	db STAGE2 ; stage
 	tx NidorinaName ; pre-evo name
 
@@ -728,7 +728,7 @@ NidoqueenCard:
 	tx BoyfriendsName ; name
 	tx BoyfriendsDescription ; description
 	dw NONE ; description (cont)
-	db 50 ; damage
+	db 20 ; damage
 	db DAMAGE_PLUS ; category
 	dw NidoqueenBoyfriendsEffectCommands ; effect commands
 	db NONE ; flags 1
@@ -810,25 +810,25 @@ NidorinoCard:
 	tx NidoranMName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
-	tx DoubleKickName ; name
-	tx DoubleAttackX30Description ; description
+	energy GRASS, 1, COLORLESS, 1 ; energies
+	tx PoisonStingName ; name
+	tx MayInflictPoisonDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_X ; category
-	dw NidorinoDoubleKickEffectCommands ; effect commands
-	db NONE ; flags 1
+	db 20 ; damage
+	db DAMAGE_NORMAL ; category
+	dw WeedlePoisonStingEffectCommands ; effect commands
+	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_HIT ; animation
+	db ATK_ANIM_NEEDLES ; animation
 
 	; attack 2
-	energy GRASS, 2, COLORLESS, 2 ; energies
+	energy GRASS, 2, COLORLESS, 1 ; energies
 	tx HornDrillName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 50 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -860,7 +860,7 @@ NidokingCard:
 	tx NidorinoName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2, COLORLESS, 3 ; energies
+	energy GRASS, 2, COLORLESS, 1 ; energies
 	tx ReversalName ; name
 	tx ReversalDescription ; description
 	dw NONE ; description (cont)
