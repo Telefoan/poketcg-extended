@@ -1865,8 +1865,10 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	and b
 	jr z, .not_weak
-	sla e
-	rl d
+	ld hl, 20
+	add hl, de
+	ld e, l
+	ld d, h
 	ld hl, wDamageEffectiveness
 	set WEAKNESS, [hl]
 .not_weak
@@ -1875,7 +1877,7 @@ ApplyDamageModifiers_DamageToTarget::
 	call SwapTurn
 	and b
 	jr z, .check_pluspower_and_defender ; jump if not resistant
-	ld hl, -30
+	ld hl, -20
 	add hl, de
 	ld e, l
 	ld d, h
@@ -1930,15 +1932,17 @@ ApplyDamageModifiers_DamageToSelf::
 	call GetArenaCardWeakness
 	and b
 	jr z, .not_weak
-	sla e
-	rl d
+	ld hl, 20
+	add hl, de 
+	ld e, l
+	ld d, h 
 	ld hl, wDamageEffectiveness
 	set WEAKNESS, [hl]
 .not_weak
 	call GetArenaCardResistance
 	and b
 	jr z, .not_resistant
-	ld hl, -30
+	ld hl, -20
 	add hl, de
 	ld e, l
 	ld d, h
