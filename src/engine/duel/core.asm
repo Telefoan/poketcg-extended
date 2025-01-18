@@ -296,7 +296,7 @@ PrintDuelMenuAndHandleInput:
 	ld hl, DuelMenuFunctionTable
 	jp JumpToFunctionInTable
 
-DuelMenuFunctionTable:
+DuelMenuFunctionTable: ;bookmark for adding energy zone and concede function
 	dw DuelMenu_Hand
 	dw DuelMenu_Attack
 	dw DuelMenu_Check
