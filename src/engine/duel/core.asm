@@ -515,6 +515,7 @@ OpenPlayerHandScreen:
 	call PlayPokemonCard
 	jp c, ReloadCardListScreen ; jump if card not played
 	jp DuelMainInterface
+
 .trainer_card
 	call PlayTrainerCard
 	jp c, ReloadCardListScreen ; jump if card not played
@@ -574,7 +575,6 @@ PlayEnergyCard:
 	ldtx hl, MayOnlyAttachOneEnergyCardText
 	call DrawWideTextBox_WaitForInput
 ;	fallthrough
-
 
 ; play supporter card from hand
 OppAction_PlaySupporterCard:

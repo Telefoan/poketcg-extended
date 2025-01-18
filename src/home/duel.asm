@@ -1769,7 +1769,7 @@ PlaySupporterCard::
 	call CheckCantUseSupporterDueToEffect 
 	jr c, .cant_use_s
 	ld a, c
-	ld a, [wAlreadyPlayedSupporter]		; not sure which of these to keep
+	ld a, [wAlreadyPlayedSupporter]		
 	or a
 	jr nz, .already_played_supporter
 	jr z, .play_supporter_set_played
