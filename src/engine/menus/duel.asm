@@ -46,6 +46,7 @@ DuelCheckMenu_Glossary:
 
 DuelCheckMenu_Concede:
 	farcall HandleBetweenTurnKnockOuts.set_duel_finished
+	jp c, DuelMainInterface
 	ret
 
 ; opens the Your Play Area submenu
