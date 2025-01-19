@@ -10158,3 +10158,18 @@ HealPlayAreaCardHP:
 	add e
 	ld [hl], a
 	ret
+
+CheckSupporter: ;checks to see if we have played a supporter this turn. if yes, prevent playing another, otherwise, marks that we have played one now
+	ld a, c 
+	ld a, [wAlreadyPlayedSupporter]
+	or a
+	jr nz, .already_played_supporter
+	
+
+.already_played_supporter:
+	ldtx hl, MayOnlyPlayOneSupporterCardText
+	call DrawWideTextBox_WaitForInput
+
+.play_supporter_set_played
+	ld a, TRUE
+	ld [wAlreadyPlayedSupporter], a
