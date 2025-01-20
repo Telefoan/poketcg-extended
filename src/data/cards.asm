@@ -20,7 +20,7 @@ BulbasaurCard:
 	db NONE ; flags 1
 	db HEAL_USER ; flags 2
 	db NONE ; flags 3
-	db 1
+	db 1 ; ???
 	db ATK_ANIM_DRAIN ; animation
 
 	; attack 2
