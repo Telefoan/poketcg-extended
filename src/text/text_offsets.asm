@@ -2899,3 +2899,14 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer VenusaurEXCardName
+	textpointer VenusaurEXRazorLeafName
+	textpointer VenusaurEXGiantBloomName
+	textpointer VenusaurEXGiantBloomDescription
+	textpointer BulbasaurName
+	textpointer BulbasaurVineWhipName
+	textpointer IvysaurGACCardName
+	textpointer IvysaurRazorLeafName
+	textpointer VenusaurGACCardName
+	textpointer VenusaurMegaDrainName
+	textpointer VenusaurMegaDrainDescription

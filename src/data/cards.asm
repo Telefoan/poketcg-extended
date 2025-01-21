@@ -9798,3 +9798,204 @@ RecycleCard:
 	dw RecycleEffectCommands ; effect commands
 	tx RecycleDescription ; description
 	dw NONE ; description (cont)
+
+
+VenusaurEXGACCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx VenusaurEXGACCardGfx	; gfx
+	tx VenusaurEXGACCard	; name
+	db PROMOSTAR	; rarity
+	db GACharizard | NONE	; sets
+	dw VENUSAUREX	; name constant
+	db 190	; hp
+	db STAGE2	; stage
+	dw Ivysaur	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,1,COLORLESS,2	; energies
+	tx VenusaurEXRazorLeafName	; name
+	tx VenusaurEXRazorLeafDescription	; description
+	dw NONE	; description (cont)
+	db 60	; damage
+	db DAMAGE_NORMAL	; category
+	db NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy GRASS,2,COLORLESS,2	; energies
+	tx VenusaurEXGiantBloomName	; name
+	tx VenusaurEXGiantBloomDescription	; description
+	dw NONE	; description (cont)
+	db 100	; damage
+	db ; need effect	; category
+	dw VenusaurEXGiantBloomEffectCommands	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 3	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
+
+	BulbasaurGACCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx BulbasaurGACCardGfx	; gfx
+	tx BulbasaurGACCard	; name
+	db CIRCLE	; rarity
+	db GACharizard | NONE	; sets
+	dw BULBASAUR	; name constant
+	db 70	; hp
+	db BASIC	; stage
+	dw NONE	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,1,COLORLESS,1	; energies
+	tx BulbasaurVineWhipName	; name
+	tx BulbasaurVineWhipDescription	; description
+	dw NONE	; description (cont)
+	db 30	; damage
+	db DAMAGE_NORMAL	; category
+	db NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 1	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
+
+	IvysaurGACCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx IvysaurGACCardGfx	; gfx
+	tx IvysaurGACCard	; name
+	db DIAMOND	; rarity
+	db GACharizard | NONE	; sets
+	dw IVYSAUR	; name constant
+	db 90	; hp
+	db STAGE1	; stage
+	dw Bulbasaur	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,1,COLORLESS,2	; energies
+	tx IvysaurRazorLeafName	; name
+	tx IvysaurRazorLeafDescription	; description
+	dw NONE	; description (cont)
+	db 60	; damage
+	db DAMAGE_NORMAL	; category
+	db NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 2	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
+
+	VenusaurGACCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx VenusaurGACCardGfx	; gfx
+	tx VenusaurGACCard	; name
+	db STAR	; rarity
+	db GACharizard | NONE	; sets
+	dw VENUSAUR	; name constant
+	db 160	; hp
+	db STAGE2	; stage
+	dw Ivysaur	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,2,COLORLESS,2	; energies
+	tx VenusaurMegaDrainName	; name
+	tx VenusaurMegaDrainDescription	; description
+	dw NONE	; description (cont)
+	db 80	; damage
+	db ; need effect	; category
+	db VenusaurMegaDrainEffectCommands	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 3	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
