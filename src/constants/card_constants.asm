@@ -227,4 +227,8 @@
 	const POKEMON_FLUTE               ; $e2
 	const GAMBLER                     ; $e3
 	const RECYCLE                     ; $e4
+	const VenusaurGACEXCard
+	const BulbasaurGACCard
+	const IvysaurGACCard
+	const VenusaurGACCard
 DEF NUM_CARDS EQU const_value - 1
