@@ -1,152 +1,152 @@
-BulbasaurCard:
-	db TYPE_PKMN_GRASS ; type
-	gfx BulbasaurCardGfx ; gfx
-	tx BulbasaurName ; name
-	db CIRCLE ; rarity
-	db EVOLUTION | NONE ; sets
-	dw BULBASAUR
-	db 40 ; hp
-	db BASIC ; stage
-	dw NONE ; pre-evo name
+BulbasaurGAMCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx BulbasaurGAMCardGfx	; gfx
+	tx BulbasaurGAMCard	; name
+	db CIRCLE	; rarity
+	db GAMewtwo | NONE	; sets
+	dw BULBASAUR	; name constant
+	db 70	; hp
+	db BASIC	; stage
+	dw NONE	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,1,COLORLESS,1	; energies
+	tx VineWhipName	; name
+	tx BulbasaurVineWhipDescription	; description
+	dw NONE	; description (cont)
+	db 30	; damage
+	db DAMAGE_NORMAL	; category
+	db NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 1	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
 
-	; attack 1
-	energy GRASS, 2 ; energies
-	tx LeechSeedName ; name
-	tx BulbasaursLeechSeedDescription ; description
-	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_NORMAL ; category
-	dw BulbasaurLeechSeedEffectCommands ; effect commands
-	db NONE ; flags 1
-	db HEAL_USER ; flags 2
-	db NONE ; flags 3
-	db 1 ; ???
-	db ATK_ANIM_DRAIN ; animation
+IvysaurGAMCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx IvysaurGAMCardGfx	; gfx
+	tx IvysaurGAMCard	; name
+	db DIAMOND	; rarity
+	db GAMewtwo | NONE	; sets
+	dw IVYSAUR	; name constant
+	db 90	; hp
+	db STAGE1	; stage
+	dw Bulbasaur	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,1,COLORLESS,2	; energies
+	tx RazorLeafName	; name
+	tx IvysaurRazorLeafDescription	; description
+	dw NONE	; description (cont)
+	db 60	; damage
+	db DAMAGE_NORMAL	; category
+	db NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 2	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
 
-	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_NONE ; animation
-
-	db 1 ; retreat cost
-	db WR_FIRE ; weakness
-	db NONE ; resistance
-	tx SeedName ; category
-	db 1 ; Pokedex number
-	db 13 ; level
-	db 2, 4 ; length
-	dw 15 * 10 ; weight
-	tx BulbasaurDescription ; description
-	db 16
-
-IvysaurCard:
-	db TYPE_PKMN_GRASS ; type
-	gfx IvysaurCardGfx ; gfx
-	tx IvysaurName ; name
-	db DIAMOND ; rarity
-	db EVOLUTION | NONE ; sets
-	dw IVYSAUR
-	db 60 ; hp
-	db STAGE1 ; stage
-	tx BulbasaurName ; pre-evo name
-
-	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
-	tx VineWhipName ; name
-	dw NONE ; description
-	dw NONE ; description (cont)
-	db 30 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_WHIP ; animation
-
-	; attack 2
-	energy GRASS, 3 ; energies
-	tx PoisonPowderName ; name
-	tx InflictPoisonDescription ; description
-	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_NORMAL ; category
-	dw IvysaurPoisonPowderEffectCommands ; effect commands
-	db INFLICT_POISON ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_POWDER_HIT_POISON ; animation
-
-	db 1 ; retreat cost
-	db WR_FIRE ; weakness
-	db NONE ; resistance
-	tx SeedName ; category
-	db 2 ; Pokedex number
-	db 20 ; level
-	db 3, 3 ; length
-	dw 29 * 10 ; weight
-	tx IvysaurDescription ; description
-	db 16
-
-VenusaurLv64Card:
-	db TYPE_PKMN_GRASS ; type
-	gfx VenusaurLv64CardGfx ; gfx
-	tx VenusaurName ; name
-	db STAR ; rarity
-	db PROMOTIONAL | GB ; sets
-	dw VENUSAUR_LV64
-	db 100 ; hp
-	db STAGE2 ; stage
-	tx IvysaurName ; pre-evo name
-
-	; attack 1
-	energy 0 ; energies
-	tx SolarPowerName ; name
-	tx SolarPowerDescription ; description
-	tx SolarPowerDescriptionCont ; description (cont)
-	db 0 ; damage
-	db POKEMON_POWER ; category
-	dw VenusaurSolarPowerEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NONE ; flags 2
-	db NONE ; flags 3
-	db 0
-	db ATK_ANIM_SOLAR_POWER ; animation
-
-	; attack 2
-	energy GRASS, 4 ; energies
-	tx MegaDrainName ; name
-	tx VenusaursMegaDrainDescription ; description
-	tx VenusaursMegaDrainDescriptionCont ; description (cont)
-	db 40 ; damage
-	db DAMAGE_NORMAL ; category
-	dw VenusaurMegaDrainEffectCommands ; effect commands
-	db NONE ; flags 1
-	db HEAL_USER ; flags 2
-	db NONE ; flags 3
-	db 2
-	db ATK_ANIM_DRAIN ; animation
-
-	db 2 ; retreat cost
-	db WR_FIRE ; weakness
-	db NONE ; resistance
-	tx SeedName ; category
-	db 3 ; Pokedex number
-	db 64 ; level
-	db 6, 7 ; length
-	dw 221 * 10 ; weight
-	tx VenusaurLv64Description ; description
-	db 0
+VenusaurGAMCard:		
+	db TYPE_PKMN_GRASS	; type
+	gfx VenusaurGAMCardGfx	; gfx
+	tx VenusaurGAMCard	; name
+	db STAR	; rarity
+	db GAMewtwo | NONE	; sets
+	dw VENUSAUR	; name constant
+	db 160	; hp
+	db STAGE2	; stage
+	dw Ivysaur	; pre-evo name
+		
+	; attack 1	
+	energy GRASS,2,COLORLESS,2	; energies
+	tx MegaDrainName	; name
+	tx VenusaurMegaDrainDescription	; description
+	dw NONE	; description (cont)
+	db 80	; damage
+	db ; need effect	; category
+	db VenusaurMegaDrainEffectCommands	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	; atk 2	
+	energy NONE	; energies
+	tx NONE	; name
+	tx NONE	; description
+	dw NONE	; description (cont)
+	db NONE	; damage
+	db NONE	; category
+	dw NONE	; effect commands
+	db NONE	; flags 1
+	db NONE	; flags 2
+	db NONE	; flags 3
+	db 0	
+	db ;need animations	; animations
+		
+	db 3	; retreat cost
+	db WR_FIRE	; weakness
+	db NONE	; resistance
+	db NONE	; category
+	db NONE	; pokedex num
+	db NONE	; level
+	db NONE	; length
+	db NONE	; weight
+	db NONE	; description
+	db 16	
 
 VenusaurLv67Card:
 	db TYPE_PKMN_GRASS ; type
