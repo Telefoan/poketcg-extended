@@ -9802,27 +9802,27 @@ RecycleCard:
 
 VenusaurEXGACCard:		
 	db TYPE_PKMN_GRASS	; type
-	gfx VenusaurEXGACCardGfx	; gfx
-	tx VenusaurEXGACCard	; name
+	gfx VenusaurLv64CardGfx	; gfx
+	tx VenusaurEXName	; name
 	db PROMOSTAR	; rarity
 	db GACharizard | NONE	; sets
-	dw VENUSAUREX	; name constant
+	dw VENUSAUREXGAC	; card constant
 	db 190	; hp
 	db STAGE2	; stage
-	dw Ivysaur	; pre-evo name
+	dw IvysaurName	; pre-evo name
 		
 	; attack 1	
 	energy GRASS,1,COLORLESS,2	; energies
 	tx VenusaurEXRazorLeafName	; name
-	tx VenusaurEXRazorLeafDescription	; description
+	dw NONE ; description
 	dw NONE	; description (cont)
 	db 60	; damage
 	db DAMAGE_NORMAL	; category
-	db NONE	; effect commands
+	dw NONE	; effect commands
 	db NONE	; flags 1
 	db NONE	; flags 2
 	db NONE	; flags 3
-	db 0	
+	db 0	; effect parameters
 	db ;need animations	; animations
 		
 	; atk 2	
@@ -9850,13 +9850,13 @@ VenusaurEXGACCard:
 	db NONE	; description
 	db 16	
 
-	BulbasaurGACCard:		
+BulbasaurGACCard:		
 	db TYPE_PKMN_GRASS	; type
-	gfx BulbasaurGACCardGfx	; gfx
-	tx BulbasaurGACCard	; name
+	gfx BulbasaurCardGfx	; gfx
+	tx BulbasaurName	; name
 	db CIRCLE	; rarity
 	db GACharizard | NONE	; sets
-	dw BULBASAUR	; name constant
+	dw BULBASAURGAC	; card constant
 	db 70	; hp
 	db BASIC	; stage
 	dw NONE	; pre-evo name
@@ -9864,21 +9864,21 @@ VenusaurEXGACCard:
 	; attack 1	
 	energy GRASS,1,COLORLESS,1	; energies
 	tx BulbasaurVineWhipName	; name
-	tx BulbasaurVineWhipDescription	; description
+	dw NONE	; description
 	dw NONE	; description (cont)
 	db 30	; damage
 	db DAMAGE_NORMAL	; category
-	db NONE	; effect commands
+	dw NONE	; effect commands
 	db NONE	; flags 1
 	db NONE	; flags 2
 	db NONE	; flags 3
-	db 0	
+	db 0	; effect parameters
 	db ;need animations	; animations
 		
 	; atk 2	
 	energy NONE	; energies
-	tx NONE	; name
-	tx NONE	; description
+	dw NONE	; name
+	dw NONE	; description
 	dw NONE	; description (cont)
 	db NONE	; damage
 	db NONE	; category
@@ -9900,35 +9900,35 @@ VenusaurEXGACCard:
 	db NONE	; description
 	db 16	
 
-	IvysaurGACCard:		
+IvysaurGACCard:		
 	db TYPE_PKMN_GRASS	; type
-	gfx IvysaurGACCardGfx	; gfx
-	tx IvysaurGACCard	; name
+	gfx IvysaurCardGfx	; gfx
+	tx IvysaurName	; name
 	db DIAMOND	; rarity
 	db GACharizard | NONE	; sets
-	dw IVYSAUR	; name constant
+	dw IVYSAURGAC	; card constant
 	db 90	; hp
 	db STAGE1	; stage
-	dw Bulbasaur	; pre-evo name
+	dw BulbasaurName	; pre-evo name
 		
 	; attack 1	
 	energy GRASS,1,COLORLESS,2	; energies
 	tx IvysaurRazorLeafName	; name
-	tx IvysaurRazorLeafDescription	; description
+	dw NONE	; description
 	dw NONE	; description (cont)
 	db 60	; damage
 	db DAMAGE_NORMAL	; category
-	db NONE	; effect commands
+	dw NONE	; effect commands
 	db NONE	; flags 1
 	db NONE	; flags 2
 	db NONE	; flags 3
-	db 0	
+	db 0	; effect parameters
 	db ;need animations	; animations
 		
 	; atk 2	
 	energy NONE	; energies
-	tx NONE	; name
-	tx NONE	; description
+	dw NONE	; name
+	dw NONE	; description
 	dw NONE	; description (cont)
 	db NONE	; damage
 	db NONE	; category
@@ -9950,16 +9950,16 @@ VenusaurEXGACCard:
 	db NONE	; description
 	db 16	
 
-	VenusaurGACCard:		
+VenusaurGACCard:		
 	db TYPE_PKMN_GRASS	; type
-	gfx VenusaurGACCardGfx	; gfx
-	tx VenusaurGACCard	; name
+	gfx VenusaurLv67CardGfx	; gfx
+	tx VenusaurName	; name
 	db STAR	; rarity
 	db GACharizard | NONE	; sets
-	dw VENUSAUR	; name constant
+	dw VENUSAURGAC	; card constant
 	db 160	; hp
 	db STAGE2	; stage
-	dw Ivysaur	; pre-evo name
+	dw IvysaurName	; pre-evo name
 		
 	; attack 1	
 	energy GRASS,2,COLORLESS,2	; energies
@@ -9968,17 +9968,17 @@ VenusaurEXGACCard:
 	dw NONE	; description (cont)
 	db 80	; damage
 	db ; need effect	; category
-	db VenusaurMegaDrainEffectCommands	; effect commands
+	dw BulbasaurLeechSeedEffectCommands	; effect commands
 	db NONE	; flags 1
 	db NONE	; flags 2
 	db NONE	; flags 3
-	db 0	
+	db 0	; effect parameters
 	db ;need animations	; animations
 		
 	; atk 2	
 	energy NONE	; energies
-	tx NONE	; name
-	tx NONE	; description
+	dw NONE ; name
+	dw NONE ; description
 	dw NONE	; description (cont)
 	db NONE	; damage
 	db NONE	; category
@@ -9999,3 +9999,4 @@ VenusaurEXGACCard:
 	db NONE	; weight
 	db NONE	; description
 	db 16	
+		

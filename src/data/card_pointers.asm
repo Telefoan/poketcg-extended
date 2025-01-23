@@ -229,7 +229,7 @@ CardPointers::
 	dab PokemonFluteCard
 	dab GamblerCard
 	dab RecycleCard
-	dab VenusaurGACEXCard
+	dab VenusaurEXGACCard
 	dab BulbasaurGACCard
 	dab IvysaurGACCard
 	dab VenusaurGACCard
