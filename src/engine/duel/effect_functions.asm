@@ -3969,10 +3969,10 @@ Curse_PlayerSelectEffect:
 
 Curse_TransferDamageEffect:
 ; set Pkmn Power as used
-	ldh a, [hTempList]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+;	ldh a, [hTempList]
+;	add DUELVARS_ARENA_CARD_FLAGS
+;	call GetTurnDuelistVariable
+;	set USED_PKMN_POWER_THIS_TURN_F, [hl]
 
 ; figure out the type of duelist that used Curse.
 ; if it was the player, no need to draw the Play Area screen.
@@ -4165,6 +4165,7 @@ DreamEaterEffect:
 ; not asleep, set carry and load text
 	ldtx hl, OpponentIsNotAsleepText
 	scf
+	jp ApplyAndAnimateHPRecovery
 	ret
 
 TransparencyEffect:
