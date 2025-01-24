@@ -60,7 +60,7 @@ IvysaurCard:
 	tx BulbasaurName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx VineWhipName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
