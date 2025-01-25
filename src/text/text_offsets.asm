@@ -2909,3 +2909,4 @@ TextOffsets::
 	textpointer LovebirdsText
 	textpointer LovebirdsDescriptionText
 	textpointer LovebirdsDeckChoiceText
+	textpointer WouldYouLikeToConcedeText

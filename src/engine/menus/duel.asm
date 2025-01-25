@@ -45,9 +45,14 @@ DuelCheckMenu_Glossary:
 	ret
 
 DuelCheckMenu_Concede:
-	farcall HandleBetweenTurnKnockOuts.set_duel_finished
-	jp c, DuelMainInterface
+	ldtx hl, WouldYouLikeToConcedeText
+	call YesOrNoMenuWithText
+	jp c, PrintDuelMenuAndHandleInput ; return to main duel menu if "No" was selected
+	; Player chose to concede
+	ld a, TURN_PLAYER_LOST
+	ld [wDuelFinished], a
 	ret
+	
 
 ; opens the Your Play Area submenu
 DuelCheckMenu_YourPlayArea:
