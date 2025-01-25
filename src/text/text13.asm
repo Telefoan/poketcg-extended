@@ -196,3 +196,13 @@ BoyText:
 GirlText:
 	text "Girl"
 	done
+
+ReversalName:
+	text "Reversal"
+	done
+
+ReversalDescription:
+	text "This attack does 10 damage plus"
+	line "10 damage for each damage counter"
+	line "on this Pokemon."
+	done

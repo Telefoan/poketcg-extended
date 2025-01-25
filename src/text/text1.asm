@@ -14,7 +14,7 @@ AttackText:
 	done
 
 PKMNPowerText:
-	text "PKMN Power"
+	text "Abilities"
 	done
 
 DoneText:
