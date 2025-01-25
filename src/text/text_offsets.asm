@@ -2899,6 +2899,7 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer ConcedeText
 	textpointer AreYouBoyOrGirlText
 	textpointer BoyText
 	textpointer GirlText
@@ -2908,4 +2909,4 @@ TextOffsets::
 	textpointer LovebirdsText
 	textpointer LovebirdsDescriptionText
 	textpointer LovebirdsDeckChoiceText
-
+	textpointer WouldYouLikeToConcedeText
