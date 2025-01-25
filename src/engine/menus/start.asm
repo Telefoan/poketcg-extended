@@ -49,7 +49,7 @@ HandleTitleScreen:
 	call nz, LoadEventsFromSRAM
 	call HandleStartMenu
 
-LoadEventsFromSRAM
+LoadEventsFromSRAM:
 	ld hl, sEventVars
 	ld de, wEventVars
 	ld bc, EVENT_VAR_BYTES
@@ -69,7 +69,7 @@ LoadEventsFromSRAM
 	or a ; cp START_MENU_CONTINUE_FROM_DIARY
 	jr nz, .continue_duel
 	call AskToContinueFromDiaryWithDuelData
-	jr c, HandleTitleScreen
+	jp c, HandleTitleScreen
 .continue_duel
 	call ResetDoFrameFunction
 	jp EnableAndClearSpriteAnimations

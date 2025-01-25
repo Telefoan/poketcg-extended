@@ -680,16 +680,19 @@ Func_c4b9: ; could be named something like "Overworld_Sprite_Load_function"
 	ld [wd4cb], a
 	ld a, PALETTE_29
 	farcall LoadPaletteData
+	ld b, SPRITE_ANIM_LIGHT_NPC_UP
+	ld a, [wConsole]
+	cp CONSOLE_CGB
 	jr nz, .got_anim
 
 	ld a, EVENT_PLAYER_GENDER
 	farcall GetEventValue
 	or a
-	ld a, SPRITE_ANIM_RED_NPC_UP
+	ld b, SPRITE_ANIM_RED_NPC_UP
 	jr z, .got_anim
 	ld b, SPRITE_ANIM_BLUE_NPC_UP
 .got_anim
-	; ld a, b
+	ld a, b
 	ld [wPlayerSpriteBaseAnimation], a
 
 	; load Player's sprite for overworld
