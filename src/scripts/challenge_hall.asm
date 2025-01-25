@@ -296,7 +296,7 @@ Script_f433:
 	move_active_npc NPCMovement_f37d
 	do_frames 20
 	move_active_npc NPCMovement_f390
-	script_jump Script_WonAtChallengeHall.ows_f4a4
+	script_jump Script_WonAtChallengeHall.Clerk12AreYourDecksReadyScript
 
 Script_WonAtChallengeHall:
 	start_script
@@ -324,7 +324,7 @@ Script_WonAtChallengeHall:
 	test_if_event_equal EVENT_CHALLENGE_CUP_OPPONENT_NUMBER, 2
 	print_variable_npc_text Clerk12ChallengeCupRound2ChallengerText, Clerk12ChallengeCupRound3ChallengerText
 	move_active_npc NPCMovement_f383
-	jump_if_event_equal EVENT_CHALLENGE_CUP_OPPONENT_NUMBER, 2, .ows_f4a4
+	jump_if_event_equal EVENT_CHALLENGE_CUP_OPPONENT_NUMBER, 2, .Clerk12AreYourDecksReadyScript
 	jump_if_event_equal EVENT_CHALLENGE_CUP_NUMBER, 3, .ows_f4a1
 	close_text_box
 	set_dialog_npc NPC_RONALD1
@@ -334,22 +334,22 @@ Script_WonAtChallengeHall:
 	close_text_box
 .ows_f4a1
 	print_npc_text Clerk12ChallengeCupRound3DuelReadyText
-.ows_f4a4
+.Clerk12AreYourDecksReadyScript
 	zero_out_event_value EVENT_CHALLENGE_CUP_IN_MENU
 	print_npc_text Clerk12AreYourDecksReadyText
-	ask_question_jump_default_yes Clerk12PrepareYourDeckText, .ows_f4bd
+	ask_question_jump_default_yes Clerk12PrepareYourDeckText, .Clerk12MakeYourPreparationsScript
 	test_if_event_equal EVENT_CHALLENGE_CUP_OPPONENT_NUMBER, 2
 	print_variable_npc_text Clerk12ChallengeCupRound2DuelStartText, Clerk12ChallengeCupRound3DuelStartText
 	start_challenge_hall_duel PRIZES_4, SAMS_PRACTICE_DECK_ID, MUSIC_STOP
 	quit_script_fully
 
-.ows_f4bd
+.Clerk12MakeYourPreparationsScript
 	print_npc_text Clerk12MakeYourPreparationsText
 	close_text_box
 	max_out_event_value EVENT_CHALLENGE_CUP_IN_MENU
 	open_menu
 	close_text_box
-	script_jump .ows_f4a4
+	script_jump .Clerk12AreYourDecksReadyScript
 
 NPCMovement_f4c8:
 	db EAST

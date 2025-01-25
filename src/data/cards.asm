@@ -60,7 +60,7 @@ IvysaurCard:
 	tx BulbasaurName ; pre-evo name
 
 	; attack 1
-	energy GRASS, 1, COLORLESS, 2 ; energies
+	energy GRASS, 1, COLORLESS, 1 ; energies
 	tx VineWhipName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -7181,7 +7181,7 @@ HaunterLv22Card:
 	db 50 ; damage
 	db DAMAGE_NORMAL ; category
 	dw HaunterDreamEaterEffectCommands ; effect commands
-	db NONE ; flags 1
+	db HEAL_USER ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
