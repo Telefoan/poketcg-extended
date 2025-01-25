@@ -206,3 +206,13 @@ ReversalDescription:
 	line "10 damage for each damage counter"
 	line "on this Pokemon."
 	done
+
+CurseDescription:
+	text "Any number of times during your turn "
+	line "you may move 1 damage counter"
+	line "from 1 of your opponent's"
+	line "Pokémon to another (even if it would"
+	line "Knock Out the other Pokémon)."
+	line "This power can't be used if Gengar"
+	line "is Asleep, Confused, or Paralyzed."
+	done
