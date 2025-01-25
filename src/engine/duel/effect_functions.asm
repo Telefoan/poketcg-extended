@@ -4165,7 +4165,6 @@ DreamEaterEffect:
 ; not asleep, set carry and load text
 	ldtx hl, OpponentIsNotAsleepText
 	scf
-	jp ApplyAndAnimateHPRecovery
 	ret
 
 TransparencyEffect:

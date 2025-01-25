@@ -739,6 +739,7 @@ HaunterHypnosisEffectCommands:
 
 HaunterDreamEaterEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, DreamEaterEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, GolbatLeechLifeEffect
 	db  $00
 
 HaunterTransparencyEffectCommands:

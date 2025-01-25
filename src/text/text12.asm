@@ -176,6 +176,11 @@ DreamEaterName:
 DreamEaterDescription:
 	text "You can't use this attack unless"
 	line "the Defending Pokémon is Asleep."
+	line "Heals equal to the damage done"
+	line "to the Defending Pokémon (after"
+	line "applying Weakness and Resistance)."
+	line "If Haunter has fewer damage counters"
+	line "than that, remove all of them."
 	done
 
 GengarName:
@@ -187,7 +192,7 @@ CurseName:
 	done
 
 CurseDescription:
-	text "As many times during your turn "
+	text "Any number of times during your turn "
 	line "you may move 1 damage counter"
 	line "from 1 of your opponent's"
 	line "Pokémon to another (even if it would"
