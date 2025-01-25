@@ -1072,6 +1072,26 @@ FightingGfx::
 	dw $04
 	INCBIN "gfx/titlescreen/energies/fighting.2bpp"
 
+
+SECTION "Gfx 13", ROMX
+
+MintGfx::
+	dw 36
+	INCBIN "gfx/duelists/mint.2bpp"
+
+OWMintGfx::
+	dw $14
+	INCBIN "gfx/overworld_sprites/mint.2bpp"
+
+Palette161::
+	db 0
+	db 1
+
+	rgb 28, 28, 24
+	rgb 28, 16, 12
+	rgb  4,  8, 28
+	rgb  0,  0,  8
+
 SECTION "Anims 1", ROMX
 	INCLUDE "data/duel/animations/anims1.asm"
 

@@ -5,7 +5,8 @@ DeckPointers::
 	dw SamsPracticeDeck
 	dw PracticePlayerDeck
 	dw SamsPracticeDeck
-	dw CharmanderAndFriendsDeck
+	;dw CharmanderAndFriendsDeck
+	dw LovebirdsDeck
 	dw CharmanderExtraDeck
 	dw SquirtleAndFriendsDeck
 	dw SquirtleExtraDeck
@@ -221,39 +222,59 @@ SamsPracticeDeck:
 	deck_list_end
 	tx SamsPracticeDeckName
 
-CharmanderAndFriendsDeck:
-	deck_list_start
-	card_item FIRE_ENERGY,      10
-	card_item LIGHTNING_ENERGY,  8
-	card_item FIGHTING_ENERGY,   6
-	card_item CHARMANDER,        2
-	card_item CHARMELEON,        1
+;CharmanderAndFriendsDeck:
+	;deck_list_start
+	;card_item FIRE_ENERGY,      10
+	;card_item LIGHTNING_ENERGY,  8
+	;card_item FIGHTING_ENERGY,   6
+	;card_item CHARMANDER,        2
+	;card_item CHARMELEON,        1
 	card_item CHARIZARD,         1
-	card_item GROWLITHE,         2
-	card_item ARCANINE_LV45,     1
-	card_item PONYTA,            2
-	card_item MAGMAR_LV24,       1
-	card_item PIKACHU_LV12,      2
-	card_item RAICHU_LV40,       1
-	card_item MAGNEMITE_LV13,    2
-	card_item MAGNETON_LV28,     1
-	card_item ZAPDOS_LV64,       1
-	card_item DIGLETT,           2
-	card_item DUGTRIO,           1
-	card_item MACHOP,            1
-	card_item MACHOKE,           1
-	card_item RATTATA,           2
-	card_item RATICATE,          1
-	card_item MEOWTH_LV14,       1
-	card_item PROFESSOR_OAK,     1
-	card_item BILL,              2
-	card_item SWITCH,            1
-	card_item COMPUTER_SEARCH,   1
-	card_item PLUSPOWER,         1
-	card_item POTION,            2
-	card_item FULL_HEAL,         2
+;	card_item GROWLITHE,         2
+;	card_item ARCANINE_LV45,     1
+;	card_item PONYTA,            2
+;	card_item MAGMAR_LV24,       1
+;	card_item PIKACHU_LV12,      2
+;	card_item RAICHU_LV40,       1
+;	card_item MAGNEMITE_LV13,    2
+;	card_item MAGNETON_LV28,     1
+;	card_item ZAPDOS_LV64,       1
+;	card_item DIGLETT,           2
+;	card_item DUGTRIO,           1
+;	card_item MACHOP,            1
+;	card_item MACHOKE,           1
+;	card_item RATTATA,           2
+;	card_item RATICATE,          1
+;	card_item MEOWTH_LV14,       1
+;	card_item PROFESSOR_OAK,     1
+;	card_item BILL,              2
+;	card_item SWITCH,            1
+;	card_item COMPUTER_SEARCH,   1
+;	card_item PLUSPOWER,         1
+;	card_item POTION,            2
+;	card_item FULL_HEAL,         2
+;	deck_list_end
+;	tx CharmanderAndFriendsDeckName
+
+LovebirdsDeck:
+	deck_list_start
+	card_item GRASS_ENERGY, 12
+	card_item NIDORANF, 4
+	card_item NIDORINA, 4
+	card_item NIDOQUEEN, 4
+	card_item NIDORANM, 4
+	card_item NIDORINO, 4
+	card_item NIDOKING, 4
+	card_item PROFESSOR_OAK, 2
+	card_item BILL, 4
+	card_item COMPUTER_SEARCH, 2
+	card_item POKEMON_TRADER, 2
+	card_item ENERGY_SEARCH, 4
+	card_item POTION, 4
+	card_item SWITCH, 4
+	card_item POKEMON_BREEDER, 2
 	deck_list_end
-	tx CharmanderAndFriendsDeckName
+	tx LovebirdsDeckName
 
 CharmanderExtraDeck:
 	deck_list_start
