@@ -184,6 +184,9 @@ RecycleDescription:
 	line "deck."
 	done
 
+ConcedeText:
+	text "Concede"
+
 AreYouBoyOrGirlText:
 	text "Are you a boy"
 	line "or a girl?"
