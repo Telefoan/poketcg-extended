@@ -8614,7 +8614,7 @@ FarfetchdCard:
 	tx LeekSlapName ; name
 	tx LeekSlapDescription ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 60 ; damage
 	db DAMAGE_NORMAL ; category
 	dw FarfetchdLeekSlapEffectCommands ; effect commands
 	db NONE ; flags 1
