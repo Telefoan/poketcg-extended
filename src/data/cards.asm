@@ -3612,11 +3612,11 @@ KinglerCard:
 	; attack 1
 	energy WATER, 1 ; energies
 	tx FlailName ; name
-	tx KinglersFlailDescription ; description
+	tx FlailDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
-	dw KinglerFlailEffectCommands ; effect commands
+	dw FlailEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3
@@ -3760,7 +3760,7 @@ GoldeenCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy COLORLESS, 1 ; energies
 	tx HornAttackName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
@@ -3774,18 +3774,18 @@ GoldeenCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy 0 ; energies
-	dw NONE ; name
-	dw NONE ; description
+	energy WATER,2 ; energies
+	dw FlailName ; name
+	dw FlailDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db DAMAGE_NORMAL ; category
-	dw NONE ; effect commands
+	db 10 ; damage
+	db DAMAGE_X ; category
+	dw FlailEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
-	db NONE ; flags 3
+	db BOOST_IF_TAKEN_DAMAGE ; flags 3
 	db 0
-	db ATK_ANIM_NONE ; animation
+	db ATK_ANIM_BIG_HIT ; animation
 
 	db 0 ; retreat cost
 	db WR_LIGHTNING ; weakness
@@ -3976,11 +3976,11 @@ MagikarpCard:
 	; attack 2
 	energy WATER, 1 ; energies
 	tx FlailName ; name
-	tx MagikarpsFlailDescription ; description
+	tx FlailDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
-	dw MagikarpFlailEffectCommands ; effect commands
+	dw FlailEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NONE ; flags 2
 	db BOOST_IF_TAKEN_DAMAGE ; flags 3

@@ -1557,9 +1557,9 @@ FlailName:
 	text "Flail"
 	done
 
-KinglersFlailDescription:
+FlailDescription:
 	text "Does 10 damage times the number of"
-	line "damage counters on Kingler."
+	line "damage counters on this Pokemon."
 	done
 
 CrabhammerName:
