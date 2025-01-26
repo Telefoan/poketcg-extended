@@ -4038,7 +4038,7 @@ GyaradosCard:
 	db ATK_ANIM_BUBBLES ; animation
 
 	db 3 ; retreat cost
-	db WR_GRASS ; weakness
+	db WR_LIGHTNING ; weakness
 	db WR_FIGHTING ; resistance
 	tx AtrociousName ; category
 	db 130 ; Pokedex number
