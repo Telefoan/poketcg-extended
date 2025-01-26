@@ -454,3 +454,18 @@ BoosterPack_RandomEnergies::
 	db  0 ; Colorless Type Chance
 	db  0 ; Trainer Card Chance
 	db  0 ; Energy Card Chance
+
+BoosterPack_RandomTrainers::
+	booster_set COLOSSEUM ; booster pack set
+	dw GenerateRandomTrainerBooster
+
+	; Card Type Chances
+	db  0 ; Grass Type Chance
+	db  0 ; Fire Type Chance
+	db  0 ; Water Type Chance
+	db  0 ; Lightning Type Chance
+	db  0 ; Fighting Type Chance
+	db  0 ; Psychic Type Chance
+	db  0 ; Colorless Type Chance
+	db  0 ; Trainer Card Chance
+	db  0 ; Energy Card Chance

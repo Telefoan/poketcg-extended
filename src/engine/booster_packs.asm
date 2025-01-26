@@ -390,6 +390,16 @@ GenerateRandomEnergyBooster:
 	jr nz, .generate_energy_loop
 	jr ZeroBoosterRarityData
 
+; generates a random trainer card
+; assumes professor oak is the first
+GenerateRandomTrainer:
+	ld a, NUM_OF_34
+	call Random
+	add $01
+	ld e, a
+	ld d, HIGH(PROFESSOR_OAK)
+	jr AddBoosterEnergyToDrawnEnergies
+
 ; generates a booster with 5 Lightning energies and 5 Fire energies
 GenerateEnergyBoosterLightningFire:
 	ld hl, EnergyBoosterLightningFireData
@@ -426,6 +436,17 @@ GenerateTwoTypesEnergyBooster:
 	dec b
 	jr nz, .add_two_energies_to_booster_loop
 ;	fallthrough
+
+; generates a booster with 10 random trainers
+GenerateRandomTrainerBooster:
+	ld a, NUM_CARDS_IN_BOOSTER
+.generate_trainer_loop
+	push af
+	call GenerateRandomTrainer
+	pop af
+	dec a
+	jr nz, .generate_trainer_loop
+	jr ZeroBoosterRarityData
 
 ZeroBoosterRarityData:
 	xor a
@@ -640,6 +661,7 @@ BoosterDataJumptable:
 	dw BoosterPack_EnergyWaterFighting
 	dw BoosterPack_EnergyGrassPsychic
 	dw BoosterPack_RandomEnergies
+	dw BoosterPack_RandomTrainers
 	assert_table_length NUM_BOOSTERS
 
 ; load rarity amounts of the booster pack set at [wBoosterData_Set] to wBoosterData*Amount

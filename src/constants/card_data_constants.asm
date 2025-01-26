@@ -251,3 +251,47 @@ DEF SECOND_ATTACK              EQU $1
 ; has limit on attached energy cards boost.
 DEF MAX_ENERGY_BOOST_IS_LIMITED     EQU $2
 DEF MAX_ENERGY_BOOST_IS_NOT_LIMITED EQU $3
+
+	const_def ; literally just so i can pick a random list of trainers lmao 
+	const list_01
+	const list_02
+	const list_03
+	const list_04
+	const list_05
+	const list_06
+	const list_07
+	const list_08
+	const list_09
+	const list_10
+	const list_11
+	const list_12
+	const list_13
+	const list_14
+	const list_15
+	const list_16
+	const list_17
+	const list_18
+	const list_19
+	const list_20
+	const list_21
+	const list_22
+	const list_23
+	const list_24
+	const list_25
+	const list_26
+	const list_27
+	const list_28
+	const list_29
+	const list_30
+	const list_31
+	const list_32
+	const list_33
+	const list_34
+DEF NUM_OF_34 EQU const_value ; theres 34 trainer cards rn so i defined this here so i can randomly pick from the list of 34
+	const list_35 ; lmao i could have called it rule_34 but i didnt
+	const list_36
+	const list_37
+	const list_38
+	const list_39
+	const list_40
+DEF NUM_OF_40 EQU const_value
