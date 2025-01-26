@@ -346,7 +346,7 @@ GenerateRandomEnergy:
 	call Random
 	add $01
 	ld e, a
-	ld d, HIGH(GRASS_ENERGY)
+	ld d, HIGH(PROFESSOR_OAK)
 	jr AddBoosterEnergyToDrawnEnergies
 
 ; generates a grass energy card
