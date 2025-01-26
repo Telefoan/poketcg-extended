@@ -184,6 +184,10 @@ RecycleDescription:
 	line "deck."
 	done
 
+ConcedeText:
+	text "Concede"
+	done
+
 AreYouBoyOrGirlText:
 	text "Are you a boy"
 	line "or a girl?"
@@ -205,6 +209,10 @@ ReversalDescription:
 	text "This attack does 10 damage plus"
 	line "10 damage for each damage counter"
 	line "on this Pokemon."
+	done
+
+WouldYouLikeToConcedeText:
+	text "     Would you like to concede?"
 	done
 
 CurseDescription:
