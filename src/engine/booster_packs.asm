@@ -448,6 +448,14 @@ GenerateRandomTrainerBooster:
 	jr nz, .generate_trainer_loop
 	jr ZeroBoosterRarityData
 
+; add the (trainer) card at de to wBoosterTempNonEnergiesDrawn and wTempCardCollection
+AddBoosterTrainerToDrawnTrainer:
+	ld a, e
+	ld [wBoosterCurrentCard + 0], a
+	ld a, d
+	ld [wBoosterCurrentCard + 1], a
+	jp AddBoosterCardToDrawnNonEnergies
+
 ZeroBoosterRarityData:
 	xor a
 	ld [wBoosterData_CommonAmount], a
