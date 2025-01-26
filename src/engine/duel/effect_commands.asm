@@ -377,7 +377,7 @@ GyaradosBubblebeamEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-KinglerFlailEffectCommands:
+FlailEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Flail_HPCheck
 	dbw EFFECTCMDTYPE_AI, Flail_AIEffect
 	db  $00
@@ -387,11 +387,6 @@ KrabbyCallForFamilyEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, KrabbyCallForFamily_PutInPlayAreaEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, KrabbyCallForFamily_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, KrabbyCallForFamily_AISelectEffect
-	db  $00
-
-MagikarpFlailEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Flail_HPCheck
-	dbw EFFECTCMDTYPE_AI, Flail_AIEffect
 	db  $00
 
 PsyduckHeadacheEffectCommands:
