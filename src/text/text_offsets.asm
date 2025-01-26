@@ -437,7 +437,7 @@ TextOffsets::
 	textpointer ReplaceDueToKnockoutPracticeDuelText
 	textpointer PracticePlayerDeckName
 	textpointer SamsPracticeDeckName
-	textpointer CharmanderAndFriendsDeckName
+;	textpointer CharmanderAndFriendsDeckName
 	textpointer CharmanderExtraDeckName
 	textpointer SquirtleAndFriendsDeckName
 	textpointer SquirtleExtraDeckName
@@ -632,7 +632,7 @@ TextOffsets::
 	textpointer TrafficLightText
 	textpointer FirePokemonDeckText
 	textpointer FireChargeText
-	textpointer CharmanderAndFriendsText
+;	textpointer CharmanderAndFriendsText
 	textpointer SquirtleAndFriendsText
 	textpointer BulbasaurAndFriendsText
 	textpointer PsychicMachampText
@@ -682,7 +682,7 @@ TextOffsets::
 	textpointer TrafficLightDescriptionText
 	textpointer FirePokemonDescriptionText
 	textpointer FireChargeDescriptionText
-	textpointer CharmanderAndFriendsDescriptionText
+	;textpointer CharmanderAndFriendsDescriptionText
 	textpointer SquirtleAndFriendsDescriptionText
 	textpointer BulbasaurAndFriendsDescriptionText
 	textpointer PsychicMachampDescriptionText
@@ -927,7 +927,7 @@ TextOffsets::
 	textpointer WaterAndFightingDeckChoiceText
 	textpointer GrassAndPsychicDeckChoiceText
 	textpointer SelectDeckToDuelText
-	textpointer CharmanderAndFriendsDeckChoiceText
+	;textpointer CharmanderAndFriendsDeckChoiceText
 	textpointer SquirtleAndFriendsDeckChoiceText
 	textpointer BulbasaurAndFriendsDeckChoiceText
 	textpointer SelectDeckToTakeText
@@ -2899,6 +2899,13 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer ConcedeText
 	textpointer AreYouBoyOrGirlText
 	textpointer BoyText
 	textpointer GirlText
+	textpointer ReversalName
+	textpointer ReversalDescription
+	textpointer LovebirdsDeckName
+	textpointer LovebirdsText
+	textpointer LovebirdsDescriptionText
+	textpointer LovebirdsDeckChoiceText

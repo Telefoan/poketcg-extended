@@ -187,9 +187,9 @@ CurseName:
 	done
 
 CurseDescription:
-	text "Once during your turn (before your"
-	line "attack), you may move 1 damage"
-	line "counter from 1 of your opponent's"
+	text "As many times during your turn "
+	line "you may move 1 damage counter"
+	line "from 1 of your opponent's"
 	line "Pokémon to another (even if it would"
 	line "Knock Out the other Pokémon)."
 	line "This power can't be used if Gengar"
