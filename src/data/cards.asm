@@ -3810,11 +3810,11 @@ SeakingCard:
 	tx GoldeenName ; pre-evo name
 
 	; attack 1
-	energy WATER, 1 ; energies
+	energy WATER, 2 ; energies
 	tx HornAttackName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
@@ -3824,11 +3824,11 @@ SeakingCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy WATER, 1, COLORLESS, 1 ; energies
+	energy WATER, 2, COLORLESS, 1 ; energies
 	tx WaterfallName ; name
 	dw NONE ; description
 	dw NONE ; description (cont)
-	db 30 ; damage
+	db 40 ; damage
 	db DAMAGE_NORMAL ; category
 	dw NONE ; effect commands
 	db NONE ; flags 1
