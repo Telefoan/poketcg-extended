@@ -79,7 +79,7 @@ Script_BeatAaron:
 	give_booster_packs BOOSTER_MYSTERY_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
 	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
-SubScript_Aaron_Prize_3
+.SubScript_Aaron_Prize_3
 	give_booster_packs BOOSTER_LABORATORY_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
 	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
