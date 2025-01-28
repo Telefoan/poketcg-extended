@@ -3375,14 +3375,14 @@ SeelCard:
 
 	; attack 2
 	energy 2 ; energies
-	dw IcyWindName ; name
-	dw MayInflictSleepDescription ; description
+	tx IcyWindName ; name
+	tx MayInflictSleepDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw GastlySleepingGasEffectCommands ; effect commands
-	db INFLICT_SLEEP ; flags 1
-	db NONE ; flags 2
+	dw RhyhornLeerEffectCommands ; effect commands
+	db NONE ; flags 1
+	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_WHIRLWIND ; animation
@@ -3775,8 +3775,8 @@ GoldeenCard:
 
 	; attack 2
 	energy WATER,2 ; energies
-	dw FlailName ; name
-	dw FlailDescription ; description
+	tx FlailName ; name
+	tx FlailDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_X ; category
