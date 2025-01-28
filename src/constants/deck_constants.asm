@@ -65,6 +65,10 @@ ENDM
 	deck_const FLAMETHROWER_DECK           ; $34
 	deck_const RESHUFFLE_DECK              ; $35
 	deck_const IMAKUNI_DECK                ; $36
+	deck_const AARON_COLOSSEUM_TRAINER_DECK ; $37
+	deck_const AARON_EVOLUTION_TRAINER_DECK ; $38
+	deck_const AARON_LABORATORY_TRAINER_DECK ; $39
+	deck_const AARON_MYSTERY_TRAINER_DECK 	; $3a
 DEF NUM_VALID_DECKS EQU const_value
 DEF NUM_DECK_IDS EQU const_value - 2
 

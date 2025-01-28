@@ -55,6 +55,10 @@ DeckPointers::
 	dw FlamethrowerDeck
 	dw ReshuffleDeck
 	dw ImakuniDeck
+	dw AaronColosseumTrainerDeck
+	dw AaronEvolutionTrainerDeck
+	dw AaronLaboratoryTrainerDeck
+	dw AaronMysteryTrainerDeck
 	dw NULL
 	assert_table_length NUM_VALID_DECKS + 1
 
@@ -1449,3 +1453,80 @@ ImakuniDeck:
 	card_item GAMBLER,         1
 	deck_list_end
 	tx ImakuniDeckName
+
+AaronColosseumTrainerDeck:
+	deck_list_start
+	card_item WATER_ENERGY,		14
+	card_item SCOOP_UP , 		2
+	card_item COMPUTER_SEARCH , 3
+	card_item ITEM_FINDER , 	3
+	card_item PROFESSOR_OAK , 	3
+	card_item PLUSPOWER , 		2
+	card_item DEFENDER , 		2
+	card_item FULL_HEAL , 		2
+	card_item REVIVE , 			1
+	card_item BILL , 			3
+	card_item SWITCH , 			3
+	card_item POKE_BALL , 		3
+	card_item POTION , 			3
+	card_item SEEL,				4
+	card_item DEWGONG,			4
+	card_item MAGIKARP,			4
+	card_item GYARADOS, 		4
+	deck_list_end
+	tx AaronColosseumTrainerDeckName
+
+AaronEvolutionTrainerDeck:
+	deck_list_start
+	card_item PSYCHIC_ENERGY,		14
+	card_item POKEMON_TRADER, 		4
+	card_item POKEMON_BREEDER, 		4
+	card_item CLEFAIRY_DOLL, 		2
+	card_item ENERGY_RETRIEVAL, 	4
+	card_item SUPER_POTION, 		4
+	card_item POKEMON_FLUTE, 		4
+	card_item ENERGY_SEARCH, 		4
+	card_item GUST_OF_WIND, 		4
+	card_item GASTLY_LV8, 			4
+	card_item HAUNTER_LV22, 		2
+	card_item GENGAR, 				4
+	card_item PIDGEY, 				4
+	card_item PIDGEOT_LV40,			2
+	card_item PIDGEOT_LV38,			4
+	deck_list_end
+	tx AaronEvolutionTrainerDeckName
+
+AaronLaboratoryTrainerDeck:
+	deck_list_start
+	card_item _ENERGY, 					15
+	card_item IMPOSTER_PROFESSOR_OAK, 	4
+	card_item LASS, 					4
+	card_item SUPER_ENERGY_REMOVAL, 	4
+	card_item DEVOLUTION_SPRAY, 		2
+	card_item POKEDEX, 					3
+	card_item MAINTENANCE, 				4
+	card_item GAMBLER,					4
+	card_item RECYCLE, 					4
+	card_item GRIMER, 					4
+	card_item MUK, 						4
+	card_item ZUBAT, 					4
+	card_item GOLBAT, 					4
+	deck_list_end
+	tx AaronLaboratoryTrainerDeckName	
+
+AaronMysteryTrainerDeck:
+	deck_list_start
+	card_item WATER_ENERGY, 10
+	card_item FIGHTING_ENERGY, 10
+	card_item MR_FUJI, 4
+	card_item POKEMON_CENTER, 4
+	card_item MYSTERIOUS_FOSSIL, 4
+	card_item ENERGY_REMOVAL, 4
+	card_item KABUTO, 4
+	card_item KABUTOPS, 4
+	card_item OMANYTE, 4
+	card_item OMASTAR, 4
+	card_item AERODACTYL, 4
+	card_item ARTICUNO_LV37, 4
+	deck_list_end
+	tx AaronMysteryTrainerDeckName
