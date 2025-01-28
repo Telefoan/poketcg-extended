@@ -3374,7 +3374,7 @@ SeelCard:
 	db ATK_ANIM_HIT ; animation
 
 	; attack 2
-	energy 2 ; energies
+	energy WATER, 2 ; energies
 	tx IcyWindName ; name
 	tx MayInflictSleepDescription ; description
 	dw NONE ; description (cont)
