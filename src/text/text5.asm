@@ -322,16 +322,16 @@ WeaknessAndResistanceBookName:
 
 WeaknessAndResistanceBookText:
 	text "If a Pokémon has a Weakness,"
-	line "it takes double damage when attacked"
+	line "it takes +20 damage when attacked"
 	line "by Pokémon of a certain type!"
 	line "If a Water Pokémon attacks"
 	line "a Fire Pokémon, the Fire Pokémon"
-	line "will receive double damage!"
+	line "will receive +20 damage!"
 	line "If a Pokémon has a Resistance,"
-	line "it takes 30 less damage when"
+	line "it takes 20 less damage when"
 	line "attacked by Pokémon of a certain"
 	line "type. If an Attack gives a damage "
-	line "of 30, the Pokémon will not receive "
+	line "of 20, the Pokémon will not receive "
 	line "damage! Beware of the Weaknesses"
 	line "and Resistances of your Pokémon!"
 	done

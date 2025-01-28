@@ -723,7 +723,9 @@ AIDecide_Defender2:
 	and b
 	pop de
 	jr z, .check_resist
-	sla d
+	ld a, d 
+	add 20
+	ld d, a 
 
 ; subtract 30 from recoil damage if card resists its own color.
 ; if this yields a negative number, return no carry.
@@ -737,7 +739,7 @@ AIDecide_Defender2:
 	pop de
 	jr z, .subtract
 	ld a, d
-	sub 30
+	sub 20
 	jr c, .no_carry
 	ld d, a
 
