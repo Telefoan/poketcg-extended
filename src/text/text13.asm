@@ -258,3 +258,19 @@ AaronLaboratoryTrainerDeckName:
 AaronMysteryTrainerDeckName:
 	text "Mystery Trainers"
 	done
+
+AaronColosseumTrainerDeckChoiceText:
+	text "Colosseum Trainers Deck"
+	done
+
+AaronEvolutionTrainerDeckChoiceText:
+	text "Evolution Trainers Deck"
+	done
+
+AaronLaboratoryTrainerDeckChoiceText:
+	text "Laboratory Trainers Deck"
+	done
+	
+AaronMysteryTrainerDeckChoiceText:
+	text "Mystery Trainers Deck"
+	done
