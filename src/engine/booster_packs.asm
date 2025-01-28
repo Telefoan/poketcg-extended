@@ -640,10 +640,11 @@ BoosterDataJumptable:
 	dw BoosterPack_EnergyWaterFighting
 	dw BoosterPack_EnergyGrassPsychic
 	dw BoosterPack_RandomEnergies
-	dw BoosterPack_LaboratoryJustTrainer
-	dw BoosterPack_EvolutionJustTrainer
 	dw BoosterPack_ColosseumJustTrainer
+	dw BoosterPack_LaboratoryJustTrainer
 	dw BoosterPack_MysteryJustTrainer
+	dw BoosterPack_EvolutionJustTrainer
+
 	assert_table_length NUM_BOOSTERS
 
 ; load rarity amounts of the booster pack set at [wBoosterData_Set] to wBoosterData*Amount
