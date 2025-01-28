@@ -1498,7 +1498,7 @@ AaronEvolutionTrainerDeck:
 
 AaronLaboratoryTrainerDeck:
 	deck_list_start
-	card_item GRASS_ENERGY_ENERGY, 		15
+	card_item GRASS_ENERGY, 			15
 	card_item IMPOSTER_PROFESSOR_OAK, 	4
 	card_item LASS, 					4
 	card_item SUPER_ENERGY_REMOVAL, 	4
