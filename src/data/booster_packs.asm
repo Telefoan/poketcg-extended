@@ -457,7 +457,7 @@ BoosterPack_RandomEnergies::
 
 BoosterPack_ColosseumJustTrainer::
 	booster_set COLOSSEUM ; booster pack set
-	dw NULL ; energy generation function
+	dw GenerateRandomEnergyBooster ; energy generation function
 
 ; Card Type Chances
 	db 0 ; Grass Type Chance
@@ -472,7 +472,7 @@ BoosterPack_ColosseumJustTrainer::
 
 BoosterPack_LaboratoryJustTrainer::
 	booster_set LABORATORY ; booster pack set
-	dw NULL ; energy generation function
+	dw GenerateRandomEnergyBooster ; energy generation function
 
 ; Card Type Chances
 	db 0 ; Grass Type Chance
@@ -487,7 +487,7 @@ BoosterPack_LaboratoryJustTrainer::
 
 BoosterPack_MysteryJustTrainer::
 	booster_set MYSTERY ; booster pack set
-	dw NULL ; energy generation function
+	dw GenerateRandomEnergyBooster ; energy generation function
 
 ; Card Type Chances
 	db 0 ; Grass Type Chance
@@ -502,7 +502,7 @@ BoosterPack_MysteryJustTrainer::
 
 BoosterPack_EvolutionJustTrainer::
 	booster_set EVOLUTION ; booster pack set
-	dw NULL ; energy generation function
+	dw GenerateRandomEnergyBooster ; energy generation function
 
 ; Card Type Chances
 	db 0 ; Grass Type Chance
