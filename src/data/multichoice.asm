@@ -15,7 +15,7 @@ MultichoiceTextbox_ConfigTable_ChooseDeckToDuelAgainst:
 	db $ff          ; marker byte -- end text entries
 	db $05, $02     ; cursor starting x, y
 	db $02          ; number of tiles the cursor moves per toggle
-	db $03          ; cursor max index
+	db $04          ; cursor max index
 	db SYM_CURSOR_R ; cursor image
 	db SYM_SPACE    ; tile behind cursor
 	dw NULL         ; function pointer if non-0
