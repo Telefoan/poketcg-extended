@@ -497,8 +497,8 @@ BoosterPack_MysteryJustTrainer::
 	db 0 ; Fighting Type Chance
 	db 0 ; Psychic Type Chance
 	db 0 ; Colorless Type Chance
-	db 100 ; Trainer Card Chance
-	db 60 ; Energy Card Chance
+	db 80 ; Trainer Card Chance
+	db 80 ; Energy Card Chance
 
 BoosterPack_EvolutionJustTrainer::
 	booster_set EVOLUTION ; booster pack set
