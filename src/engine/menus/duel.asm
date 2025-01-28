@@ -28,7 +28,7 @@ _OpenDuelCheckMenu::
 
 .jump_table
 	dw DuelCheckMenu_InPlayArea
-	dw DuelCheckMenu_Glossary
+	dw DuelCheckMenu_Concede
 	dw DuelCheckMenu_YourPlayArea
 	dw DuelCheckMenu_OppPlayArea
 
@@ -43,6 +43,16 @@ DuelCheckMenu_InPlayArea:
 DuelCheckMenu_Glossary:
 	farcall OpenGlossaryScreen
 	ret
+
+DuelCheckMenu_Concede:
+	ldtx hl, WouldYouLikeToConcedeText
+	call YesOrNoMenuWithText
+	jp c, PrintDuelMenuAndHandleInput ; return to main duel menu if "No" was selected
+	; Player chose to concede
+	ld a, TURN_PLAYER_LOST
+	ld [wDuelFinished], a
+	ret
+	
 
 ; opens the Your Play Area submenu
 DuelCheckMenu_YourPlayArea:
@@ -236,7 +246,8 @@ DuelCheckMenu_OppPlayArea:
 CheckMenuData:
 	textitem  2, 14, InPlayAreaText
 	textitem  2, 16, YourPlayAreaText
-	textitem 12, 14, GlossaryText
+	;textitem 12, 14, GlossaryText
+	textitem 12, 14, ConcedeText
 	textitem 12, 16, OppPlayAreaText
 	db $ff
 

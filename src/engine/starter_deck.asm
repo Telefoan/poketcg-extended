@@ -2,7 +2,7 @@
 ; and also adds to the collection its corresponding extra cards
 ; input:
 ; - a = starter deck chosen
-;   $0 = Charmander
+;   $0 = Charmander/lovebirds
 ;   $1 = Squirtle
 ;   $2 = Bulbasaur
 _AddStarterDeck:
@@ -68,9 +68,10 @@ _AddStarterDeck:
 
 .StarterCardIDs
 	; main deck, extra cards
-	db CHARMANDER_AND_FRIENDS_DECK_ID, CHARMANDER_EXTRA_DECK_ID
-	db SQUIRTLE_AND_FRIENDS_DECK_ID,   SQUIRTLE_EXTRA_DECK_ID
-	db BULBASAUR_AND_FRIENDS_DECK_ID,  BULBASAUR_EXTRA_DECK_ID
+;	db CHARMANDER_AND_FRIENDS_DECK_ID, CHARMANDER_EXTRA_DECK_ID
+	db LOVEBIRDS_DECK_ID, CHARMANDER_EXTRA_DECK_ID 				; $0
+	db SQUIRTLE_AND_FRIENDS_DECK_ID,   SQUIRTLE_EXTRA_DECK_ID	; $1
+	db BULBASAUR_AND_FRIENDS_DECK_ID,  BULBASAUR_EXTRA_DECK_ID	; $2
 
 ; clears saved data (card Collection/saved decks/etc)
 ; then adds the starter decks as saved decks
@@ -91,7 +92,8 @@ InitSaveData:
 	jr nz, .loop_clear
 
 ; add the starter decks
-	ld a, CHARMANDER_AND_FRIENDS_DECK
+;	ld a, CHARMANDER_AND_FRIENDS_DECK
+	ld a, LOVEBIRDS_DECK
 	ld hl, sSavedDeck1
 	call StoreDeckIDInSRAM
 	ld a, SQUIRTLE_AND_FRIENDS_DECK
