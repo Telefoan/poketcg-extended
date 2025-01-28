@@ -93,11 +93,6 @@ SleepingGasName:
 	text "Sleeping Gas"
 	done
 
-MayInflictSleepDescription:
-	text "Flip a coin. If heads, the Defending"
-	line "Pokémon is now Asleep."
-	done
-
 DestinyBondName:
 	text "Destiny Bond"
 	done

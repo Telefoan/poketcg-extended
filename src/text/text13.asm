@@ -224,3 +224,21 @@ CurseDescription:
 	line "This power can't be used if Gengar"
 	line "is Asleep, Confused, or Paralyzed."
 	done
+
+FlailName:
+	text "Flail"
+	done
+
+FlailDescription:
+	text "Does 10 damage times the number of"
+	line "damage counters on this Pokemon."
+	done
+
+MayInflictSleepDescription:
+	text "Flip a coin. If heads, the Defending"
+	line "Pokémon is now Asleep."
+	done
+
+IcyWindName:
+	text "Icy Wind"
+	done

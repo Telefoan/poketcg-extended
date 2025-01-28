@@ -1553,15 +1553,6 @@ KinglerName:
 	text "Kingler"
 	done
 
-FlailName:
-	text "Flail"
-	done
-
-FlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on this Pokemon."
-	done
-
 CrabhammerName:
 	text "Crabhammer"
 	done
