@@ -40,21 +40,21 @@ Script_Tech8:
 
 Script_Aaron:
 	start_script
-	print_npc_text Text05fd
-	ask_question_jump Text05fe, .ows_d8e9
-.ows_d8e6
-	print_text_quit_fully Text05ff
+	print_npc_text AaronDuelRequestText
+	ask_question_jump SystemWillYouDuelAaronText, .SubScript_Aaron_Deck_Choice
+.SubScript_Aaron_Cancel_Duel
+	print_text_quit_fully AaronDontDuelText
 
-.ows_d8e9
-	print_npc_text Text0600
+.SubScript_Aaron_Deck_Choice
+	print_npc_text AaronPleaseChooseDeckText
 	choose_deck_to_duel_against
 	close_text_box
-	jump_if_event_equal EVENT_AARON_DECK_MENU_CHOICE, AARON_DECK_MENU_CANCEL, .ows_d8e6
-	ask_question_jump Text0601, .ows_d8fb
-	script_jump .ows_d8e6
+	jump_if_event_equal EVENT_AARON_DECK_MENU_CHOICE, AARON_DECK_MENU_CANCEL, .SubScript_Aaron_Cancel_Duel
+	ask_question_jump AaronDeckConfirmText, .SubScript_Aaron_Start_Duel
+	script_jump .SubScript_Aaron_Cancel_Duel
 
-.ows_d8fb
-	print_npc_text Text0602
+.SubScript_Aaron_Start_Duel
+	print_npc_text AaronDuelStartText
 	start_duel PRIZES_4, $ff, MUSIC_DUEL_THEME_1
 	quit_script_fully
 
@@ -64,24 +64,29 @@ Script_BeatAaron:
 	set_event_value EVENT_AARON_BOOSTER_REWARD
 
 	start_script
-	print_npc_text Text0603
-	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 1, .ows_d920
-	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 2, .ows_d927
-	give_booster_packs BOOSTER_COLOSSEUM_JUST_TRAINER, BOOSTER_LABORATORY_JUST_TRAINER, BOOSTER_MYSTERY_JUST_TRAINER
-	script_jump Script_LostToAaron.ows_d92f
+	print_npc_text AaronYouWinText
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 1, .SubScript_Aaron_Prize_1
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 2, .SubScript_Aaron_Prize_2
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 3, .SubScript_Aaron_Prize_3
+	give_booster_packs BOOSTER_COLOSSEUM_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
+	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
-.ows_d920
-	give_booster_packs BOOSTER_EVOLUTION_JUST_TRAINER, BOOSTER_COLOSSEUM_JUST_TRAINER, BOOSTER_LABORATORY_JUST_TRAINER
-	script_jump Script_LostToAaron.ows_d92f
+.SubScript_Aaron_Prize_1
+	give_booster_packs BOOSTER_EVOLUTION_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
+	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
-.ows_d927
-	give_booster_packs BOOSTER_MYSTERY_JUST_TRAINER, BOOSTER_EVOLUTION_JUST_TRAINER, BOOSTER_COLOSSEUM_JUST_TRAINER
-	script_jump Script_LostToAaron.ows_d92f
+.SubScript_Aaron_Prize_2
+	give_booster_packs BOOSTER_MYSTERY_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
+	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
+
+.SubScript_Aaron_Prize_3
+	give_booster_packs BOOSTER_LABORATORY_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
+	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
 Script_LostToAaron:
 	start_script
-.ows_d92f
-	print_text_quit_fully Text0604
+.SubScript_Aaron_After_Battle
+	print_text_quit_fully AaronDuelMeAgainAnyTimeText
 
 Script_d932:
 	start_script

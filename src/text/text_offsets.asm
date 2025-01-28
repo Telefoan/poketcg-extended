@@ -1442,14 +1442,14 @@ TextOffsets::
 	textpointer Text05fa
 	textpointer Text05fb
 	textpointer Text05fc
-	textpointer Text05fd
-	textpointer Text05fe
-	textpointer Text05ff
-	textpointer Text0600
-	textpointer Text0601
-	textpointer Text0602
-	textpointer Text0603
-	textpointer Text0604
+	textpointer AaronDuelRequestText
+	textpointer SystemWillYouDuelAaronText
+	textpointer AaronDontDuelText
+	textpointer AaronPleaseChooseDeckText
+	textpointer AaronDeckConfirmText
+	textpointer AaronDuelStartText
+	textpointer AaronYouWinText
+	textpointer AaronDuelMeAgainAnyTimeText
 	textpointer Text0605
 	textpointer Text0606
 	textpointer Text0607
@@ -2910,3 +2910,8 @@ TextOffsets::
 	textpointer LovebirdsDeckChoiceText
 	textpointer WouldYouLikeToConcedeText
 	textpointer IcyWindName
+	textpointer AaronColosseumTrainerDeckName
+	textpointer AaronEvolutionTrainerDeckName
+	textpointer AaronLaboratoryTrainerDeckName
+	textpointer AaronMysteryTrainerDeckName
+

@@ -226,4 +226,16 @@ OpponentTitlesAndDeckNames:
 	tx StrangeLifeformText
 	tx ImakuniDeckName
 
+	tx TechText
+	tx AaronColosseumTrainerDeckName
+
+	tx TechText
+	tx AaronEvolutionTrainerDeckName
+
+	tx TechText
+	tx AaronLaboratoryTrainerDeckName
+
+	tx TechText
+	tx AaronMysteryTrainerDeckName
+
 	assert_table_length NUM_DECK_IDS

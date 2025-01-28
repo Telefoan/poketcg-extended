@@ -242,3 +242,19 @@ MayInflictSleepDescription:
 IcyWindName:
 	text "Icy Wind"
 	done
+
+AaronColosseumTrainerDeckName:
+	text "Colosseum Trainers"
+	done
+
+AaronEvolutionTrainerDeckName:
+	text "Evolution Trainers"
+	done
+
+AaronLaboratoryTrainerDeckName:
+	text "Laboratory Trainers"
+	done
+
+AaronMysteryTrainerDeckName:
+	text "Mystery Trainers"
+	done
