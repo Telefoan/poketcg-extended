@@ -1478,7 +1478,7 @@ AaronColosseumTrainerDeck:
 
 AaronEvolutionTrainerDeck:
 	deck_list_start
-	card_item PSYCHIC_ENERGY,		14
+	card_item PSYCHIC_ENERGY,		10
 	card_item POKEMON_TRADER, 		4
 	card_item POKEMON_BREEDER, 		4
 	card_item CLEFAIRY_DOLL, 		2
