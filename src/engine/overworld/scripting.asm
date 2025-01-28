@@ -1579,9 +1579,13 @@ ScriptCommand_ChooseDeckToDuelAgainstMultichoice:
 	dw .text_entries ; location of table containing text entries
 
 .text_entries
-	tx LightningAndFireDeckChoiceText
-	tx WaterAndFightingDeckChoiceText
-	tx GrassAndPsychicDeckChoiceText
+	;tx LightningAndFireDeckChoiceText
+	;tx WaterAndFightingDeckChoiceText
+	;tx GrassAndPsychicDeckChoiceText
+	tx AaronColosseumTrainerDeckChoiceText
+	tx AaronEvolutionTrainerDeckChoiceText
+	tx AaronLaboratoryTrainerDeckChoiceText
+	tx AaronMysteryTrainerDeckChoiceText
 
 	dw NULL
 

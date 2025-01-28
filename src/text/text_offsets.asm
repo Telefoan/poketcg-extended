@@ -2906,3 +2906,7 @@ TextOffsets::
 	textpointer AaronEvolutionTrainerDeckName
 	textpointer AaronLaboratoryTrainerDeckName
 	textpointer AaronMysteryTrainerDeckName
+	textpointer AaronColosseumTrainerDeckChoiceText
+	textpointer AaronEvolutionTrainerDeckChoiceText
+	textpointer AaronLaboratoryTrainerDeckChoiceText
+	textpointer AaronMysteryTrainerDeckChoiceText
