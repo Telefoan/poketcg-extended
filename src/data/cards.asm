@@ -9462,7 +9462,7 @@ MrFujiCard:
 	db TYPE_TRAINER ; type
 	gfx MrFujiCardGfx ; gfx
 	tx MrFujiName ; name
-	db DIAMOND ; rarity
+	db STAR ; rarity
 	db MYSTERY | FOSSIL ; sets
 	dw MR_FUJI
 	dw MrFujiEffectCommands ; effect commands
