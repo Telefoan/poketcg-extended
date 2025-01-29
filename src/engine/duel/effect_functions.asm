@@ -9293,6 +9293,10 @@ BillEffect:
 	dec c
 	jr nz, .loop_draw
 .done
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 LassEffect:
@@ -10159,16 +10163,21 @@ HealPlayAreaCardHP:
 	ld [hl], a
 	ret
 
-CheckSupporter: ;checks to see if we have played a supporter this turn. if yes, prevent playing another, otherwise, marks that we have played one now
-	ld a, c 
-	ld a, [wAlreadyPlayedSupporter]
-	or a
+Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another, otherwise, marks that we have played one now
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTemp_ffa0], a
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable	
+	and USED_SUPPORTER_THIS_TURN 
 	jr nz, .already_played_supporter
+	scf
+	jr nz, .done ; return carry
 	
 
 .already_played_supporter:
 	ldtx hl, MayOnlyPlayOneSupporterCardText
-	call DrawWideTextBox_WaitForInput
+	scf
+	ret
 
 .play_supporter_set_played
 	ld a, TRUE

@@ -1562,7 +1562,7 @@ PokedexEffectCommands:
 	db  $00
 
 BillEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, CheckSupporter
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_Checkorter
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, BillEffect
 	db  $00
 
