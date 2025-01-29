@@ -3376,11 +3376,11 @@ SeelCard:
 	; attack 2
 	energy WATER, 2 ; energies
 	tx IcyWindName ; name
-	tx MayInflictSleepDescription ; description
+	tx LeerDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
-	dw RhyhornLeerEffectCommands ; effect commands
+	dw IcyWindEffectCommands ; effect commands
 	db NONE ; flags 1
 	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
 	db NONE ; flags 3

@@ -147,5 +147,7 @@
 	const ATK_ANIM_HEAL_BOTH_SIDES        ; $8e
 	const ATK_ANIM_UNUSED_8F              ; $8f
 	const ATK_ANIM_UNUSED_90              ; $90
+	const ATK_ANIM_ICY_WIND_SUCCESS			; $91
+	const ATK_ANIM_ICY_WIND_FAILURE			; $92
 
 DEF NUM_ATK_ANIMS EQU const_value
