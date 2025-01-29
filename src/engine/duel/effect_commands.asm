@@ -1435,7 +1435,9 @@ SuperPotionEffectCommands:
 	db  $00
 
 ImakuniEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, ImakuniEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 EnergyRemovalEffectCommands:
@@ -1459,7 +1461,9 @@ EnergySearchEffectCommands:
 	db  $00
 
 ProfessorOakEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, ProfessorOakEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 PotionEffectCommands:
@@ -1469,7 +1473,9 @@ PotionEffectCommands:
 	db  $00
 
 GamblerEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, GamblerEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 ItemFinderEffectCommands:
@@ -1494,7 +1500,9 @@ FullHealEffectCommands:
 	db  $00
 
 ImposterProfessorOakEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, ImposterProfessorOakEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 ComputerSearchEffectCommands:
@@ -1510,9 +1518,11 @@ ClefairyDollEffectCommands:
 	db  $00
 
 MrFujiEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, MrFuji_BenchCheck
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, MrFuji_PlayerSelection
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, MrFuji_BenchCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_3, MrFuji_PlayerSelection
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MrFuji_ReturnToDeckEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 PlusPowerEffectCommands:
@@ -1537,9 +1547,11 @@ PokemonFluteEffectCommands:
 	db  $00
 
 PokemonBreederEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, PokemonBreeder_HandPlayAreaCheck
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, PokemonBreeder_PlayerSelection
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, PokemonBreeder_HandPlayAreaCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_3, PokemonBreeder_PlayerSelection
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PokemonBreeder_EvolveEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 ScoopUpEffectCommands:
@@ -1549,10 +1561,12 @@ ScoopUpEffectCommands:
 	db  $00
 
 PokemonTraderEffectCommands:
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, PokemonTrader_HandDeckCheck
-	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, PokemonTrader_PlayerHandSelection
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, PokemonTrader_HandDeckCheck
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_3, PokemonTrader_PlayerHandSelection
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PokemonTrader_TradeCardsEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, PokemonTrader_PlayerDeckSelection
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 PokedexEffectCommands:
@@ -1568,7 +1582,9 @@ BillEffectCommands:
 	db  $00
 
 LassEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, LassEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 MaintenanceEffectCommands:
