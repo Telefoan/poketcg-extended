@@ -65,10 +65,10 @@ Script_BeatAaron:
 
 	start_script
 	print_npc_text AaronYouWinText
-	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 1, .SubScript_Aaron_Prize_1
-	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 2, .SubScript_Aaron_Prize_2
-	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 3, .SubScript_Aaron_Prize_3
-	give_booster_packs BOOSTER_COLOSSEUM_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 2, .SubScript_Aaron_Prize_1 ; changed this from 1
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 3, .SubScript_Aaron_Prize_2
+	jump_if_event_equal EVENT_AARON_BOOSTER_REWARD, 4, .SubScript_Aaron_Prize_3
+	give_booster_packs BOOSTER_COLOSSEUM_JUST_TRAINER, NO_BOOSTER, NO_BOOSTER ; not sure where it is decided if this was pulled on 0 or 4 originally
 	script_jump Script_LostToAaron.SubScript_Aaron_After_Battle
 
 .SubScript_Aaron_Prize_1

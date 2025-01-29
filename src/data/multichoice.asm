@@ -2,14 +2,11 @@ MultichoiceTextbox_ConfigTable_ChooseDeckToDuelAgainst:
 	db $04, $00     ; x, y to start drawing box
 	db $10, $0c     ; width, height of box
 	db $06, $02     ; x, y coordinate to start printing next text
-	;tx LightningAndFireDeckChoiceText     ; text id to print next
-	tx AaronColosseumTrainerDeckChoiceText
-	db $06, $04     ; x, y coordinate to start printing next text
-	;tx WaterAndFightingDeckChoiceText     ; text id to print next
-	tx AaronEvolutionTrainerDeckChoiceText
+	tx AaronColosseumTrainerDeckChoiceText	; text id to print next
+	db $06, $04     ; x, y coordinate to start printing next text 
+	tx AaronEvolutionTrainerDeckChoiceText	; text id to print next
 	db $06, $06     ; x, y coordinate to start printing next text
-	;tx GrassAndPsychicDeckChoiceText      ; text id to print next
-	tx AaronLaboratoryTrainerDeckChoiceText
+	tx AaronLaboratoryTrainerDeckChoiceText	; text id to print next
 	db $06, $08     ; x, y coordinate to start printing next text
 	tx AaronMysteryTrainerDeckChoiceText      ; text id to print next
 	db $ff          ; marker byte -- end text entries
