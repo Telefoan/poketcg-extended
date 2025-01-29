@@ -209,3 +209,36 @@ ReversalDescription:
 	line "10 damage for each damage counter"
 	line "on this Pokemon."
 	done
+
+AaronColosseumTrainerDeckName:
+	text "Colosseum Trainers"
+	done
+
+AaronEvolutionTrainerDeckName:
+	text "Evolution Trainers"
+	done
+
+AaronLaboratoryTrainerDeckName:
+	text "Laboratory Trainers"
+	done
+
+AaronMysteryTrainerDeckName:
+	text "Mystery Trainers"
+	done
+
+AaronColosseumTrainerDeckChoiceText:
+	text "Colosseum Trainers Deck"
+	done
+
+AaronEvolutionTrainerDeckChoiceText:
+	text "Evolution Trainers Deck"
+	done
+
+AaronLaboratoryTrainerDeckChoiceText:
+	text "Laboratory Trainers Deck"
+	done
+	
+AaronMysteryTrainerDeckChoiceText:
+	text "Mystery Trainers Deck"
+
+	done

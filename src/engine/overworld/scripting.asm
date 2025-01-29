@@ -732,9 +732,11 @@ ScriptCommand_StartChallengeHallDuel:
 	jr ScriptCommand_StartDuel.start_duel
 
 AaronDeckIDs:
-	db LIGHTNING_AND_FIRE_DECK_ID
-	db WATER_AND_FIGHTING_DECK_ID
-	db GRASS_AND_PSYCHIC_DECK_ID
+	db AARON_COLOSSEUM_TRAINER_DECK_ID
+	db AARON_EVOLUTION_TRAINER_DECK_ID
+	;db GRASS_AND_PSYCHIC_DECK_ID
+	db AARON_LABORATORY_TRAINER_DECK_ID
+	db AARON_MYSTERY_TRAINER_DECK_ID
 
 SetNPCDuelParams:
 	ld a, c
@@ -1575,10 +1577,13 @@ ScriptCommand_ChooseDeckToDuelAgainstMultichoice:
 	dw .text_entries ; location of table containing text entries
 
 .text_entries
-	tx LightningAndFireDeckChoiceText
-	tx WaterAndFightingDeckChoiceText
-	tx GrassAndPsychicDeckChoiceText
-
+	;tx LightningAndFireDeckChoiceText
+	;tx WaterAndFightingDeckChoiceText
+	;tx GrassAndPsychicDeckChoiceText
+	tx AaronColosseumTrainerDeckChoiceText
+	tx AaronEvolutionTrainerDeckChoiceText
+	tx AaronLaboratoryTrainerDeckChoiceText
+	tx AaronMysteryTrainerDeckChoiceText
 	dw NULL
 
 ScriptCommand_ChooseStarterDeckMultichoice:

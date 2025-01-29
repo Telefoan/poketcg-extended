@@ -368,5 +368,37 @@ DeckIDDuelConfigurations:
 	tx StrangeLifeformText ; rank
 	dw NULL ; element
 
+	db AARON_COLOSSEUM_TRAINER_DECK_ID ; deck ID
+	db AARON_PIC ; NPC portrait
+	tx AaronNPCName ; name text ID
+	db PRIZES_4 ; number of prize cards
+	db MUSIC_DUEL_THEME_1 ; theme
+	tx TechText ; rank
+	dw NULL ; element
+
+	db AARON_EVOLUTION_TRAINER_DECK_ID ; deck ID
+	db AARON_PIC ; NPC portrait
+	tx AaronNPCName ; name text ID
+	db PRIZES_4 ; number of prize cards
+	db MUSIC_DUEL_THEME_1 ; theme
+	tx TechText ; rank
+	dw NULL ; element
+
+	db AARON_LABORATORY_TRAINER_DECK_ID ; deck ID
+	db AARON_PIC ; NPC portrait
+	tx AaronNPCName ; name text ID
+	db PRIZES_4 ; number of prize cards
+	db MUSIC_DUEL_THEME_1 ; theme
+	tx TechText ; rank
+	dw NULL ; element
+
+	db AARON_MYSTERY_TRAINER_DECK_ID ; deck ID
+	db AARON_PIC ; NPC portrait
+	tx AaronNPCName ; name text ID
+	db PRIZES_4 ; number of prize cards
+	db MUSIC_DUEL_THEME_1 ; theme
+	tx TechText ; rank
+	dw NULL ; element
+
 	assert_table_length NUM_AI_DECK_IDS
 	db -1 ; end

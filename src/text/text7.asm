@@ -289,43 +289,44 @@ Text05fc:
 	line "been activated!"
 	done
 
-Text05fd:
+AaronDuelRequestText:
 	text "Ho-ho! Won't you duel me to"
 	line "test your deck?"
 	line "If you win, I'll give you"
-	line "a Booster Pack - but it only "
-	line "contains Energy cards."
+	line "a Special Booster Pack--"
+	line "it only contains Trainer cards,"
+	line "as well as some Energies."
 	done
 
-Text05fe:
+SystemWillYouDuelAaronText:
 	text "Would you like to duel Aaron?"
 	done
 
-Text05ff:
+AaronDontDuelText:
 	text "It's important to know how your"
 	line "Deck performs."
 	done
 
-Text0600:
+AaronPleaseChooseDeckText:
 	text "Ho-ho! Please choose the deck"
 	line "you wish to duel against."
 	done
 
-Text0601:
+AaronDeckConfirmText:
 	text "Is it <RAMTEXT>?"
 	done
 
-Text0602:
+AaronDuelStartText:
 	text "Ho-ho! OK, let's start a "
 	line "4-prize match!"
 	done
 
-Text0603:
+AaronYouWinText:
 	text "Ho-ho! You win!"
 	line "Here you go, as promised!"
 	done
 
-Text0604:
+AaronDuelMeAgainAnyTimeText:
 	text "Ho-ho! How about it? Did you "
 	line "get a feel for your Deck?"
 	line "Ho-ho! Come again. I'll be glad "
