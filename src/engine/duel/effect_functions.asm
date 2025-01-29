@@ -10179,6 +10179,5 @@ Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this tu
 	scf
 	ret
 
-.play_supporter_set_played
-	ld a, TRUE
-	ld [wAlreadyPlayedSupporter], a
+.done
+	ret
