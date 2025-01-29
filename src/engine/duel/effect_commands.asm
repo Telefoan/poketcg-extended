@@ -1613,3 +1613,7 @@ GustOfWindEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, GustOfWind_PlayerSelection
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, GustOfWind_SwitchEffect
 	db  $00
+
+IcyWindEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, IcyWindEffect
+	db  $00

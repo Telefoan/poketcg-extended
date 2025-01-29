@@ -10160,3 +10160,12 @@ HealPlayAreaCardHP:
 	add e
 	ld [hl], a
 	ret
+
+IcyWindEffect:
+	ldtx de, IfHeadsOpponentCannotAttackText
+	call TossCoin_BankB
+	jp nc, SetWasUnsuccessful
+	ld a, ATK_ANIM_ICY_WIND_SUCCESS
+	ld [wLoadedAttackAnimation], a
+	ld a, SUBSTATUS2_LEER
+	jp ApplySubstatus2ToDefendingCard
