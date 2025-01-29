@@ -10167,20 +10167,11 @@ HealPlayAreaCardHP:
 	ret
 
 Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another, otherwise, marks that we have played one now
-	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
-	add DUELVARS_ARENA_CARD_FLAGS
+	ld a, DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable	
 	and USED_SUPPORTER_THIS_TURN 
-	jr nz, .already_played_supporter
-	scf
-	jr nz, .done ; return carry
-	
-
-.already_played_supporter:
+	ret z
 	ldtx hl, MayOnlyPlayOneSupporterCardText
 	scf
 	ret
-
-.done
-	ret
+	
