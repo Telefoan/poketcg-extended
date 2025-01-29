@@ -7091,6 +7091,7 @@ SetAllPlayAreaPokemonCanEvolve:
 	ld l, DUELVARS_ARENA_CARD_FLAGS
 .next_pkmn_loop
 	res USED_PKMN_POWER_THIS_TURN_F, [hl]
+	res USED_SUPPORTER_THIS_TURN_F, [hl]
 	set CAN_EVOLVE_THIS_TURN_F, [hl]
 	inc l
 	dec c
