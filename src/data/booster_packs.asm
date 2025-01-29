@@ -490,15 +490,15 @@ BoosterPack_MysteryJustTrainer::
 	dw GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
-	db 10 ; Grass Type Chance
-	db 10 ; Fire Type Chance
-	db 10 ; Water Type Chance
-	db 10 ; Lightning Type Chance
+	db 0 ; Grass Type Chance
+	db 0 ; Fire Type Chance
+	db 0 ; Water Type Chance
+	db 0 ; Lightning Type Chance
 	db 0 ; Fighting Type Chance
 	db 0 ; Psychic Type Chance
 	db 0 ; Colorless Type Chance
 	db 100 ; Trainer Card Chance
-	db 20 ; Energy Card Chance
+	db 60 ; Energy Card Chance
 
 BoosterPack_EvolutionJustTrainer::
 	booster_set EVOLUTION ; booster pack set
