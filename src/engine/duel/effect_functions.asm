@@ -8482,6 +8482,7 @@ ClefairyDoll_PlaceInPlayAreaEffect:
 
 ; return carry if no Pokemon in the Bench.
 MrFuji_BenchCheck:
+	call Supporter_OncePerTurnCheck
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ldtx hl, EffectNoPokemonOnTheBenchText
@@ -8697,6 +8698,7 @@ PokemonFlute_PlaceInPlayAreaText:
 	jp SwapTurn
 
 PokemonBreeder_HandPlayAreaCheck:
+	call Supporter_OncePerTurnCheck
 	call CreatePlayableStage2PokemonCardListFromHand
 	jr c, .cannot_evolve
 	bank1call IsPrehistoricPowerActive
@@ -8975,6 +8977,7 @@ ScoopUp_ReturnToHandEffect:
 ; return carry if no other cards in hand,
 ; or if there are no Pokemon cards in hand.
 PokemonTrader_HandDeckCheck:
+	call Supporter_OncePerTurnCheck
 	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
 	call GetTurnDuelistVariable
 	ldtx hl, ThereAreNoCardsInHandThatYouCanChangeText
