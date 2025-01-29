@@ -10171,7 +10171,7 @@ Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this tu
 	and USED_SUPPORTER_THIS_TURN 
 	jr nz, .already_played_supporter
 	scf
-	ret ; return carry
+	jr nz, .done ; return carry
 	
 
 .already_played_supporter:
@@ -10179,3 +10179,5 @@ Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this tu
 	scf
 	ret
 
+.done
+	ret
