@@ -1,6 +1,6 @@
 MultichoiceTextbox_ConfigTable_ChooseDeckToDuelAgainst:
 	db $04, $00     ; x, y to start drawing box
-	db $10, $0c     ; width, height of box
+	db $10, $0b     ; width, height of box
 	db $06, $02     ; x, y coordinate to start printing next text
 	tx AaronColosseumTrainerDeckChoiceText	; text id to print next
 	db $06, $04     ; x, y coordinate to start printing next text 
@@ -12,7 +12,7 @@ MultichoiceTextbox_ConfigTable_ChooseDeckToDuelAgainst:
 	db $ff          ; marker byte -- end text entries
 	db $05, $02     ; cursor starting x, y
 	db $02          ; number of tiles the cursor moves per toggle
-	db 4          ; cursor max index
+	db 3          ; cursor max index
 	db SYM_CURSOR_R ; cursor image
 	db SYM_SPACE    ; tile behind cursor
 	dw NULL         ; function pointer if non-0
