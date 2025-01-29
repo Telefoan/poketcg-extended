@@ -487,7 +487,7 @@ BoosterPack_LaboratoryJustTrainer::
 
 BoosterPack_MysteryJustTrainer::
 	booster_set MYSTERY ; booster pack set
-	dw NULL ; energy generation function
+	dw GenerateRandomEnergy ; energy generation function
 
 ; Card Type Chances
 	db 0 ; Grass Type Chance
