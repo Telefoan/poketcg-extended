@@ -241,4 +241,7 @@ AaronLaboratoryTrainerDeckChoiceText:
 AaronMysteryTrainerDeckChoiceText:
 	text "Mystery Trainers Deck"
 
+MayOnlyPlayOneSupporterCardText:
+	text "You may only play 1 Supporter"
+	line "card per turn."
 	done
