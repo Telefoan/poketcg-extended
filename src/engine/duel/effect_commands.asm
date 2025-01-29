@@ -1564,6 +1564,7 @@ PokedexEffectCommands:
 BillEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Supporter_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, BillEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, Supporter_SetUsedThisTurn
 	db  $00
 
 LassEffectCommands:
