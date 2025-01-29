@@ -2917,4 +2917,5 @@ TextOffsets::
 	textpointer AaronEvolutionTrainerDeckChoiceText
 	textpointer AaronLaboratoryTrainerDeckChoiceText
 	textpointer AaronMysteryTrainerDeckChoiceText
+	textpointer MayOnlyPlayOneSupporterCardText
 

@@ -186,6 +186,7 @@ RecycleDescription:
 
 ConcedeText:
 	text "Concede"
+	done
 
 AreYouBoyOrGirlText:
 	text "Are you a boy"
@@ -240,5 +241,10 @@ AaronLaboratoryTrainerDeckChoiceText:
 	
 AaronMysteryTrainerDeckChoiceText:
 	text "Mystery Trainers Deck"
+	done
+
+MayOnlyPlayOneSupporterCardText:
+	text "You may only play 1 Supporter"
+	line "card per turn."
 
 	done
