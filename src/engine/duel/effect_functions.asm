@@ -10185,4 +10185,5 @@ Supporter_SetUsedThisTurn:
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_SUPPORTER_THIS_TURN_F, [hl]
-	ret
+	ret c
+	
