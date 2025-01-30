@@ -514,10 +514,11 @@ wDuelType:: ; cc09
 	ds $1
 
 ; set to 1 if the coin toss during the CheckSandAttackOrSmokescreenSubstatus check is heads
-wGotHeadsFromSandAttackOrSmokescreenCheck:: ; cc0a
-	ds $1
+;wGotHeadsFromSandAttackOrSmokescreenCheck:: ; cc0a
+;	ds $1
+;	merging this into wOncePerTurnFlags
 
-wAlreadyPlayedEnergy:: ; cc0b
+wOncePerTurnFlags:: ; cc0b
 	ds $1
 
 ; set to 1 if the confusion check coin toss in AttemptRetreat is heads
