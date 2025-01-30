@@ -729,6 +729,7 @@ GastlyEnergyConversionEffectCommands:
 	db  $00
 
 HaunterHypnosisEffectCommands:
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, Shift_OncePerTurnCheck
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
 	db  $00
 
