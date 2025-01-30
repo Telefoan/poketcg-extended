@@ -2910,3 +2910,4 @@ TextOffsets::
 	textpointer LovebirdsDeckChoiceText
 	textpointer WouldYouLikeToConcedeText
 	textpointer IcyWindName
+	textpointer HypnosisAbilityDescription

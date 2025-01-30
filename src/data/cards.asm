@@ -7160,12 +7160,12 @@ HaunterLv22Card:
 	tx GastlyName ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 1 ; energies
+	energy 0 ; energies
 	tx HypnosisName ; name
-	tx InflictSleepDescription ; description
+	tx HypnosisAbilityDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
-	db DAMAGE_NORMAL ; category
+	db POKEMON_POWER ; category
 	dw HaunterHypnosisEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
 	db NONE ; flags 2
@@ -7174,7 +7174,7 @@ HaunterLv22Card:
 	db ATK_ANIM_HYPNOSIS ; animation
 
 	; attack 2
-	energy PSYCHIC, 2 ; energies
+	energy PSYCHIC, 3 ; energies
 	tx DreamEaterName ; name
 	tx DreamEaterDescription ; description
 	dw NONE ; description (cont)
