@@ -8488,6 +8488,7 @@ ClefairyDoll_PlaceInPlayAreaEffect:
 ; return carry if no Pokemon in the Bench.
 MrFuji_BenchCheck:
 	call Supporter_OncePerTurnCheck
+	ret c
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ldtx hl, EffectNoPokemonOnTheBenchText
@@ -8705,6 +8706,7 @@ PokemonFlute_PlaceInPlayAreaText:
 
 PokemonBreeder_HandPlayAreaCheck:
 	call Supporter_OncePerTurnCheck
+	ret c
 	call CreatePlayableStage2PokemonCardListFromHand
 	jr c, .cannot_evolve
 	bank1call IsPrehistoricPowerActive
@@ -8985,6 +8987,7 @@ ScoopUp_ReturnToHandEffect:
 ; or if there are no Pokemon cards in hand.
 PokemonTrader_HandDeckCheck:
 	call Supporter_OncePerTurnCheck
+	ret c
 	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
 	call GetTurnDuelistVariable
 	ldtx hl, ThereAreNoCardsInHandThatYouCanChangeText
@@ -10172,18 +10175,15 @@ HealPlayAreaCardHP:
 	ret
 
 Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another
-	ld a, DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable	
-	and USED_SUPPORTER_THIS_TURN 
-	ret z
+	ld a, [wOncePerTurnFlags]
+	and ALREADY_PLAYED_SUPPORTER
+	ret c
 	ldtx hl, MayOnlyPlayOneSupporterCardText
 	scf
 	ret
 
 Supporter_SetUsedThisTurn: 
-	ldh a, [hTemp_ffa0]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_SUPPORTER_THIS_TURN_F, [hl]
-	ret c
+	ld hl, wOncePerTurnFlags
+	set ALREADY_PLAYED_SUPPORTER_F, [hl]
+	ret
 	

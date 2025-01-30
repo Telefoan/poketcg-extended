@@ -2965,7 +2965,4 @@ wMusicChannelStackPointersBackup:: ; dead
 wMusicCh1StackBackup:: ; deb5
 	ds $c * 4
 
-wAlreadyPlayedSupporter::
-	ds $1
-
 INCLUDE "sram.asm"
