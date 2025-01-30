@@ -1812,6 +1812,8 @@ BoyfriendsEffect:
 ; c holds number of Nidoking found in Play Area
 	ld a, c
 	add a
+	add a
+	add c
 	call ATimes10
 	call AddToDamage ; adds 2 * 10 * c
 	ret
@@ -3967,10 +3969,10 @@ Curse_PlayerSelectEffect:
 
 Curse_TransferDamageEffect:
 ; set Pkmn Power as used
-	ldh a, [hTempList]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+;	ldh a, [hTempList]
+;	add DUELVARS_ARENA_CARD_FLAGS
+;	call GetTurnDuelistVariable
+;	set USED_PKMN_POWER_THIS_TURN_F, [hl]
 
 ; figure out the type of duelist that used Curse.
 ; if it was the player, no need to draw the Play Area screen.
@@ -10187,3 +10189,12 @@ Supporter_SetUsedThisTurn:
 	set ALREADY_PLAYED_SUPPORTER_F, [hl]
 	ret
 	
+IcyWindEffect:
+	ldtx de, IfHeadsOpponentCannotAttackText
+	call TossCoin_BankB
+	jp nc, SetWasUnsuccessful
+	ld a, ATK_ANIM_ICY_WIND_SUCCESS
+	ld [wLoadedAttackAnimation], a
+	ld a, SUBSTATUS2_LEER
+	jp ApplySubstatus2ToDefendingCard
+	ret

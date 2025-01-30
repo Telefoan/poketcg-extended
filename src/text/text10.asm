@@ -1553,15 +1553,6 @@ KinglerName:
 	text "Kingler"
 	done
 
-FlailName:
-	text "Flail"
-	done
-
-KinglersFlailDescription:
-	text "Does 10 damage times the number of"
-	line "damage counters on Kingler."
-	done
-
 CrabhammerName:
 	text "Crabhammer"
 	done
