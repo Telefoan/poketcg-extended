@@ -326,7 +326,8 @@ HandleSandAttackOrSmokescreenSubstatus::
 	call CheckSandAttackOrSmokescreenSubstatus
 	ret nc
 	call TossCoin
-	ld [wGotHeadsFromSandAttackOrSmokescreenCheck], a
+	ld hl, wOncePerTurnFlags
+    set GOT_HEADS_FROM_SMOKESCREEN_CHECK_F, [hl]
 	ccf
 	ret nc
 	ldtx hl, AttackUnsuccessfulText
@@ -349,8 +350,8 @@ CheckSandAttackOrSmokescreenSubstatus::
 	or a
 	ret
 .card_is_affected
-	ld a, [wGotHeadsFromSandAttackOrSmokescreenCheck]
-	or a
+	ld a, [wOncePerTurnFlags]
+    and GOT_HEADS_FROM_SMOKESCREEN_CHECK
 	ret nz
 	scf
 	ret

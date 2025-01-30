@@ -188,3 +188,16 @@ MayOnlyPlayOneSupporterCardText:
 	text "You may only play 1 Supporter"
 	line "card per turn."
 	done
+
+AreYouBoyOrGirlText:
+	text "Are you a boy"
+	line "or a girl?"
+	done
+
+BoyText:
+	text "Boy"
+	done
+
+GirlText:
+	text "Girl"
+	done

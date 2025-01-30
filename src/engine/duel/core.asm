@@ -528,15 +528,15 @@ PlayEnergyCard:
 	jr c, .rain_dance_active
 
 .not_water_energy
-	ld a, [wAlreadyPlayedEnergy]
-	or a
+	ld a, [wOncePerTurnFlags]
+	AND ALREADY_PLAYED_ENERGY
 	jr nz, .already_played_energy
 	call HasAlivePokemonInPlayArea
 	call OpenPlayAreaScreenForSelection ; choose card to play energy card on
 	jp c, DuelMainInterface ; exit if no card was chosen
 .play_energy_set_played
-	ld a, TRUE
-	ld [wAlreadyPlayedEnergy], a
+	ld hl, wOncePerTurnFlags
+	set ALREADY_PLAYED_ENERGY_F, [hl]
 .play_energy
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTempPlayAreaLocation_ffa1], a
@@ -556,7 +556,8 @@ PlayEnergyCard:
 	jp c, DuelMainInterface ; exit if no card was chosen
 	call CheckRainDanceScenario
 	jr c, .play_energy
-	ld a, [wAlreadyPlayedEnergy]
+	ld a, [wOncePerTurnFlags]
+	and ALREADY_PLAYED_ENERGY
 	or a
 	jr z, .play_energy_set_played
 	ldtx hl, MayOnlyAttachOneEnergyCardText
@@ -5989,8 +5990,8 @@ OppAction_PlayEnergyCard:
 	call LoadCardDataToBuffer1_FromDeckIndex
 	call DrawLargePictureOfCard
 	call PrintAttachedEnergyToPokemon
-	ld a, TRUE
-	ld [wAlreadyPlayedEnergy], a
+	ld hl, wOncePerTurnFlags
+    set ALREADY_PLAYED_ENERGY_F, [hl]
 	jp DrawDuelMainScene
 
 ; evolve a Pokemon card in the arena or in the bench
@@ -7075,9 +7076,8 @@ InitVariablesToBeginDuel:
 ; init variables that last a single player's turn
 InitVariablesToBeginTurn:
 	xor a
-	ld [wAlreadyPlayedEnergy], a
+	ld [wOncePerTurnFlags], a
 	ld [wGotHeadsFromConfusionCheckDuringRetreat], a
-	ld [wGotHeadsFromSandAttackOrSmokescreenCheck], a
 	ldh a, [hWhoseTurn]
 	ld [wWhoseTurn], a
 	ret

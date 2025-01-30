@@ -1,8 +1,10 @@
-# Pokémon TCG Extended
+# Pokémon TCG Extended - Expanded Edition
 
 Modified disassembly of [Pokémon TCG](https://github.com/pret/poketcg) that supports double the cards as the vanilla game, meant to be used as a base for hacks. The modified engine supports up to 510 cards, as opposed to 254 from the base game. For everything else this repo stays as faithful as possible to the vanilla game.
 
 These changes are built upon the [tinytcg branch](https://github.com/ElectroDeoxys/poketcg/tree/tinytcg). Please read that repo's `README.md` for more details.
+
+WatermelonPrincess here: im building off of this with my own improvements, eventually i might make this its own repo. who knows?
 
 
 ## Technical details

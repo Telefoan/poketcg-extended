@@ -44,7 +44,18 @@ HandleTitleScreen:
 	farcall FadeScreenToWhite
 
 	call CheckIfHasSaveData
+	ld a, [wHasSaveData]
+	or a
+	call nz, LoadEventsFromSRAM
 	call HandleStartMenu
+
+LoadEventsFromSRAM:
+	ld hl, sEventVars
+	ld de, wEventVars
+	ld bc, EVENT_VAR_BYTES
+	call EnableSRAM
+	call CopyDataHLtoDE
+	jp DisableSRAM
 
 ; new game
 	ld a, [wStartMenuChoice]
@@ -58,7 +69,7 @@ HandleTitleScreen:
 	or a ; cp START_MENU_CONTINUE_FROM_DIARY
 	jr nz, .continue_duel
 	call AskToContinueFromDiaryWithDuelData
-	jr c, HandleTitleScreen
+	jp c, HandleTitleScreen
 .continue_duel
 	call ResetDoFrameFunction
 	jp EnableAndClearSpriteAnimations
