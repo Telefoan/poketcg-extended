@@ -10179,7 +10179,7 @@ HealPlayAreaCardHP:
 Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another
 	ld a, [wOncePerTurnFlags]
 	and ALREADY_PLAYED_SUPPORTER
-	ret c
+	;ret c
 	ldtx hl, MayOnlyPlayOneSupporterCardText
 	scf
 	ret
