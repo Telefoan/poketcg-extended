@@ -7976,7 +7976,11 @@ ImakuniEffect:
 	ld a, ATK_ANIM_OWN_CONFUSION
 	call PlayTrainerEffectAnimation
 	ldtx hl, ThereWasNoEffectText
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
+	ret
 	jp DrawWideTextBox_WaitForInput
 
 .success
@@ -7989,7 +7993,10 @@ ImakuniEffect:
 	or CONFUSED
 	ld [hl], a
 	bank1call DrawDuelHUDs
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 ; returns carry if opponent has no energy cards attached
@@ -8212,7 +8219,10 @@ ProfessorOakEffect:
 	dec c
 	jr nz, .draw_loop
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 Potion_DamageCheck:
@@ -8289,7 +8299,10 @@ GamblerEffect:
 	dec c
 	jr nz, .draw_loop
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 ; return carry if not enough cards in hand to discard
@@ -8426,7 +8439,10 @@ ImposterProfessorOakEffect:
 	dec c
 	jr nz, .loop_draw
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	jp SwapTurn
 
 ; return carry if not enough cards in hand to discard
@@ -8560,7 +8576,10 @@ MrFuji_ReturnToDeckEffect:
 	ldtx hl, PokemonAndAllAttachedCardsWereReturnedToDeckText
 	call DrawWideTextBox_WaitForInput
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	jp ShuffleCardsInDeck
 
 PlusPowerEffect:
@@ -8794,7 +8813,10 @@ PokemonBreeder_EvolveEffect:
 	bank1call ProcessPlayedPokemonCard
 	pop af
 	ldh [hTempCardIndex_ff9f], a
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 ; creates list in wDuelTempList of all Stage2 Pokemon cards
@@ -9070,7 +9092,10 @@ PokemonTrader_TradeCardsEffect:
 	ldtx hl, WasPlacedInTheHandText
 	bank1call DisplayCardDetailScreen
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	jp ShuffleCardsInDeck
 
 ; makes list in wDuelTempList with all Pokemon cards
@@ -9307,7 +9332,10 @@ BillEffect:
 	dec c
 	jr nz, .loop_draw
 .done
-	call Supporter_SetUsedThisTurn
+	ldh a, [hTemp_ffa0]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_SUPPORTER_THIS_TURN_F, [hl]
 	ret
 
 LassEffect:
@@ -10183,10 +10211,10 @@ Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this tu
 	scf
 	ret
 
-Supporter_SetUsedThisTurn: 
-	ldh a, [hTemp_ffa0]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_SUPPORTER_THIS_TURN_F, [hl]
-	ret c
+;Supporter_SetUsedThisTurn: 
+	;ldh a, [hTemp_ffa0]
+	;add DUELVARS_ARENA_CARD_FLAGS
+	;call GetTurnDuelistVariable
+	;set USED_SUPPORTER_THIS_TURN_F, [hl]
+	;ret c
 	
