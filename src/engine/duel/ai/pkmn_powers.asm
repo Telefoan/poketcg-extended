@@ -489,7 +489,7 @@ HandleAIPkmnPowers:
 	inc c
 	ld a, c
 	cp b
-	jr nz, .loop_play_area
+	jp nz, .loop_play_area
 	ret
 
 .next_3
