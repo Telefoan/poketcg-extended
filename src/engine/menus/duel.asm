@@ -1836,7 +1836,7 @@ _SelectPrizeCards::
 .done_selection
 	ld a, DUELVARS_PRIZES
 	call GetTurnDuelistVariable
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wSelectedPrizeCardListPtr + 0]
 	ld l, a
 	ld a, [wSelectedPrizeCardListPtr + 1]
