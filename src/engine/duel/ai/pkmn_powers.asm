@@ -419,7 +419,7 @@ HandleAIPkmnPowers:
 	ld a, DUELVARS_ARENA_CARD_STATUS
 	call GetTurnDuelistVariable
 	and CNF_SLP_PRZ
-	jr nz, .next_2
+	jp nz, .next_2
 
 .loop_play_area
 	ld a, DUELVARS_ARENA_CARD
