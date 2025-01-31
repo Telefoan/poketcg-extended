@@ -2408,35 +2408,80 @@ DrawDuelHUD:
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
-	ld a, [wLoadedCard1HP]
-	ld d, a ; max HP
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	ld e, a ; cur HP
-	call DrawHPBar
-	ld hl, wHUDEnergyAndHPBarsX
-	ld b, [hl]
-	inc hl
-	ld c, [hl] ; wHUDEnergyAndHPBarsY
-	inc c ; [wHUDEnergyAndHPBarsY] + 1
-	call BCCoordToBGMap0Address
-	push de
-	ld hl, wDefaultText
-	ld b, HP_BAR_LENGTH / 2 ; first row of the HP bar
-	call SafeCopyDataHLtoDE
-	pop de
-	ld hl, BG_MAP_WIDTH
-	add hl, de
-	ld e, l
-	ld d, h
-	ld hl, wDefaultText + HP_BAR_LENGTH / 2
-	ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
-	call SafeCopyDataHLtoDE
+		;start old hp bar
+	;ld a, [wLoadedCard1HP]
+	;ld d, a ; max HP
+	;ld a, DUELVARS_ARENA_CARD_HP
+	;call GetTurnDuelistVariable
+	;ld e, a ; cur HP
+	;call DrawHPBar
+	;ld hl, wHUDEnergyAndHPBarsX
+	;ld b, [hl]
+	;inc hl
+	;ld c, [hl] ; wHUDEnergyAndHPBarsY
+	;inc c ; [wHUDEnergyAndHPBarsY] + 1
+	;call BCCoordToBGMap0Address
+	;push de
+	;ld hl, wDefaultText
+	;ld b, HP_BAR_LENGTH / 2 ; first row of the HP bar
+	;call SafeCopyDataHLtoDE
+	;pop de
+	;ld hl, BG_MAP_WIDTH
+	;add hl, de
+	;ld e, l
+	;ld d, h
+	;ld hl, wDefaultText + HP_BAR_LENGTH / 2
+	;ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
+	;call SafeCopyDataHLtoDE
 
 	; print number of attached Pluspower and Defender with respective icon, if any
+	;ld hl, wHUDEnergyAndHPBarsX
+	;ld a, [hli]
+	;add 6
+		;end old hp bar
+		;start new hp bar
 	ld hl, wHUDEnergyAndHPBarsX
-	ld a, [hli]
-	add 6
+    ld b, [hl]
+    inc hl
+    ld c, [hl] ; wHUDEnergyAndHPBarsY
+    inc c ; [wHUDEnergyAndHPBarsY] + 1
+    ld a, DUELVARS_ARENA_CARD_HP
+    call GetTurnDuelistVariable
+    cp 100
+    jr nc, .threedigits
+    dec b
+    .threedigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    inc b
+    inc b
+    inc b
+    ld a, [wLoadedCard1HP]
+    cp 100
+    jr c, .twodigits
+    ld e, a
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    inc b
+    ld a, e    
+    call WriteTwoByteNumberInTxSymbolFormat
+    jr .skip
+    .twodigits 
+    call WriteTwoByteNumberInTxSymbolFormat
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    .skip
+    inc b
+    inc b
+    inc b
+    ld a, SYM_SPACE
+    call WriteByteToBGMap0
+
+    ; print number of attached Pluspower and Defender with respective icon, if any
+    ld hl, wHUDEnergyAndHPBarsX
+    ld a, [hli]
+    add 7
+		;end new hp bar
+
 	ld b, a
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	inc c
@@ -4985,18 +5030,49 @@ PrintPlayAreaCardInformation:
 	or a
 	jr z, .zero_hp
 	ld e, a
-	ld a, [wLoadedCard1HP]
-	ld d, a
-	call DrawHPBar
-	ld a, [wCurPlayAreaY]
-	inc a
-	inc a
-	ld c, a
-	ld b, 7
-	call BCCoordToBGMap0Address
-	ld hl, wDefaultText
-	ld b, 12
-	jp SafeCopyDataHLtoDE
+		;start old HP Bar
+	;ld a, [wLoadedCard1HP]
+	;ld d, a
+	;call DrawHPBar
+	;ld a, [wCurPlayAreaY]
+	;inc a
+	;inc a
+	;ld c, a
+	;ld b, 7
+	;call BCCoordToBGMap0Address
+	;ld hl, wDefaultText
+	;ld b, 12
+	;jp SafeCopyDataHLtoDE
+		;end old hp bar
+		;start new hp bar
+	ld a, [wCurPlayAreaSlot]
+    add DUELVARS_ARENA_CARD_HP
+    call GetTurnDuelistVariable
+    cp 100
+    jr nc, .threedigits
+    dec b
+    .threedigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    inc b
+    inc b
+    inc b
+    ld a, [wLoadedCard1HP]
+    cp 100
+    jr c, .twodigits
+    ld e, a
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    inc b
+    ld a, e    
+    call WriteTwoByteNumberInTxSymbolFormat
+    ret
+    .twodigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+		;end new hp bar
+
+
 .zero_hp
 	; if fainted, print "Knock Out" in place of the HP bar
 	ld a, [wCurPlayAreaY]
