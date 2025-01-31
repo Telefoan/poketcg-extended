@@ -417,7 +417,7 @@ DuelMenu_Retreat:
 	call GetTurnDuelistVariable
 	and CNF_SLP_PRZ
 	cp CONFUSED
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jr nz, .not_confused
 	ld a, [wGotHeadsFromConfusionCheckDuringRetreat]
 	or a
@@ -542,7 +542,7 @@ PlayEnergyCard:
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld e, a
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call PutHandCardInPlayArea
 	call PrintPlayAreaCardList_EnableLCD
 	ld a, OPPACTION_PLAY_ENERGY
@@ -588,7 +588,7 @@ PlayPokemonCard:
 	cp MAX_PLAY_AREA_POKEMON
 	jr nc, .no_space
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call PutHandPokemonCardInPlayArea
 	ldh [hTempPlayAreaLocation_ff9d], a
 	add DUELVARS_ARENA_CARD_STAGE
@@ -660,7 +660,7 @@ PlayPokemonCard:
 	call OpenPlayAreaScreenForSelection
 	jr c, .done
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	call EvolvePokemonCardIfPossible
@@ -1632,14 +1632,14 @@ HandleDuelSetup:
 	call SwapTurn
 	call PlayShuffleAndDrawCardsAnimation_BothDuelists
 	call ShuffleDeckAndDrawSevenCards
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call SwapTurn
 	call ShuffleDeckAndDrawSevenCards
 	call SwapTurn
 	ld c, a
 
 ; check if any Basic Pokémon cards were drawn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld b, a
 	and c
 	jr nz, .hand_cards_ok
@@ -5274,7 +5274,7 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	call YesOrNoMenuWithText
 	jp c, .asm_6435
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 .asm_649b
@@ -5410,7 +5410,7 @@ ReturnRetreatCostCardsToArena:
 ; if successful, the retreated card is replaced with a bench Pokemon card
 AttemptRetreat:
 	call DiscardRetreatCostCards
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	and CNF_SLP_PRZ
 	cp CONFUSED
 	jr nz, .success
@@ -5982,10 +5982,10 @@ OppAction_PlayEnergyCard:
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld e, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempCardIndex_ff98], a
 	call PutHandCardInPlayArea
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call LoadCardDataToBuffer1_FromDeckIndex
 	call DrawLargePictureOfCard
 	call PrintAttachedEnergyToPokemon
@@ -5997,7 +5997,7 @@ OppAction_PlayEnergyCard:
 OppAction_EvolvePokemonCard:
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	ldh [hTempPlayAreaLocation_ff9d], a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempCardIndex_ff98], a
 	call LoadCardDataToBuffer1_FromDeckIndex
 	call DrawLargePictureOfCard
@@ -6008,14 +6008,14 @@ OppAction_EvolvePokemonCard:
 
 ; place a basic Pokemon card from hand in the bench
 OppAction_PlayBasicPokemonCard:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempCardIndex_ff98], a
 	call PutHandPokemonCardInPlayArea
 	ldh [hTempPlayAreaLocation_ff9d], a
 	add DUELVARS_ARENA_CARD_STAGE
 	call GetTurnDuelistVariable
 	ld [hl], 0
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	call DisplayCardDetailScreen
 	call ProcessPlayedPokemonCard
@@ -6070,7 +6070,7 @@ OppAction_ExecuteTrainerCardEffectCommands:
 OppAction_BeginUseAttack:
 	ldh a, [hTempCardIndex_ff9f]
 	ld d, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call CopyAttackDataAndDamage_FromDeckIndex
 	call UpdateArenaCardIDsAndClearTwoTurnDuelVars
@@ -6143,7 +6143,7 @@ OppAction_UsePokemonPower:
 	ld d, a
 	ld e, $00
 	call CopyAttackDataAndDamage_FromDeckIndex
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempPlayAreaLocation_ff9d], a
 	call DisplayUsePokemonPowerScreen
 	ldh a, [hTempCardIndex_ff9f]
@@ -6188,7 +6188,7 @@ OppAction_TossCoinATimes:
 OppAction_6b30:
 	ldh a, [hWhoseTurn]
 	push af
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hWhoseTurn], a
 	call PlayDeckShuffleAnimation
 	pop af
@@ -6851,7 +6851,7 @@ ReplaceKnockedOutPokemon:
 ; the AI opponent replaces the knocked out Pokemon with one from bench
 .opponent
 	call AIDoAction_KOSwitch
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempPlayAreaLocation_ff9d], a
 	jr .replace_pokemon
 
