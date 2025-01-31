@@ -4065,6 +4065,36 @@ SleepingGasEffect:
 	ret
 
 HypnosisAbilityEffect:
+;stolen whole cloth from ImakuniEffect
+	ld a, DUELVARS_ARENA_CARD
+	call GetTurnDuelistVariable
+	call LoadCardDataToBuffer1_FromDeckIndex
+	ld hl, wLoadedCard1ID
+
+; cannot confuse Clefairy Doll and Mysterious Fossil
+	cphl CLEFAIRY_DOLL
+	jr z, .failed
+	cphl MYSTERIOUS_FOSSIL
+	jr z, .failed
+
+; cannot confuse Snorlax if its Pkmn Power is active
+	cphl SNORLAX
+	jr nz, .success
+	xor a ; PLAY_AREA_ARENA
+	call CheckIsIncapableOfUsingPkmnPower
+	jr c, .success
+	; fallthrough if Thick Skinned is active
+
+
+.failed
+; play confusion animation and print failure text
+	ld a, ATK_ANIM_OWN_CONFUSION
+	call PlayTrainerEffectAnimation
+	ldtx hl, ThereWasNoEffectText
+	jp DrawWideTextBox_WaitForInput
+
+.success
+;coin flip and animation stuff
 	call Sleep50PercentEffect
 	call nc, SetNoEffectFromStatus
 	ld a, ATK_ANIM_HYPNOSIS
@@ -4079,16 +4109,11 @@ HypnosisAbilityEffect:
 	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
-	set USED_PKMN_POWER_THIS_TURN_F, [hl]
-	ld l, DUELVARS_ARENA_CARD_STATUS
-	ld [hl], NO_STATUS
-
-	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetNonTurnDuelistVariable
-	ld [hl], NO_STATUS
+	and PSN_DBLPSN
+	or CONFUSED
+	ld [hl], a
 	bank1call DrawDuelHUDs
 	ret
-
 
 DestinyBond_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
