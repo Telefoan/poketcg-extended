@@ -4064,32 +4064,6 @@ SleepingGasEffect:
 	call nc, SetNoEffectFromStatus
 	ret
 
-HypnosisAbilityEffect:
-	call Sleep50PercentEffect
-	call nc, SetNoEffectFromStatus
-	ld a, ATK_ANIM_HYPNOSIS
-	ld [wLoadedAttackAnimation], a
-	bank1call Func_7415
-	lb bc, PLAY_AREA_ARENA, $0
-	ldh a, [hWhoseTurn]
-	ld h, a
-	bank1call PlayAttackAnimation
-	bank1call WaitAttackAnimation
-
-	ldh a, [hTempStorage]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_PKMN_POWER_THIS_TURN_F, [hl]
-	ld l, DUELVARS_ARENA_CARD_STATUS
-	ld [hl], NO_STATUS
-
-	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetNonTurnDuelistVariable
-	ld [hl], NO_STATUS
-	bank1call DrawDuelHUDs
-	ret
-
-
 DestinyBond_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
@@ -10195,3 +10169,47 @@ IcyWindEffect:
 	ld [wLoadedAttackAnimation], a
 	ld a, SUBSTATUS2_LEER
 	jp ApplySubstatus2ToDefendingCard
+	ret
+
+Hypnosis_OncePerTurnCheck:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTempStorage], a
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	and USED_PKMN_POWER_THIS_TURN
+	jr nz, .already_used
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	jp CheckIsIncapableOfUsingPkmnPower
+.already_used
+	ldtx hl, OnlyOncePerTurnText
+	scf
+	ret
+
+HypnosisAbilityEffect:
+	call Sleep50PercentEffect
+	call nc, SetNoEffectFromStatus
+	ldh [hAIPkmnPowerEffectParam], a 
+	jr nc, .done
+
+.done
+	ldh a, [hTempStorage]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+	ldh a, [hAIPkmnPowerEffectParam] ; Pretty sure this loads AI effect commands
+	or a ; PKmn power is now used
+	ret z ; return if coin was tails
+	call SleepEffect ; otherwise, sleep
+	ldh a, [hTempPlayAreaLocation_ff9d] ; For some reason all of this is needed to run the animation or something. 
+	ld b, a
+    ld c, $00
+    ldh a, [hWhoseTurn]
+    ld h, a
+ 	bank1call PlayAttackAnimation
+    bank1call PlayStatusConditionQueueAnimations
+    bank1call WaitAttackAnimation
+    bank1call ApplyStatusConditionQueue
+    bank1call DrawDuelHUDs
+    bank1call PrintFailedEffectText
+    call c, WaitForWideTextBoxInput ; All I know is that deleting it results in bad juju.
+    ret
