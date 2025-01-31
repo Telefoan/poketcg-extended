@@ -5229,21 +5229,21 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	xor a
 	ld [wSelectedDuelSubMenuItem], a
 
-.asm_6435
+.Subscript_Part_of_PokePower_3
 	call .DrawScreen
 	ld hl, PlayAreaScreenMenuParameters_ActivePokemonIncluded
 	ld a, [wSelectedDuelSubMenuItem]
 	call InitializeMenuParameters
 	ld a, [wNumPlayAreaItems]
 	ld [wNumMenuItems], a
-.asm_6447
+.Subscript_Part_of_PokePower_2
 	call DoFrame
 	call HandleMenuInput
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ld [wHUDEnergyAndHPBarsX], a
-	jr nc, .asm_6447
+	jr nc, .Subscript_Part_of_PokePower_2
 	cp $ff
-	jr z, .asm_649b
+	jr z, .Subscript_Part_of_PokePower_4
 	ld [wSelectedDuelSubMenuItem], a
 	ldh a, [hKeysPressed]
 	and START
@@ -5256,7 +5256,7 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	add hl, de
 	ld a, [hld]
 	cp $04
-	jr nz, .asm_6447
+	jr nz, .Subscript_Part_of_PokePower_2
 	ld a, [hl]
 	ldh [hTempCardIndex_ff98], a
 	ld d, a
@@ -5265,19 +5265,19 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	call DisplayUsePokemonPowerScreen
 	ld a, EFFECTCMDTYPE_INITIAL_EFFECT_1
 	call TryExecuteEffectCommandFunction
-	jr nc, .asm_648c
+	jr nc, .Subscript_UseThisPokemonPower_Question
 	ldtx hl, PokemonPowerSelectNotRequiredText
 	call DrawWideTextBox_WaitForInput
-	jp .asm_6435
-.asm_648c
+	jp .Subscript_Part_of_PokePower_3
+.Subscript_UseThisPokemonPower_Question
 	ldtx hl, UseThisPokemonPowerText
 	call YesOrNoMenuWithText
-	jp c, .asm_6435
+	jp c, .Subscript_Part_of_PokePower_3
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTempStorage], a
 	or a
 	ret
-.asm_649b
+.Subscript_Part_of_PokePower_4
 	scf
 	ret
 .asm_649d
@@ -5287,7 +5287,7 @@ DisplayPlayAreaScreenToUsePkmnPower:
 	call GetCardIDFromDeckIndex
 	call LoadCardDataToBuffer1_FromCardID
 	call OpenCardPage_FromCheckPlayArea
-	jp .asm_6435
+	jp .Subscript_Part_of_PokePower_3
 
 .DrawScreen:
 	call ZeroObjectPositionsAndToggleOAMCopy
