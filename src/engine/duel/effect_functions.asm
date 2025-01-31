@@ -4064,57 +4064,6 @@ SleepingGasEffect:
 	call nc, SetNoEffectFromStatus
 	ret
 
-HypnosisAbilityEffect:
-;stolen whole cloth from ImakuniEffect
-	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	call LoadCardDataToBuffer1_FromDeckIndex
-	ld hl, wLoadedCard1ID
-
-; cannot confuse Clefairy Doll and Mysterious Fossil
-	cphl CLEFAIRY_DOLL
-	jr z, .failed
-	cphl MYSTERIOUS_FOSSIL
-	jr z, .failed
-
-; cannot confuse Snorlax if its Pkmn Power is active
-	cphl SNORLAX
-	jr nz, .success
-	xor a ; PLAY_AREA_ARENA
-	call CheckIsIncapableOfUsingPkmnPower
-	jr c, .success
-	; fallthrough if Thick Skinned is active
-
-
-.failed
-; play confusion animation and print failure text
-	ld a, ATK_ANIM_OWN_CONFUSION
-	call PlayTrainerEffectAnimation
-	ldtx hl, ThereWasNoEffectText
-	jp DrawWideTextBox_WaitForInput
-
-.success
-;coin flip and animation stuff
-	call Sleep50PercentEffect
-	call nc, SetNoEffectFromStatus
-	ld a, ATK_ANIM_HYPNOSIS
-	ld [wLoadedAttackAnimation], a
-	bank1call Func_7415
-	lb bc, PLAY_AREA_ARENA, $0
-	ldh a, [hWhoseTurn]
-	ld h, a
-	bank1call PlayAttackAnimation
-	bank1call WaitAttackAnimation
-
-	ldh a, [hTempStorage]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	and PSN_DBLPSN
-	or CONFUSED
-	ld [hl], a
-	bank1call DrawDuelHUDs
-	ret
-
 DestinyBond_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
@@ -10220,3 +10169,47 @@ IcyWindEffect:
 	ld [wLoadedAttackAnimation], a
 	ld a, SUBSTATUS2_LEER
 	jp ApplySubstatus2ToDefendingCard
+	ret
+
+Hypnosis_OncePerTurnCheck:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTempStorage], a
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	and USED_PKMN_POWER_THIS_TURN
+	jr nz, .already_used
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	jp CheckIsIncapableOfUsingPkmnPower
+.already_used
+	ldtx hl, OnlyOncePerTurnText
+	scf
+	ret
+
+HypnosisAbilityEffect:
+	call Sleep50PercentEffect
+	call nc, SetNoEffectFromStatus
+	ldh [hAIPkmnPowerEffectParam], a 
+	jr nc, .done
+
+.done
+	ldh a, [hTempStorage]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+	ldh a, [hAIPkmnPowerEffectParam] ; Pretty sure this loads AI effect commands
+	or a ; PKmn power is now used
+	ret z ; return if coin was tails
+	call SleepEffect ; otherwise, sleep
+	ldh a, [hTempPlayAreaLocation_ff9d] ; For some reason all of this is needed to run the animation or something. 
+	ld b, a
+    ld c, $00
+    ldh a, [hWhoseTurn]
+    ld h, a
+ 	bank1call PlayAttackAnimation
+    bank1call PlayStatusConditionQueueAnimations
+    bank1call WaitAttackAnimation
+    bank1call ApplyStatusConditionQueue
+    bank1call DrawDuelHUDs
+    bank1call PrintFailedEffectText
+    call c, WaitForWideTextBoxInput ; All I know is that deleting it results in bad juju.
+    ret

@@ -7477,7 +7477,7 @@ Func_7324:
 	ldh a, [hff96]
 	ret
 
-Func_7415::
+Func_7415:: ; has something to do with making moves and powers do the thing
 	xor a
 	ld [wce7e], a
 	ret
