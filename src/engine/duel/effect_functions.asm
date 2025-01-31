@@ -10186,17 +10186,17 @@ Hypnosis_OncePerTurnCheck:
 	ret
 
 HypnosisAbilityEffect:
-	call Sleep50PercentEffect
-	call nc, SetNoEffectFromStatus
-	ldh [hAIPkmnPowerEffectParam], a 
-	jr nc, .done
+	ldtx de, SleepCheckText 
+    call TossCoin_BankB ; flips a coin
+    ldh [hAIPkmnPowerEffectParam], a ; Pretty sure this loads AI effect commands
+    jr nc, .done
 
 .done
 	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
-	ldh a, [hAIPkmnPowerEffectParam] ; Pretty sure this loads AI effect commands
+	ldh a, [hAIPkmnPowerEffectParam] 
 	or a ; PKmn power is now used
 	ret z ; return if coin was tails
 	call SleepEffect ; otherwise, sleep
