@@ -469,8 +469,13 @@ HandleAIPkmnPowers:
 	jr .next_1
 .check_strange_behavior
 	cp16 SLOWBRO
-	jr nz, .check_curse
+	jr nz, .check_hypnosis_ability
 	call HandleAIStrangeBehavior
+	jr .next_1
+.check_hypnosis_ability
+	cp16 HAUNTER
+	jr nz, .check_curse
+	call HandleAIHypnosisAbility
 	jr .next_1
 .check_curse
 	cp16 GENGAR
@@ -1207,3 +1212,25 @@ HandleAIGoGoRainDanceEnergy:
 	farcall AIProcessAndTryToPlayEnergy
 	jr c, .loop
 	ret
+
+HandleAIHypnosisAbility:
+	ld a, DUELVARS_ARENA_CARD_STATUS
+    call GetNonTurnDuelistVariable
+    and ASLEEP ; check if DFP is already asleep.
+    jr nz, .done ; if yes, quit
+
+    push af ; otherwise initiate AI action
+    ld a, [wce08]
+    ldh [hTempCardIndex_ff9f], a
+    ld a, OPPACTION_USE_PKMN_POWER
+    bank1call AIMakeDecision
+    pop af
+    ldh [hPlayAreaEffectTarget], a
+    ld a, OPPACTION_EXECUTE_PKMN_POWER_EFFECT
+    bank1call AIMakeDecision
+    ld a, OPPACTION_DUEL_MAIN_SCENE
+    bank1call AIMakeDecision
+    ret
+
+.done
+    ret
