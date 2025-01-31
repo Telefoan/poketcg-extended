@@ -828,7 +828,7 @@ AITryToRetreat:
 	call CreateEnergyCardListFromHand
 	jr c, .check_id
 	ld a, [wDuelTempList]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_PLAY_ENERGY
@@ -844,7 +844,7 @@ AITryToRetreat:
 	jp z, .mysterious_fossil_or_clefairy_doll
 
 ; if card is Asleep or Paralyzed, set carry and exit
-; else, load the status in hTemp_ffa0
+; else, load the status in hTempStorage
 	pop af
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, DUELVARS_ARENA_CARD_STATUS
@@ -856,7 +856,7 @@ AITryToRetreat:
 	cp PARALYZED
 	jp z, .set_carry
 	ld a, b
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, $ff
 	ldh [hTempRetreatCostCards], a
 
@@ -1011,7 +1011,7 @@ AITryToRetreat:
 	call GetTurnDuelistVariable
 	ldh [hTempCardIndex_ff9f], a
 	xor a ; PLAY_AREA_ARENA
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_USE_PKMN_POWER
 	bank1call AIMakeDecision
 	pop af

@@ -7171,7 +7171,7 @@ HaunterLv22Card:
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_HYPNOSIS ; animation
+	db ATK_ANIM_PKMN_POWER_1 ; ATK_ANIM_HYPNOSIS ; animation
 
 	; attack 2
 	energy PSYCHIC, 3 ; energies

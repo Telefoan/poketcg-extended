@@ -160,7 +160,7 @@ AIPlay_Potion:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld e, a
 	call GetCardDamageAndMaxHP
 	cp 20
@@ -349,7 +349,7 @@ AIPlay_SuperPotion:
 	ld a, [wAITrainerCardParameter]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	call AIPickEnergyCardToDiscard
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wAITrainerCardParameter]
 	ld e, a
 	call GetCardDamageAndMaxHP
@@ -597,7 +597,7 @@ AIPlay_Defender:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	xor a ; PLAY_AREA_ARENA
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -978,7 +978,7 @@ AIPlay_Switch:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	xor a
@@ -1041,7 +1041,7 @@ AIPlay_GustOfWind:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -1438,7 +1438,7 @@ AIPlay_EnergyRemoval:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
@@ -1651,7 +1651,7 @@ AIPlay_SuperEnergyRemoval:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wce1b]
@@ -1940,7 +1940,7 @@ AIPlay_PokemonBreeder:
 	ld a, [wAITrainerCardParameter]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wce1a]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -2617,7 +2617,7 @@ AIPlay_EnergyRetrieval:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wce1b]
@@ -2875,7 +2875,7 @@ AIPlay_SuperEnergyRetrieval:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wce1b]
@@ -3237,7 +3237,7 @@ AIPlay_EnergySearch:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -3486,7 +3486,7 @@ AIPlay_Pokedex:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wce1a]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1b]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wce1c]
@@ -3893,7 +3893,7 @@ AIPlay_MrFuji:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -3965,7 +3965,7 @@ AIPlay_ScoopUp:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
@@ -4173,7 +4173,7 @@ AIPlay_Maintenance:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wce1a]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1b]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
@@ -4270,11 +4270,11 @@ AIPlay_Recycle:
 	bank1call TossCoin
 	jr nc, .asm_216ae
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jr .asm_216b2
 .asm_216ae
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 .asm_216b2
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
@@ -4460,7 +4460,7 @@ AIPlay_ItemFinder:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wce1a]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1b]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wAITrainerCardParameter]
@@ -4648,7 +4648,7 @@ AIPlay_Revive:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -4699,7 +4699,7 @@ AIPlay_PokemonFlute:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
 	bank1call AIMakeDecision
 	ret
@@ -4842,7 +4842,7 @@ AIPlay_Pokeball:
 	ldh [hTempCardIndex_ff9f], a
 	ldtx de, TrainerCardSuccessCheckText
 	bank1call TossCoin
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jr nc, .asm_219bc
 	ld a, [wAITrainerCardParameter]
 	ldh [hTempPlayAreaLocation_ffa1], a
@@ -5065,7 +5065,7 @@ AIPlay_ComputerSearch:
 	ld a, [wAITrainerCardParameter]
 	ldh [hTempRetreatCostCards], a
 	ld a, [wce1a]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1b]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS
@@ -5486,7 +5486,7 @@ AIPlay_PokemonTrader:
 	ld a, [wAITrainerCardToPlay]
 	ldh [hTempCardIndex_ff9f], a
 	ld a, [wAITrainerCardParameter]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, [wce1a]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, OPPACTION_EXECUTE_TRAINER_EFFECTS

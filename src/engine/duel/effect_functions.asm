@@ -1381,12 +1381,12 @@ SpitPoison_Poison50PercentEffect:
 	ld [wLoadedAttackAnimation], a
 	jp SetNoEffectFromStatus
 
-; outputs in hTemp_ffa0 the result of the coin toss (0 = tails, 1 = heads).
+; outputs in hTempStorage the result of the coin toss (0 = tails, 1 = heads).
 ; in case it was heads, stores in hTempPlayAreaLocation_ffa1
 ; the PLAY_AREA_* location of the Bench Pokemon that was selected for switch.
 TerrorStrike_50PercentSelectSwitchPokemon:
 	xor a ; PLAY_AREA_ARENA
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 ; return failure if no Pokemon to switch to
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -1394,11 +1394,11 @@ TerrorStrike_50PercentSelectSwitchPokemon:
 	cp 2
 	ret c
 
-; toss coin and store whether it was tails (0) or heads (1) in hTemp_ffa0.
+; toss coin and store whether it was tails (0) or heads (1) in hTempStorage.
 ; return if it was tails.
 	ldtx de, IfHeadsChangeOpponentsActivePokemonText
 	call Serial_TossCoin
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret nc
 
 	call DuelistSelectForcedSwitch
@@ -1406,10 +1406,10 @@ TerrorStrike_50PercentSelectSwitchPokemon:
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ret
 
-; if coin toss at hTemp_ffa0 was heads and it's possible,
+; if coin toss at hTempStorage was heads and it's possible,
 ; switch the Defending Pokemon
 TerrorStrike_SwitchDefendingPokemon:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret z
 	ldh a, [hTempPlayAreaLocation_ffa1]
@@ -1444,21 +1444,21 @@ VictreebelLure_SelectSwitchPokemon:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .select_pokemon
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
-; Return in hTemp_ffa0 the PLAY_AREA_* of the non-turn holder's Pokemon card in bench with the lowest (remaining) HP.
+; Return in hTempStorage the PLAY_AREA_* of the non-turn holder's Pokemon card in bench with the lowest (remaining) HP.
 ; if multiple cards are tied for the lowest HP, the one with the highest PLAY_AREA_* is returned.
 VictreebelLure_GetBenchPokemonWithLowestHP:
 	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
-; Defending Pokemon is swapped out for the one with the PLAY_AREA_* at hTemp_ffa0
+; Defending Pokemon is swapped out for the one with the PLAY_AREA_* at hTempStorage
 ; unless Mew's Neutralizing Shield or Haunter's Transparency prevents it.
 VictreebelLure_SwitchDefendingPokemon:
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call HandleNShieldAndTransparency
 	call nc, SwapArenaWithBenchPokemon
@@ -1594,7 +1594,7 @@ Sprout_CheckDeckAndPlayArea:
 
 Sprout_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 	call CreateDeckCardList
 	ldtx hl, ChooseAnOddishFromDeckText
@@ -1618,7 +1618,7 @@ Sprout_PlayerSelectEffect:
 
 ; Oddish was selected
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -1648,7 +1648,7 @@ Sprout_PlayerSelectEffect:
 
 ; no Oddish in Deck, can safely exit screen
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -1657,7 +1657,7 @@ Sprout_AISelectEffect:
 	ld hl, wDuelTempList
 .loop_deck
 	ld a, [hli]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	cp $ff
 	ret z ; no Oddish
 	call GetCardIDFromDeckIndex
@@ -1666,7 +1666,7 @@ Sprout_AISelectEffect:
 	ret ; Oddish found
 
 Sprout_PutInPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .shuffle
 	call SearchCardInDeckAndAddToHand
@@ -1675,7 +1675,7 @@ Sprout_PutInPlayAreaEffect:
 	call IsPlayerTurn
 	jr c, .shuffle
 	; display card on screen
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 .shuffle
@@ -1699,18 +1699,18 @@ Teleport_PlayerSelectEffect:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .loop
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Teleport_AISelectEffect:
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	call Random
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Teleport_SwitchEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call SwapArenaWithBenchPokemon
 	xor a
@@ -1772,13 +1772,13 @@ Thrash_AIEffect:
 Thrash_ModifierEffect:
 	ldtx de, IfHeadPlus10IfTails10ToYourselfText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret nc
 	ld a, 10
 	jp AddToDamage
 
 Thrash_RecoilEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz
 	ld a, 10
@@ -1844,7 +1844,7 @@ NidoranFCallForFamily_CheckDeckAndPlayArea:
 
 NidoranFCallForFamily_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 	call CreateDeckCardList
 	ldtx hl, ChooseNidoranFromDeckText
@@ -1870,7 +1870,7 @@ NidoranFCallForFamily_PlayerSelectEffect:
 
 .selected_nidoran
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -1902,7 +1902,7 @@ NidoranFCallForFamily_PlayerSelectEffect:
 
 ; no Nidoran in Deck, can safely exit screen
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -1911,7 +1911,7 @@ NidoranFCallForFamily_AISelectEffect:
 	ld hl, wDuelTempList
 .loop_deck
 	ld a, [hli]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	cp $ff
 	ret z ; none found
 	call GetCardIDFromDeckIndex
@@ -1923,7 +1923,7 @@ NidoranFCallForFamily_AISelectEffect:
 	ret
 
 NidoranFCallForFamily_PutInPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .shuffle
 	call SearchCardInDeckAndAddToHand
@@ -1932,7 +1932,7 @@ NidoranFCallForFamily_PutInPlayAreaEffect:
 	call IsPlayerTurn
 	jr c, .shuffle
 	; display card on screen
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 .shuffle
@@ -1979,16 +1979,16 @@ Whirlwind_SelectEffect:
 	jr nc, .has_bench
 	; no bench, do not do effect
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 .has_bench
 	call DuelistSelectForcedSwitch
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Whirlwind_SwitchEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp HandleSwitchDefendingPokemonEffect
 
 ButterfreeMegaDrainEffect:
@@ -2029,7 +2029,7 @@ BulbasaurLeechSeedEffect:
 ; returns carry if no Grass Energy in Play Area
 EnergyTrans_CheckPlayArea:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	call CheckIsIncapableOfUsingPkmnPower
 	ret c ; cannot use Pkmn Power
@@ -2220,7 +2220,7 @@ BellsproutCallForFamily_CheckDeckAndPlayArea:
 
 BellsproutCallForFamily_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 	call CreateDeckCardList
 	ldtx hl, ChooseABellsproutFromDeckText
@@ -2244,7 +2244,7 @@ BellsproutCallForFamily_PlayerSelectEffect:
 
 ; Bellsprout was selected
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -2274,7 +2274,7 @@ BellsproutCallForFamily_PlayerSelectEffect:
 
 ; no Bellsprout in Deck, can safely exit screen
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -2283,7 +2283,7 @@ BellsproutCallForFamily_AISelectEffect:
 	ld hl, wDuelTempList
 .loop_deck
 	ld a, [hli]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	cp $ff
 	ret z ; no Bellsprout
 	call GetCardIDFromDeckIndex
@@ -2292,7 +2292,7 @@ BellsproutCallForFamily_AISelectEffect:
 	ret ; Bellsprout found
 
 BellsproutCallForFamily_PutInPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .shuffle
 	call SearchCardInDeckAndAddToHand
@@ -2300,7 +2300,7 @@ BellsproutCallForFamily_PutInPlayAreaEffect:
 	call PutHandPokemonCardInPlayArea
 	call IsPlayerTurn
 	jr c, .shuffle
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 .shuffle
@@ -2327,7 +2327,7 @@ WeezingSelfdestructEffect:
 
 Shift_OncePerTurnCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	and USED_PKMN_POWER_THIS_TURN
@@ -2341,7 +2341,7 @@ Shift_OncePerTurnCheck:
 
 Shift_PlayerSelectEffect:
 	ldtx hl, ChoosePokemonWishToColorChangeText
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or $80
 	call HandleColorChangeScreen
 	ldh [hAIPkmnPowerEffectParam], a
@@ -2384,17 +2384,17 @@ Shift_PlayerSelectEffect:
 	ret
 
 Shift_ChangeColorEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
 
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
 
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_CHANGED_TYPE
 	ld l, a
 	ldh a, [hAIPkmnPowerEffectParam]
@@ -2429,7 +2429,7 @@ TangelaPoisonPowder_AIEffect:
 
 Heal_OncePerTurnCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	and USED_PKMN_POWER_THIS_TURN
@@ -2474,7 +2474,7 @@ Heal_RemoveDamageEffect:
 
 .done
 ; flag Pkmn Power as being used regardless of coin outcome
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
@@ -2517,7 +2517,7 @@ PoisonWhip_AIEffect:
 
 SolarPower_CheckUse:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	and USED_PKMN_POWER_THIS_TURN
@@ -2560,7 +2560,7 @@ SolarPower_RemoveStatusEffect:
 	bank1call PlayAttackAnimation
 	bank1call WaitAttackAnimation
 
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
@@ -2719,7 +2719,7 @@ KrabbyCallForFamily_CheckDeckAndPlayArea:
 
 KrabbyCallForFamily_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 	call CreateDeckCardList
 	ldtx hl, ChooseAKrabbyFromDeckText
@@ -2743,7 +2743,7 @@ KrabbyCallForFamily_PlayerSelectEffect:
 
 ; Krabby was selected
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -2773,7 +2773,7 @@ KrabbyCallForFamily_PlayerSelectEffect:
 
 ; no Krabby in Deck, can safely exit screen
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -2782,7 +2782,7 @@ KrabbyCallForFamily_AISelectEffect:
 	ld hl, wDuelTempList
 .loop_deck
 	ld a, [hli]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	cp $ff
 	ret z ; no Krabby
 	call GetCardIDFromDeckIndex
@@ -2791,7 +2791,7 @@ KrabbyCallForFamily_AISelectEffect:
 	ret ; Krabby found
 
 KrabbyCallForFamily_PutInPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .shuffle
 	call SearchCardInDeckAndAddToHand
@@ -2799,7 +2799,7 @@ KrabbyCallForFamily_PutInPlayAreaEffect:
 	call PutHandPokemonCardInPlayArea
 	call IsPlayerTurn
 	jr c, .shuffle
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 .shuffle
@@ -2874,18 +2874,18 @@ StarmieRecover_PlayerSelectEffect:
 	bank1call HandleEnergyDiscardMenuInput
 	jr c, .loop_input
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a ; store card chosen
+	ldh [hTempStorage], a ; store card chosen
 	ret
 
 StarmieRecover_AISelectEffect:
 	ld a, TYPE_ENERGY_WATER
 	call CreateListOfEnergyAttachedToArena
 	ld a, [wDuelTempList] ; pick first card
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 StarmieRecover_DiscardEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp PutCardInDiscardPile
 
 StarmieRecover_HealEffect:
@@ -2909,11 +2909,11 @@ PlayerPickAttackForAmnesia:
 	call DrawWideTextBox_WaitForInput
 	call HandleDefendingPokemonAttackSelection
 	ld a, e
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 ; applies the Amnesia effect on the defending Pokemon,
-; for the attack index in hTemp_ffa0.
+; for the attack index in hTempStorage.
 ApplyAmnesiaToAttack:
 	ld a, SUBSTATUS2_AMNESIA
 	call ApplySubstatus2ToDefendingCard
@@ -2924,7 +2924,7 @@ ApplyAmnesiaToAttack:
 ; set selected attack as disabled
 	ld a, DUELVARS_ARENA_CARD_DISABLED_ATTACK_INDEX
 	call GetNonTurnDuelistVariable
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld [hl], a
 
 	ld l, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
@@ -2939,7 +2939,7 @@ ApplyAmnesiaToAttack:
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	ld d, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call GetAttackName
 	call LoadTxRam2
@@ -3004,11 +3004,11 @@ CloysterSpikeCannon_MultiplierEffect:
 Blizzard_BenchDamage50PercentEffect:
 	ldtx de, DamageToOppBenchIfHeadsDamageToYoursIfTailsText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a ; store coin result
+	ldh [hTempStorage], a ; store coin result
 	ret
 
 Blizzard_BenchDamageEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr nz, .opp_bench
 
@@ -3027,7 +3027,7 @@ Blizzard_BenchDamageEffect:
 ; return carry if can't use Cowardice
 Cowardice_Check:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call CheckIsIncapableOfUsingPkmnPower
 	ret c ; return if cannot use
 
@@ -3049,7 +3049,7 @@ Cowardice_Check:
 	ret
 
 Cowardice_PlayerSelectEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz ; return if not Arena card
 	ldtx hl, SelectPokemonToPlaceInTheArenaText
@@ -3061,20 +3061,20 @@ Cowardice_PlayerSelectEffect:
 	ret
 
 Cowardice_RemoveFromPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 
 ; put card in Discard Pile temporarily, so that
 ; all cards attached are discarded as well.
 	push af
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call MovePlayAreaCardToDiscardPile
 
 ; if card was in Arena, swap selected Bench
 ; Pokemon with Arena, otherwise skip.
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr nz, .skip_switch
 	ldh a, [hAIPkmnPowerEffectParam]
@@ -3268,17 +3268,17 @@ NinetalesLure_PlayerSelectEffect:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .loop_input
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
 NinetalesLure_AISelectEffect:
 	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 NinetalesLure_SwitchEffect:
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call HandleNShieldAndTransparency
 	call nc, SwapArenaWithBenchPokemon
@@ -3363,9 +3363,9 @@ Wildfire_PlayerSelectEffect:
 
 .done
 ; return carry if no cards were discarded
-; output the result in hTemp_ffa0
+; output the result in hTempStorage
 	ldh a, [hCurSelectionItem]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret nz
 	scf
@@ -3379,12 +3379,12 @@ Wildfire_AISelectEffect:
 
 Wildfire_DiscardEnergyEffect:
 	call CreateListOfFireEnergyAttachedToArena
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret z ; no cards to discard
 
 ; discard cards from wDuelTempList equal to the number
-; of cards that were input in hTemp_ffa0.
+; of cards that were input in hTempStorage.
 ; these are all the Fire Energy cards attached to Arena card
 ; so it will discard the cards in order, regardless
 ; of the actual order that was selected by Player.
@@ -3398,7 +3398,7 @@ Wildfire_DiscardEnergyEffect:
 	ret
 
 Wildfire_DiscardDeckEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld c, a
 	ld b, $00
 	call SwapTurn
@@ -3842,7 +3842,7 @@ HandleEnergyCardsInDiscardPileSelection:
 ; sets the correct text in hl for failure.
 Curse_CheckDamageAndBench:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 ; fail if Pkmn Power has already been used
 	add DUELVARS_ARENA_CARD_FLAGS
@@ -4020,7 +4020,7 @@ DarkMind_PlayerSelectEffect:
 	jr nc, .has_bench
 ; no bench Pokemon to damage.
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 .has_bench
@@ -4034,23 +4034,23 @@ DarkMind_PlayerSelectEffect:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .loop_input
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
 DarkMind_AISelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	cp 2
 	ret c ; return if no Bench Pokemon
 ; just pick Pokemon with lowest remaining HP.
 	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 DarkMind_DamageBenchEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	ret z ; no target chosen
 	call SwapTurn
@@ -4225,7 +4225,7 @@ Prophecy_AISelectEffect:
 ; AI doesn't ever choose this attack
 ; so this it does no sorting.
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Prophecy_ReorderDeckEffect:
@@ -4421,7 +4421,7 @@ InvisibleWallEffect:
 ; returns carry if Damage Swap cannot be used.
 DamageSwap_CheckDamage:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call CheckIfPlayAreaHasAnyDamage
 	jr c, .no_damage
 	ldh a, [hTempPlayAreaLocation_ff9d]
@@ -4574,7 +4574,7 @@ DevolutionBeam_CheckPlayArea:
 	ret
 
 ; returns carry of Player cancelled selection.
-; otherwise, output in hTemp_ffa0 which Play Area
+; otherwise, output in hTempStorage which Play Area
 ; was selected ($0 = own Play Area, $1 = opp. Play Area)
 ; and in hTempPlayAreaLocation_ffa1 selected card.
 DevolutionBeam_PlayerSelectEffect:
@@ -4600,7 +4600,7 @@ DevolutionBeam_PlayerSelectEffect:
 
 	xor a
 .store_selection
-	ld hl, hTemp_ffa0
+	ld hl, hTempStorage
 	ld [hli], a ; store which Duelist Play Area selected
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ld [hl], a ; store which card selected
@@ -4621,13 +4621,13 @@ DevolutionBeam_PlayerSelectEffect:
 
 DevolutionBeam_AISelectEffect:
 	ld a, $01
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call SwapTurn
 	call FindFirstNonBasicCardInPlayArea
 	call SwapTurn
 	jr c, .found
 	xor a
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call FindFirstNonBasicCardInPlayArea
 .found
 	ldh [hTempPlayAreaLocation_ffa1], a
@@ -4639,7 +4639,7 @@ DevolutionBeam_LoadAnimation:
 	ret
 
 DevolutionBeam_DevolveEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr z, .DevolvePokemon
 	cp $ff
@@ -4812,7 +4812,7 @@ Barrier_PlayerSelectEffect:
 	bank1call HandleEnergyDiscardMenuInput
 	ret c
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Barrier_AISelectEffect:
@@ -4820,11 +4820,11 @@ Barrier_AISelectEffect:
 	ld a, TYPE_ENERGY_PSYCHIC
 	call CreateListOfEnergyAttachedToArena
 	ld a, [wDuelTempList]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Barrier_DiscardEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp PutCardInDiscardPile
 
 Barrier_BarrierEffect:
@@ -4876,7 +4876,7 @@ EnergyAbsorption_AddToHandEffect:
 StrangeBehavior_CheckDamage:
 ; does Play Area have any damage counters?
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call CheckIfPlayAreaHasAnyDamage
 	ldtx hl, NoPokemonWithDamageCountersText
 	jr c, .set_carry
@@ -4931,7 +4931,7 @@ StrangeBehavior_SelectAndSwapEffect:
 
 	ldh [hCurSelectionItem], a
 	ldh [hTempPlayAreaLocation_ffa1], a
-	ld hl, hTemp_ffa0
+	ld hl, hTempStorage
 	cp [hl]
 	jr z, .play_sfx ; can't select Slowbro itself
 
@@ -4957,11 +4957,11 @@ StrangeBehavior_SwapEffect:
 	ret
 
 ; tries to give the damage counter to the target
-; chosen by the Player (hTemp_ffa0).
+; chosen by the Player (hTempStorage).
 ; if the damage counter would KO card, then do
 ; not give the damage counter and return carry.
 TryGiveDamageCounter_StrangeBehavior:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	sub 10
@@ -4991,14 +4991,14 @@ SpacingOut_CheckDamage:
 SpacingOut_Success50PercentEffect:
 	ldtx de, SuccessCheckIfHeadsAttackIsSuccessfulText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp nc, SetWasUnsuccessful
 	ld a, ATK_ANIM_RECOVER
 	ld [wLoadedAttackAnimation], a
 	ret
 
 SpacingOut_HealEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret z ; coin toss was tails
 	ld e, PLAY_AREA_ARENA
@@ -5031,7 +5031,7 @@ Scavenge_PlayerSelectEnergyEffect:
 	bank1call HandleEnergyDiscardMenuInput
 	ret c
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -5040,7 +5040,7 @@ Scavenge_AISelectEffect:
 	ld a, TYPE_ENERGY_PSYCHIC
 	call CreateListOfEnergyAttachedToArena
 	ld a, [wDuelTempList]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 ; AI picks first Trainer card in list
 	call CreateTrainerCardListFromDiscardPile
 	ld a, [wDuelTempList]
@@ -5048,7 +5048,7 @@ Scavenge_AISelectEffect:
 	ret
 
 Scavenge_DiscardEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp PutCardInDiscardPile
 
 Scavenge_PlayerSelectTrainerEffect:
@@ -5086,7 +5086,7 @@ Amnesia_PlayerSelectEffect:
 
 Amnesia_AISelectEffect:
 	call AIPickAttackForAmnesia
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Amnesia_DisableEffect:
@@ -5114,18 +5114,18 @@ KadabraRecover_PlayerSelectEffect:
 	bank1call HandleEnergyDiscardMenuInput
 	ret c
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a ; store card chosen
+	ldh [hTempStorage], a ; store card chosen
 	ret
 
 KadabraRecover_AISelectEffect:
 	ld a, TYPE_ENERGY_PSYCHIC
 	call CreateListOfEnergyAttachedToArena
 	ld a, [wDuelTempList] ; pick first card
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 KadabraRecover_DiscardEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp PutCardInDiscardPile
 
 KadabraRecover_HealEffect:
@@ -5173,7 +5173,7 @@ MysteryAttack_RandomEffect:
 ; chooses a random effect from 8 possible options.
 	call UpdateRNGSources
 	and %111
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld hl, .random_effect
 	jp JumpToFunctionInTable
 
@@ -5203,7 +5203,7 @@ MysteryAttack_RandomEffect:
 MysteryAttack_RecoverEffect:
 ; in case the 5th option was chosen for random effect,
 ; trigger recovery effect for 10 HP.
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp 4
 	ret nz
 	lb de, 0, 10
@@ -5216,19 +5216,19 @@ StoneBarrage_AIEffect:
 
 StoneBarrage_MultiplierEffect:
 	xor a
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 .loop_coin_toss
 	ldtx de, FlipUntilFailAppears10DamageForEachHeadsText
 	xor a
 	call TossCoinATimes_BankB
 	jr nc, .tails
-	ld hl, hTemp_ffa0
+	ld hl, hTempStorage
 	inc [hl] ; increase heads count
 	jr .loop_coin_toss
 
 .tails
 ; store resulting damage
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld l, a
 	ld h, 10
 	call HtimesL
@@ -5329,7 +5329,7 @@ MarowakCallForFamily_CheckDeckAndPlayArea:
 
 MarowakCallForFamily_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 	call CreateDeckCardList
 	ldtx hl, ChooseBasicFightingPokemonFromDeckText
@@ -5356,7 +5356,7 @@ MarowakCallForFamily_PlayerSelectEffect:
 	or a
 	jr nz, .play_sfx ; is Basic?
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -5390,7 +5390,7 @@ MarowakCallForFamily_PlayerSelectEffect:
 
 ; no valid card in Deck, can safely exit screen
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
@@ -5399,7 +5399,7 @@ MarowakCallForFamily_AISelectEffect:
 	ld hl, wDuelTempList
 .loop_deck
 	ld a, [hli]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	cp $ff
 	ret z ; none found
 	call LoadCardDataToBuffer2_FromDeckIndex
@@ -5413,7 +5413,7 @@ MarowakCallForFamily_AISelectEffect:
 	ret
 
 MarowakCallForFamily_PutInPlayAreaEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .shuffle
 	call SearchCardInDeckAndAddToHand
@@ -5422,7 +5422,7 @@ MarowakCallForFamily_PutInPlayAreaEffect:
 	call IsPlayerTurn
 	jr c, .shuffle
 	; display card on screen
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 .shuffle
@@ -5474,17 +5474,17 @@ Ram_SelectSwitchEffect:
 	jr c, .no_bench
 	call DuelistSelectForcedSwitch
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 .no_bench
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Ram_RecoilSwitchEffect:
 	ld a, 20
 	call DealRecoilDamageToSelf
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp HandleSwitchDefendingPokemonEffect
 
 LeerEffect:
@@ -5513,18 +5513,18 @@ StretchKick_PlayerSelectEffect:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .loop_input
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
 StretchKick_AISelectEffect:
 ; chooses Bench Pokemon with least amount of remaining HP
 	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 StretchKick_BenchDamageEffect:
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld b, a
 	ld de, 20
 	call DealDamageToPlayAreaPokemon_RegularAnim
@@ -5547,7 +5547,7 @@ PrehistoricPowerEffect:
 ; returns carry if Pkmn Power can't be used.
 Peek_OncePerTurnCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	and USED_PKMN_POWER_THIS_TURN
@@ -5561,7 +5561,7 @@ Peek_OncePerTurnCheck:
 
 Peek_SelectEffect:
 ; set Pkmn Power used flag
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_FLAGS
 	call GetTurnDuelistVariable
 	set USED_PKMN_POWER_THIS_TURN_F, [hl]
@@ -5700,13 +5700,13 @@ Thunderpunch_AIEffect:
 Thunderpunch_ModifierEffect:
 	ldtx de, IfHeadPlus10IfTails10ToYourselfText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret nc ; return if got tails
 	ld a, 10
 	jp AddToDamage
 
 Thunderpunch_RecoilEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz ; return if got heads
 	ld a, 10
@@ -5737,13 +5737,13 @@ Thunder_Recoil50PercentEffect:
 	call LoadTxRam3
 	ldtx de, IfTailsDamageToYourselfTooText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Thunder_RecoilEffect:
 	ld hl, 30
 	call LoadTxRam3
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz ; return if got heads
 	ld a, 30
@@ -5799,12 +5799,12 @@ ThunderstormEffect:
 	call GetNextPositionInTempList
 	ld [hl], $ff
 	ld a, b
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call ResetAnimationQueue
 	call SwapTurn
 
 ; tally recoil damage
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr z, .skip_recoil
 	; deal number of tails times 10 to self
@@ -5899,13 +5899,13 @@ ThunderJolt_Recoil50PercentEffect:
 	call LoadTxRam3
 	ldtx de, IfTailsDamageToYourselfTooText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 ThunderJolt_RecoilEffect:
 	ld hl, 10
 	call LoadTxRam3
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz ; return if was heads
 	ld a, 10
@@ -5913,7 +5913,7 @@ ThunderJolt_RecoilEffect:
 
 Spark_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	cp 2
@@ -5933,27 +5933,27 @@ Spark_PlayerSelectEffect:
 	bank1call OpenPlayAreaScreenForSelection
 	jr c, .loop_input
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
 Spark_AISelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetNonTurnDuelistVariable
 	cp 2
 	ret c ; has no Bench Pokemon
 ; AI always picks Pokemon with lowest HP remaining
 	call GetBenchPokemonWithLowestHP
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Spark_BenchDamageEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	ret z
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld b, a
 	ld de, 10
 	call DealDamageToPlayAreaPokemon_RegularAnim
@@ -6475,7 +6475,7 @@ EnergySpike_DeckCheck:
 
 EnergySpike_PlayerSelectEffect:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 
 ; search cards in Deck
 	call CreateDeckCardList
@@ -6501,7 +6501,7 @@ EnergySpike_PlayerSelectEffect:
 	; Energy card selected
 
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call EmptyScreen
 	ldtx hl, ChoosePokemonToAttachEnergyCardText
 	call DrawWideTextBox_WaitForInput
@@ -6544,17 +6544,17 @@ EnergySpike_PlayerSelectEffect:
 	; can exit
 
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 EnergySpike_AISelectEffect:
 ; AI doesn't select any card
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 EnergySpike_AttachEnergyEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .done
 
@@ -6563,7 +6563,7 @@ EnergySpike_AttachEnergyEffect:
 	call AddCardToHand
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	ld e, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call PutHandCardInPlayArea
 	call IsPlayerTurn
 	jr c, .done
@@ -6581,7 +6581,7 @@ EnergySpike_AttachEnergyEffect:
 	inc de
 	ld a, [hli]
 	ld [de], a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, AttachedEnergyToPokemonText
 	bank1call DisplayCardDetailScreen
 
@@ -6643,7 +6643,7 @@ MirrorMove_InitialEffect1:
 
 MirrorMove_InitialEffect2:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
 	call GetTurnDuelistVariable
 	or a
@@ -6665,7 +6665,7 @@ MirrorMove_PlayerSelection:
 
 MirrorMove_AISelection:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
 	call GetTurnDuelistVariable
 	or a
@@ -6678,12 +6678,12 @@ MirrorMove_AISelection:
 
 .discard_energy
 	call AIPickEnergyCardToDiscardFromDefendingPokemon
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 .pick_amnesia_attack
 	call AIPickAttackForAmnesia
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 MirrorMove_BeforeDamage:
@@ -6748,7 +6748,7 @@ MirrorMove_AfterDamage:
 
 ; execute Energy discard effect for card chosen
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call PutCardInDiscardPile
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
 	call GetTurnDuelistVariable
@@ -6829,7 +6829,7 @@ MoveMirrorExecuteStatusEffect:
 ; return carry if cannot use Step In
 StepIn_BenchCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldtx hl, CanOnlyBeUsedOnTheBenchText
 	or a
 	jr z, .set_carry
@@ -6848,7 +6848,7 @@ StepIn_BenchCheck:
 	ret
 
 StepIn_SwitchEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call SwapArenaWithBenchPokemon
 	ld a, DUELVARS_ARENA_CARD_FLAGS
@@ -7024,13 +7024,13 @@ HyperBeam_PlayerSelectEffect:
 
 HyperBeam_AISelectEffect:
 	call AIPickEnergyCardToDiscardFromDefendingPokemon
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 HyperBeam_DiscardEffect:
 	call HandleNoDamageOrEffect
 	ret c ; is unaffected
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	ret z ; no energy card chosen
 	call SwapTurn
@@ -7042,7 +7042,7 @@ HyperBeam_DiscardEffect:
 
 ; handles screen for selecting an Energy card to discard
 ; that is attached to Defending Pokemon,
-; and store the Player selection in [hTemp_ffa0].
+; and store the Player selection in [hTempStorage].
 HandleEnergyDiscardEffectSelection:
 	call SwapTurn
 	xor a ; PLAY_AREA_ARENA
@@ -7059,13 +7059,13 @@ HandleEnergyDiscardEffectSelection:
 
 	call SwapTurn
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a ; store selected card to discard
+	ldh [hTempStorage], a ; store selected card to discard
 	ret
 
 .no_energy
 	call SwapTurn
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 ; return carry if Defending Pokemon has no attacks
@@ -7266,7 +7266,7 @@ Conversion1_PlayerSelectEffect:
 	ldtx hl, ChooseWeaknessYouWishToChangeText
 	xor a ; PLAY_AREA_ARENA
 	call HandleColorChangeScreen
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Conversion1_AISelectEffect:
@@ -7279,7 +7279,7 @@ Conversion1_ChangeWeaknessEffect:
 ; apply changed weakness
 	ld a, DUELVARS_ARENA_CARD_CHANGED_WEAKNESS
 	call GetNonTurnDuelistVariable
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call TranslateColorToWR
 	ld [hl], a
 	ld l, DUELVARS_ARENA_CARD_LAST_TURN_CHANGE_WEAK
@@ -7311,7 +7311,7 @@ Conversion2_PlayerSelectEffect:
 	ldtx hl, ChooseResistanceYouWishToChangeText
 	ld a, $80
 	call HandleColorChangeScreen
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Conversion2_AISelectEffect:
@@ -7325,7 +7325,7 @@ Conversion2_AISelectEffect:
 	ld a, [wLoadedCard1Type]
 	cp COLORLESS
 	jr z, .is_colorless
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 .is_colorless
@@ -7337,7 +7337,7 @@ Conversion2_ChangeResistanceEffect:
 ; apply changed resistance
 	ld a, DUELVARS_ARENA_CARD_CHANGED_RESISTANCE
 	call GetTurnDuelistVariable
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call TranslateColorToWR
 	ld [hl], a
 	ldtx hl, ChangedTheResistanceOfPokemonToColorText
@@ -7345,7 +7345,7 @@ Conversion2_ChangeResistanceEffect:
 
 ; prints text that requires card name and color,
 ; with the card name of the Turn Duelist's Arena Pokemon
-; and color in [hTemp_ffa0].
+; and color in [hTempStorage].
 ; input:
 ;	hl = text to print
 PrintArenaCardNameAndColorText:
@@ -7353,7 +7353,7 @@ PrintArenaCardNameAndColorText:
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call LoadCardNameAndInputColor
 	pop hl
 	jp DrawWideTextBox_PrintText
@@ -7428,14 +7428,14 @@ AISelectConversionColor:
 ; otherwise, just select a random energy.
 	ld a, NUM_COLORED_TYPES
 	call Random
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 .found
 	pop de
 	ld a, [wLoadedCard1Type]
 	and TYPE_PKMN
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 ScrunchEffect:
@@ -7469,7 +7469,7 @@ SuperFang_HalfHPEffect:
 ; return carry if no Pokemon in Bench
 TrainerCardAsPokemon_BenchCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ldtx hl, EffectNoPokemonOnTheBenchText
@@ -7477,7 +7477,7 @@ TrainerCardAsPokemon_BenchCheck:
 	ret
 
 TrainerCardAsPokemon_PlayerSelectSwitch:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	ret nz ; no need to switch if it's not Arena card
 
@@ -7490,10 +7490,10 @@ TrainerCardAsPokemon_PlayerSelectSwitch:
 	ret
 
 TrainerCardAsPokemon_DiscardEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call MovePlayAreaCardToDiscardPile
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr nz, .shift_cards
 	ldh a, [hTempPlayAreaLocation_ffa1]
@@ -7864,7 +7864,7 @@ SuperPotion_PlayerSelectEffect:
 	ret c ; exit if B was pressed
 
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld e, a
@@ -7883,7 +7883,7 @@ SuperPotion_PlayerSelectEffect:
 	ret
 
 SuperPotion_HealEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call PutCardInDiscardPile
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	ldh [hTempPlayAreaLocation_ff9d], a
@@ -7923,7 +7923,7 @@ CheckIfThereAreAnyEnergyCardsAttached:
 ; then opens screen to choose one of the energy cards
 ; attached to that selected Pokemon.
 ; outputs the selection in:
-;	[hTemp_ffa0] = play area location
+;	[hTempStorage] = play area location
 ;	[hTempPlayAreaLocation_ffa1] = index of energy card
 HandlePokemonAndEnergySelectionScreen:
 	bank1call HasAlivePokemonInPlayArea
@@ -7945,7 +7945,7 @@ HandlePokemonAndEnergySelectionScreen:
 	bank1call DisplayEnergyDiscardScreen
 	bank1call HandleEnergyDiscardMenuInput
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ret
@@ -8016,7 +8016,7 @@ EnergyRemoval_DiscardEffect:
 
 ; show Player which Pokemon was affected
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call DrawPlayAreaScreenToShowChanges
 	jp SwapTurn
 
@@ -8112,7 +8112,7 @@ EnergySearch_DeckCheck:
 
 EnergySearch_PlayerSelection:
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call CreateDeckCardList
 	ldtx hl, Choose1BasicEnergyCardFromDeckText
 	ld d, SEARCHEFFECT_BASIC_ENERGY
@@ -8128,7 +8128,7 @@ EnergySearch_PlayerSelection:
 	bank1call DisplayCardList
 	jr c, .try_exit ; B pressed?
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call CheckIfCardIsBasicEnergy
 	jr c, .play_sfx
 	or a
@@ -8149,12 +8149,12 @@ EnergySearch_PlayerSelection:
 	jr .read_input ; no, has to select Energy card
 .exit
 	ld a, $ff
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret
 
 EnergySearch_AddToHandEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp $ff
 	jr z, .done
 ; add to hand
@@ -8163,7 +8163,7 @@ EnergySearch_AddToHandEffect:
 	call IsPlayerTurn
 	jr c, .done ; done if Player played card
 ; display card in screen
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, WasPlacedInTheHandText
 	bank1call DisplayCardDetailScreen
 .done
@@ -8222,7 +8222,7 @@ Potion_PlayerSelection:
 	bank1call OpenPlayAreaScreenForSelection
 	ret c ; exit is B was pressed
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld e, a
 	call GetCardDamageAndMaxHP
 	or a
@@ -8239,7 +8239,7 @@ Potion_PlayerSelection:
 	ret
 
 Potion_HealEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	jp HealPlayAreaCardHP
@@ -8247,7 +8247,7 @@ Potion_HealEffect:
 GamblerEffect:
 	ldtx de, CardCheckIfHeads8CardsIfTails1CardText
 	call TossCoin_BankB
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 ; discard Gambler card from hand
 	ldh a, [hTempCardIndex_ff9f]
 	call RemoveCardFromHand
@@ -8268,7 +8268,7 @@ GamblerEffect:
 .check_coin_toss
 	call ShuffleCardsInDeck
 	ld c, 8
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr nz, .draw_cards ; coin toss was heads?
 	; if tails, number of cards to draw is 1
@@ -8340,25 +8340,25 @@ Defender_PlayerSelection:
 	bank1call HasAlivePokemonInPlayArea
 	bank1call OpenPlayAreaScreenForSelection
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Defender_AttachDefenderEffect:
 ; attach Trainer card to Play Area Pokemon
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	ldh a, [hTempCardIndex_ff9f]
 	call PutHandCardInPlayArea
 
 ; increase number of Defender cards of this location by 1
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD_ATTACHED_DEFENDER
 	call GetTurnDuelistVariable
 	inc [hl]
 	call IsPlayerTurn
 	ret c
 
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	jp DrawPlayAreaScreenToShowChanges
 
 ; return carry if Bench is full.
@@ -8496,12 +8496,12 @@ MrFuji_PlayerSelection:
 	bank1call HasAlivePokemonInBench
 	bank1call OpenPlayAreaScreenForSelection
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 MrFuji_ReturnToDeckEffect:
 ; get Play Area location's card index
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	ldh [hTempCardIndex_ff98], a
@@ -8509,7 +8509,7 @@ MrFuji_ReturnToDeckEffect:
 ; find all cards that are in the same location
 ; (previous evolutions and energy cards attached)
 ; and return them all to the deck.
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or CARD_LOCATION_PLAY_AREA
 	ld e, a
 	ld a, DUELVARS_CARD_LOCATIONS
@@ -8531,7 +8531,7 @@ MrFuji_ReturnToDeckEffect:
 	jr c, .loop_cards
 
 ; clear Play Area location of card
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call EmptyPlayAreaSlot
 	ld l, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
@@ -8581,11 +8581,11 @@ Switch_PlayerSelection:
 	bank1call HasAlivePokemonInBench
 	bank1call OpenPlayAreaScreenForSelection
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Switch_SwitchEffect:
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	jp SwapArenaWithBenchPokemon
 
@@ -8676,13 +8676,13 @@ PokemonFlute_PlayerSelection:
 	bank1call DisplayCardList
 	call SwapTurn
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 PokemonFlute_PlaceInPlayAreaText:
 ; place selected card in non-Turn Duelist's Bench
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call MoveDiscardPileCardToHand
 	call AddCardToHand
 	call PutHandPokemonCardInPlayArea
@@ -8693,7 +8693,7 @@ PokemonFlute_PlaceInPlayAreaText:
 	call IsPlayerTurn
 	ret c
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, CardWasChosenText
 	bank1call DisplayCardDetailScreen
 	jp SwapTurn
@@ -8721,7 +8721,7 @@ PokemonBreeder_PlayerSelection:
 	ret c ; exit if B was pressed
 
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ldtx hl, ChooseBasicPokemonToEvolveText
 	call DrawWideTextBox_WaitForInput
 
@@ -8733,7 +8733,7 @@ PokemonBreeder_PlayerSelection:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld e, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld d, a
 	call CheckIfCanEvolveInto_BasicToStage2
 	jr c, .read_input ; loop back if cannot evolve this card
@@ -8743,7 +8743,7 @@ PokemonBreeder_PlayerSelection:
 PokemonBreeder_EvolveEffect:
 	ldh a, [hTempCardIndex_ff9f]
 	push af
-	ld hl, hTemp_ffa0
+	ld hl, hTempStorage
 	ld a, [hli]
 	ldh [hTempCardIndex_ff98], a
 	ld a, [hl] ; hTempPlayAreaLocation_ffa1
@@ -8885,7 +8885,7 @@ ScoopUp_PlayerSelection:
 	bank1call OpenPlayAreaScreenForSelection
 	ret c ; exit if B was pressed
 
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	or a
 	ret nz ; if it wasn't the Active Pokemon, we are done
 
@@ -8900,7 +8900,7 @@ ScoopUp_PlayerSelection:
 
 ScoopUp_ReturnToHandEffect:
 ; store chosen card location to Scoop Up
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or CARD_LOCATION_PLAY_AREA
 	ld e, a
 
@@ -8936,12 +8936,12 @@ ScoopUp_ReturnToHandEffect:
 ; since the card has been moved to hand,
 ; MovePlayAreaCardToDiscardPile will take care
 ; of discarding every higher stage cards and other cards attached.
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call MovePlayAreaCardToDiscardPile
 
 ; if the Pokemon was in the Arena, clear status
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	call z, ClearAllStatusConditions
 .skip_clear_status
@@ -8951,7 +8951,7 @@ ScoopUp_ReturnToHandEffect:
 	call IsPlayerTurn
 	jr c, .shift_or_switch
 	ldtx hl, PokemonWasReturnedFromArenaToHandText
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr z, .display_detail_screen
 	ldtx hl, PokemonWasReturnedFromBenchToHandText
@@ -8961,7 +8961,7 @@ ScoopUp_ReturnToHandEffect:
 
 .shift_or_switch
 ; if card was in Bench, simply shift Pokemon slots...
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	or a
 	jr z, .switch
 	jp ShiftAllPokemonToFirstPlayAreaSlots
@@ -9000,13 +9000,13 @@ PokemonTrader_PlayerHandSelection:
 	ldtx de, DuelistHandText
 	bank1call SetCardListHeaderText
 	bank1call DisplayCardList
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 PokemonTrader_PlayerDeckSelection:
 ; temporarily place chosen hand card in deck
 ; so it can be potentially chosen to be traded.
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call RemoveCardFromHand
 	call ReturnCardToDeck
 
@@ -9032,7 +9032,7 @@ PokemonTrader_PlayerDeckSelection:
 ; place the selected hand card back to the hand.
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTempPlayAreaLocation_ffa1], a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call SearchCardInDeckAndAddToHand
 	call AddCardToHand
 	or a
@@ -9040,7 +9040,7 @@ PokemonTrader_PlayerDeckSelection:
 
 PokemonTrader_TradeCardsEffect:
 ; place hand card in deck
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call RemoveCardFromHand
 	call ReturnCardToDeck
 
@@ -9052,7 +9052,7 @@ PokemonTrader_TradeCardsEffect:
 ; display cards if the Pokemon Trader wasn't played by Player
 	call IsPlayerTurn
 	jr c, .done
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PokemonWasReturnedToDeckText
 	bank1call DisplayCardDetailScreen
 	ldh a, [hTempPlayAreaLocation_ffa1]
@@ -9564,12 +9564,12 @@ Revive_PlayerSelection:
 
 ; store selection
 	ldh a, [hTempCardIndex_ff98]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 Revive_PlaceInPlayAreaEffect:
 ; place selected Pokemon in the Bench
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call MoveDiscardPileCardToHand
 	call AddCardToHand
 	call PutHandPokemonCardInPlayArea
@@ -9587,7 +9587,7 @@ Revive_PlaceInPlayAreaEffect:
 	ret c ; done if Player played Revive
 
 ; display card
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ldtx hl, PlacedOnTheBenchText
 	bank1call DisplayCardDetailScreen
 	ret
@@ -9904,7 +9904,7 @@ SuperEnergyRemoval_DiscardEffect:
 	ret c
 ; ...otherwise show Play Area of affected Pokemon
 ; in opponent's Play Area
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	call DrawPlayAreaScreenToShowChanges
 ; in player's Play Area
 	xor a
@@ -9970,7 +9970,7 @@ SuperEnergyRetrieval_PlayerDiscardPileSelection:
 
 SuperEnergyRetrieval_DiscardAndAddToHandEffect:
 ; discard 2 cards selected from the hand
-	ld hl, hTemp_ffa0
+	ld hl, hTempStorage
 	ld a, [hli]
 	call RemoveCardFromHand
 	call PutCardInDiscardPile
@@ -10082,7 +10082,7 @@ GustOfWind_PlayerSelection:
 	bank1call HasAlivePokemonInBench
 	bank1call OpenPlayAreaScreenForSelection
 	ldh a, [hTempPlayAreaLocation_ff9d]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp SwapTurn
 
 GustOfWind_SwitchEffect:
@@ -10092,7 +10092,7 @@ GustOfWind_SwitchEffect:
 
 ; switch Arena card
 	call SwapTurn
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	ld e, a
 	call SwapArenaWithBenchPokemon
 	call SwapTurn
