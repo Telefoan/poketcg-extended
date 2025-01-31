@@ -473,7 +473,7 @@ HandleAIPkmnPowers:
 	call HandleAIStrangeBehavior
 	jr .next_1
 .check_hypnosis_ability
-	cp16 HAUNTER
+	cp16 HAUNTER_LV22
 	jr nz, .check_curse
 	call HandleAIHypnosisAbility
 	jr .next_1
