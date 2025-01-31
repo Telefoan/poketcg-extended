@@ -4064,6 +4064,32 @@ SleepingGasEffect:
 	call nc, SetNoEffectFromStatus
 	ret
 
+HypnosisAbilityEffect:
+	call Sleep50PercentEffect
+	call nc, SetNoEffectFromStatus
+	ld a, ATK_ANIM_HYPNOSIS
+	ld [wLoadedAttackAnimation], a
+	bank1call Func_7415
+	lb bc, PLAY_AREA_ARENA, $0
+	ldh a, [hWhoseTurn]
+	ld h, a
+	bank1call PlayAttackAnimation
+	bank1call WaitAttackAnimation
+
+	ldh a, [hTempStorage]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+	ld l, DUELVARS_ARENA_CARD_STATUS
+	ld [hl], NO_STATUS
+
+	ld a, DUELVARS_ARENA_CARD_STATUS
+	call GetNonTurnDuelistVariable
+	ld [hl], NO_STATUS
+	bank1call DrawDuelHUDs
+	ret
+
+
 DestinyBond_CheckEnergy:
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies

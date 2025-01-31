@@ -1363,7 +1363,7 @@ wNumberOfCardsToOrder:: ; ce75
 wTempPokemonID_ce7c:: ; ce7c
 	ds $2
 
-wce7e:: ; ce7e
+wce7e:: ; ce7e this is just its own thing, sitting out here with no name, doing god knows what
 	ds $1
 
 wDamageAnimAmount:: ; ce7f
