@@ -208,12 +208,12 @@ EnergyDebugMenuData1;GlossaryData1:
 	;glossary_entry 5, AboutDamageCountersText, DamageCountersDescriptionText
 
 EnergyDebugMenuData2: ; GlossaryData2:
-	glossary_entry 5, AboutEnergyCardsText, EnergyCardsDescriptionText
-	glossary_entry 5, AboutTrainerCardsText, TrainerCardsDescriptionText
-	glossary_entry 5, AboutBasicPokemonText, BasicPokemonDescriptionText
-	glossary_entry 5, AboutEvolutionCardsText, EvolutionCardsDescriptionText
-	glossary_entry 6, AboutAttackingText, AttackingDescriptionText
-	glossary_entry 5, AboutPokemonPowerText, PokemonPowerDescriptionText
-	glossary_entry 6, AboutWeaknessText, WeaknessDescriptionText
-	glossary_entry 6, AboutResistanceText, ResistanceDescriptionText
-	glossary_entry 6, AboutRetreatingText, RetreatingDescriptionText
+	energy_debug_menu_entry 5, AboutEnergyCardsText, EnergyCardsDescriptionText
+	energy_debug_menu_entry 5, AboutTrainerCardsText, TrainerCardsDescriptionText
+	energy_debug_menu_entry 5, AboutBasicPokemonText, BasicPokemonDescriptionText
+	energy_debug_menu_entry 5, AboutEvolutionCardsText, EvolutionCardsDescriptionText
+	energy_debug_menu_entry 6, AboutAttackingText, AttackingDescriptionText
+	energy_debug_menu_entry 5, AboutPokemonPowerText, PokemonPowerDescriptionText
+	energy_debug_menu_entry 6, AboutWeaknessText, WeaknessDescriptionText
+	energy_debug_menu_entry 6, AboutResistanceText, ResistanceDescriptionText
+	energy_debug_menu_entry 6, AboutRetreatingText, RetreatingDescriptionText

@@ -40,7 +40,7 @@ DuelCheckMenu_InPlayArea:
 	ret
 
 ;opens the Energy Debug submenu; opens the Glossary submenu
-DuelCheckMenu_EnergyDebug ;DuelCheckMenu_Glossary:
+DuelCheckMenu_EnergyDebug: ;DuelCheckMenu_Glossary:
 	farcall OpenEnergyDebugScreen ;farcall OpenGlossaryScreen
 	ret
 
