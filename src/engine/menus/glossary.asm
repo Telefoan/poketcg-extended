@@ -198,7 +198,7 @@ ENDM
 
 EnergyDebugMenuData1: ;GlossaryData1:
 	energy_debug_menu_entry 7, EnergyDebugMenuAddEnergyText, EnergyDebugMenuWhichEnergyText;glossary_entry 7, AboutTheDeckText, DeckDescriptionText
-	energy_debug_menu_entry 5, EnerguDebugMenuRemoveEnergyText, EnergyDebugMenuWhichEnergyText;glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
+	energy_debug_menu_entry 5, EnergyDebugMenuRemoveEnergyText, EnergyDebugMenuWhichEnergyText;glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
 	;glossary_entry 7, AboutTheHandText, HandDescriptionText
 	;glossary_entry 6, AboutTheArenaText, ArenaDescriptionText
 	;glossary_entry 6, AboutTheBenchText, BenchDescriptionText
