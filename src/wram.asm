@@ -1339,7 +1339,7 @@ wInPlayAreaFromSelectButton:: ; ce60
 wPrizeCardCursorTemporaryPosition:: ; ce61
 	ds $1
 
-wGlossaryPageNo:: ; ce62
+wEnergyDebugPageNo:: ;wGlossaryPageNo:: ; ce62
 	ds $1
 
 	ds $3
