@@ -377,7 +377,7 @@ GyaradosBubblebeamEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
 	db  $00
 
-KinglerFlailEffectCommands:
+FlailEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Flail_HPCheck
 	dbw EFFECTCMDTYPE_AI, Flail_AIEffect
 	db  $00
@@ -387,11 +387,6 @@ KrabbyCallForFamilyEffectCommands:
 	dbw EFFECTCMDTYPE_AFTER_DAMAGE, KrabbyCallForFamily_PutInPlayAreaEffect
 	dbw EFFECTCMDTYPE_REQUIRE_SELECTION, KrabbyCallForFamily_PlayerSelectEffect
 	dbw EFFECTCMDTYPE_AI_SELECTION, KrabbyCallForFamily_AISelectEffect
-	db  $00
-
-MagikarpFlailEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Flail_HPCheck
-	dbw EFFECTCMDTYPE_AI, Flail_AIEffect
 	db  $00
 
 PsyduckHeadacheEffectCommands:
@@ -734,11 +729,13 @@ GastlyEnergyConversionEffectCommands:
 	db  $00
 
 HaunterHypnosisEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Hypnosis_OncePerTurnCheck
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HypnosisAbilityEffect
 	db  $00
 
 HaunterDreamEaterEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, DreamEaterEffect
+	dbw EFFECTCMDTYPE_AFTER_DAMAGE, GolbatLeechLifeEffect
 	db  $00
 
 HaunterTransparencyEffectCommands:
@@ -1616,4 +1613,8 @@ GustOfWindEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, GustOfWind_BenchCheck
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, GustOfWind_PlayerSelection
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, GustOfWind_SwitchEffect
+	db  $00
+
+IcyWindEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, IcyWindEffect
 	db  $00

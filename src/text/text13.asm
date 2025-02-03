@@ -184,6 +184,10 @@ RecycleDescription:
 	line "deck."
 	done
 
+ConcedeText:
+	text "Concede"
+	done
+
 AreYouBoyOrGirlText:
 	text "Are you a boy"
 	line "or a girl?"
@@ -195,4 +199,52 @@ BoyText:
 
 GirlText:
 	text "Girl"
+	done
+
+ReversalName:
+	text "Reversal"
+	done
+
+ReversalDescription:
+	text "This attack does 10 damage plus"
+	line "10 damage for each damage counter"
+	line "on this Pokemon."
+	done
+
+WouldYouLikeToConcedeText:
+	text "     Would you like to concede?"
+	done
+
+CurseDescription:
+	text "Any number of times during your turn "
+	line "you may move 1 damage counter"
+	line "from 1 of your opponent's"
+	line "Pokémon to another (even if it would"
+	line "Knock Out the other Pokémon)."
+	line "This power can't be used if Gengar"
+	line "is Asleep, Confused, or Paralyzed."
+	done
+
+FlailName:
+	text "Flail"
+	done
+
+FlailDescription:
+	text "Does 10 damage times the number of"
+	line "damage counters on this Pokemon."
+	done
+
+MayInflictSleepDescription:
+	text "Flip a coin. If heads, the Defending"
+	line "Pokémon is now Asleep."
+	done
+
+IcyWindName:
+	text "Icy Wind"
+	done
+
+HypnosisAbilityDescription:
+	text "Once per turn, flip a coin."
+	line "If heads, the Defending Pokemon"
+	line "is now asleep"
 	done

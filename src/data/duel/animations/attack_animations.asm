@@ -167,6 +167,8 @@ PointerTable_AttackAnimation:
 	dw AttackAnimation_HealBothSides       ; ATK_ANIM_HEAL_BOTH_SIDES
 	dw AttackAnimation_Stub2               ; ATK_ANIM_UNUSED_8F
 	dw AttackAnimation_Stub2               ; ATK_ANIM_UNUSED_90
+	dw AttackAnimation_IcyWindSuccess		;ATK_ANIM_ICY_WIND_SUCCESS
+	dw AttackAnimation_IcyWindFailure		; ATK_ANIM_ICY_WIND_FAILURE
 	assert_table_length NUM_ATK_ANIMS
 
 AttackAnimation_Hit:
@@ -914,3 +916,21 @@ AttackAnimation_HealBothSides:
 
 AttackAnimation_Stub2:
 	anim_end
+
+AttackAnimation_IcyWindSuccess:
+	anim_player         DUEL_ANIM_GLOW
+	anim_opponent       DUEL_ANIM_WHIRLWIND
+	anim_normal         DUEL_ANIM_BLIZZARD
+	anim_normal         DUEL_ANIM_SHAKE1
+	anim_opponent       DUEL_ANIM_SHOW_DAMAGE
+	anim_opponent       DUEL_ANIM_QUESTION_MARK
+	anim_end
+
+AttackAnimation_IcyWindFailure:
+	anim_player         DUEL_ANIM_GLOW
+	anim_opponent       DUEL_ANIM_WHIRLWIND
+	anim_normal         DUEL_ANIM_BLIZZARD
+	anim_normal         DUEL_ANIM_SHAKE1
+	anim_opponent       DUEL_ANIM_SHOW_DAMAGE
+	anim_end
+

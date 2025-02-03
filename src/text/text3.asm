@@ -284,8 +284,12 @@ FireChargeText:
 	text "Fire Charge"
 	done
 
-CharmanderAndFriendsText:
-	text "Charmander & Friends"
+;CharmanderAndFriendsText:
+;	text "Charmander & Friends"
+;	done
+
+LovebirdsText:
+	text "Lovebirds"
 	done
 
 SquirtleAndFriendsText:
@@ -524,9 +528,14 @@ FireChargeDescriptionText:
 	line "opponent and you!"
 	done
 
-CharmanderAndFriendsDescriptionText:
-	text "A Fire, Grass and Water Deck:"
-	line "Charmander, Pinsir and Seel"
+;CharmanderAndFriendsDescriptionText:
+;	text "A Fire, Grass and Water Deck:"
+;	line "Charmander, Pinsir and Seel"
+;	done
+
+LovebirdsDescriptionText:
+	text "A WatermelonPrincess Special"
+	line "all the nidos in one place"
 	done
 
 SquirtleAndFriendsDescriptionText:
@@ -1759,8 +1768,12 @@ SelectDeckToDuelText:
 	line "you wish to Duel against."
 	done
 
-CharmanderAndFriendsDeckChoiceText:
-	text "CHARMANDER & Friends Deck"
+;CharmanderAndFriendsDeckChoiceText:
+;	text "CHARMANDER & Friends Deck"
+;	done
+
+LovebirdsDeckChoiceText:
+	text "Lovebirds Deck"
 	done
 
 SquirtleAndFriendsDeckChoiceText:

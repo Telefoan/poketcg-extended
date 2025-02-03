@@ -1812,6 +1812,8 @@ BoyfriendsEffect:
 ; c holds number of Nidoking found in Play Area
 	ld a, c
 	add a
+	add a
+	add c
 	call ATimes10
 	call AddToDamage ; adds 2 * 10 * c
 	ret
@@ -3967,10 +3969,10 @@ Curse_PlayerSelectEffect:
 
 Curse_TransferDamageEffect:
 ; set Pkmn Power as used
-	ldh a, [hTempList]
-	add DUELVARS_ARENA_CARD_FLAGS
-	call GetTurnDuelistVariable
-	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+;	ldh a, [hTempList]
+;	add DUELVARS_ARENA_CARD_FLAGS
+;	call GetTurnDuelistVariable
+;	set USED_PKMN_POWER_THIS_TURN_F, [hl]
 
 ; figure out the type of duelist that used Curse.
 ; if it was the player, no need to draw the Play Area screen.
@@ -10158,3 +10160,56 @@ HealPlayAreaCardHP:
 	add e
 	ld [hl], a
 	ret
+
+IcyWindEffect:
+	ldtx de, IfHeadsOpponentCannotAttackText
+	call TossCoin_BankB
+	jp nc, SetWasUnsuccessful
+	ld a, ATK_ANIM_ICY_WIND_SUCCESS
+	ld [wLoadedAttackAnimation], a
+	ld a, SUBSTATUS2_LEER
+	jp ApplySubstatus2ToDefendingCard
+	ret
+
+Hypnosis_OncePerTurnCheck:
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTempStorage], a
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	and USED_PKMN_POWER_THIS_TURN
+	jr nz, .already_used
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	jp CheckIsIncapableOfUsingPkmnPower
+.already_used
+	ldtx hl, OnlyOncePerTurnText
+	scf
+	ret
+
+HypnosisAbilityEffect:
+	ldtx de, SleepCheckText 
+    call TossCoin_BankB ; flips a coin
+    ldh [hAIPkmnPowerEffectParam], a ; Pretty sure this loads AI effect commands
+    jr nc, .done
+
+.done
+	ldh a, [hTempStorage]
+	add DUELVARS_ARENA_CARD_FLAGS
+	call GetTurnDuelistVariable
+	set USED_PKMN_POWER_THIS_TURN_F, [hl]
+	ldh a, [hAIPkmnPowerEffectParam] 
+	or a ; PKmn power is now used
+	ret z ; return if coin was tails
+	call SleepEffect ; otherwise, sleep
+	ldh a, [hTempPlayAreaLocation_ff9d] ; For some reason all of this is needed to run the animation or something. 
+	ld b, a
+    ld c, $00
+    ldh a, [hWhoseTurn]
+    ld h, a
+ 	bank1call PlayAttackAnimation
+    bank1call PlayStatusConditionQueueAnimations
+    bank1call WaitAttackAnimation
+    bank1call ApplyStatusConditionQueue
+    bank1call DrawDuelHUDs
+    bank1call PrintFailedEffectText
+    call c, WaitForWideTextBoxInput ; All I know is that deleting it results in bad juju.
+    ret

@@ -15,7 +15,8 @@ ENDM
 	deck_const SAMS_PRACTICE_DECK          ; $02
 	deck_const PRACTICE_PLAYER_DECK        ; $03
 	deck_const SAMS_NORMAL_DECK            ; $04
-	deck_const CHARMANDER_AND_FRIENDS_DECK ; $05
+	;deck_const CHARMANDER_AND_FRIENDS_DECK ; $05
+	deck_const LOVEBIRDS_DECK 				; $05
 	deck_const CHARMANDER_EXTRA_DECK       ; $06
 	deck_const SQUIRTLE_AND_FRIENDS_DECK   ; $07
 	deck_const SQUIRTLE_EXTRA_DECK         ; $08
