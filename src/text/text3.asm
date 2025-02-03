@@ -574,37 +574,49 @@ MysteriousPokemonDescriptionText:
 	line "very rare Pokémon cards!"
 	done
 
-PokemonCardGlossaryText:
-	text "Pokémon Card Glossary"
+EnergyDebugText: ;PokemonCardGlossaryText:
+	text "Energy Debug Menu";text "Pokémon Card Glossary"
 	done
 
-GlossaryMenuPage1Text:
-	text "Deck                Active Pokémon"
-	line "Discard Pile        Bench Pokémon"
-	line "Hand                Prizes    "
-	line "Arena               Damage Counter"
-	line "Bench               To next page    "
+;GlossaryMenuPage1Text:
+;	text "Deck                Active Pokémon"
+;	line "Discard Pile        Bench Pokémon"
+;	line "Hand                Prizes    "
+;	line "Arena               Damage Counter"
+;	line "Bench               To next page    "
+;	done
+
+EnergyDebugMenuPage1Text:
+	text "Add Energy to Active Pokemon"
+	line "Remove Energy from Active Pokemon"
 	done
 
-GlossaryMenuPage2Text:
-	text "Energy Card         Pokémon Power "
-	line "Trainer Card        Weakness       "
-	line "Basic Pokémon       Resistance"
-	line "Evolution Card      Retreat       "
-	line "Attack              To previous page"
+EnergyDebugMenuPage2Text:
+	text "Fire				Grass"
+	line "Lightning			Water"
+	line "Fighting			Psychic"
+	line "Colorless"
 	done
+
+;GlossaryMenuPage2Text:
+;	text "Energy Card         Pokémon Power "
+;	line "Trainer Card        Weakness       "
+;	line "Basic Pokémon       Resistance"
+;	line "Evolution Card      Retreat       "
+;	line "Attack              To previous page"
+;	done
 
 ChooseWordAndPressAButtonText:
 	text "Choose a word and press the"
 	line "A button."
 	done
 
-AboutTheDeckText:
-	text "About the Deck"
+EnergyDebugMenuAddEnergyText: ;AboutTheDeckText:
+	text "Add Energy" ;text "About the Deck"
 	done
 
-AboutTheDiscardPileText:
-	text "About the Discard Pile"
+EnergyDebugMenuRemoveEnergyText ;AboutTheDiscardPileText:
+	text "Remove Energy"
 	done
 
 AboutTheHandText:
@@ -671,22 +683,20 @@ AboutRetreatingText:
 	text "About Retreating"
 	done
 
-DeckDescriptionText:
-	text "The Deck is the pile of cards"
-	line "you will be drawing from."
-	line "At the beginning of your turn, you"
-	line "will draw 1 card from your Deck."
-	line "If there are no cards to draw"
-	line "from the Deck, you lose the game."
+EnergyDebugMenuWhichEnergyText ;DeckDescriptionText:
+	text "Fire				Grass"
+	line "Lightning			Water"
+	line "Fighting			Psychic"
+	line "Colorless"
 	done
 
-DiscardPileDescriptionText:
-	text "The pile in which you place used"
-	line "cards is called the Discard Pile."
-	line "You can look at both yours and your"
-	line "opponent's Discard Pile "
-	line "with the Check command."
-	done
+;DiscardPileDescriptionText:
+;	text "The pile in which you place used"
+;	line "cards is called the Discard Pile."
+;	line "You can look at both yours and your"
+;	line "opponent's Discard Pile "
+;	line "with the Check command."
+;	done
 
 HandDescriptionText:
 	text "The cards held by each player"

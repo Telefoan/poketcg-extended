@@ -28,7 +28,7 @@ _OpenDuelCheckMenu::
 
 .jump_table
 	dw DuelCheckMenu_InPlayArea
-	dw DuelCheckMenu_Glossary
+	dw DuelCheckMenu_EnergyDebug ;dw DuelCheckMenu_Glossary
 	dw DuelCheckMenu_YourPlayArea
 	dw DuelCheckMenu_OppPlayArea
 
@@ -39,9 +39,9 @@ DuelCheckMenu_InPlayArea:
 	farcall OpenInPlayAreaScreen
 	ret
 
-; opens the Glossary submenu
-DuelCheckMenu_Glossary:
-	farcall OpenGlossaryScreen
+;opens the Energy Debug submenu; opens the Glossary submenu
+DuelCheckMenu_EnergyDebug ;DuelCheckMenu_Glossary:
+	farcall OpenEnergyDebugScreen ;farcall OpenGlossaryScreen
 	ret
 
 ; opens the Your Play Area submenu

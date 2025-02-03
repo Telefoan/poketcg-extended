@@ -1,11 +1,11 @@
-OpenGlossaryScreen:
+OpenEnergyDebugScreen: ;OpenGlossaryScreen:
 	xor a
-	ld [wGlossaryPageNo], a
+	ld [wEnergyDebugPageNo], a ;ld [wGlossaryPageNo], a
 	call .display_menu
 
 	xor a
 	ld [wInPlayAreaCurPosition], a
-	ld de, OpenGlossaryScreen_TransitionTable ; this data is stored in bank 2.
+	ld de, OpenEnergyDebugScreen_TransitionTable ;ld de, OpenGlossaryScreen_TransitionTable ; this data is stored in bank 2.
 	ld hl, wMenuInputTablePointer
 	ld [hl], e
 	inc hl
@@ -49,9 +49,9 @@ OpenGlossaryScreen:
 	ld a, $01
 	farcall PlaySFXConfirmOrCancel
 .change_page
-	ld a, [wGlossaryPageNo]
+	ld a, [wEnergyDebugPageNo];ld a, [wGlossaryPageNo]
 	xor $01 ; swap page
-	ld [wGlossaryPageNo], a
+	ld [wEnergyDebugPageNo], a ;ld [wGlossaryPageNo], a
 	call .print_menu
 	jr .next
 
@@ -69,7 +69,7 @@ OpenGlossaryScreen:
 
 	lb de, 5, 0
 	call InitTextPrinting
-	ldtx hl, PokemonCardGlossaryText
+	ldtx hl, EnergyDebugText ;ldtx hl, PokemonCardGlossaryText
 	call ProcessTextFromID
 	call .print_menu
 	ldtx hl, ChooseWordAndPressAButtonText
@@ -82,7 +82,7 @@ OpenGlossaryScreen:
 	ld a, TX_SYMBOL
 	ld [hli], a
 
-	ld a, [wGlossaryPageNo]
+	ld a, [wEnergyDebugPageNo];ld a, [wGlossaryPageNo]
 	add SYM_1
 	ld [hli], a
 
@@ -107,15 +107,15 @@ OpenGlossaryScreen:
 
 	lb de, 1, 3
 	call InitTextPrinting
-	ld a, [wGlossaryPageNo]
+	ld a, [wEnergyDebugPageNo] ; ld a, [wGlossaryPageNo]
 	or a
 	jr nz, .page_two
 
-	ldtx hl, GlossaryMenuPage1Text
+	ldtx hl, EnergyDebugMenuPage1Text;ldtx hl, GlossaryMenuPage1Text
 	jr .page_one
 
 .page_two
-	ldtx hl, GlossaryMenuPage2Text
+	ldtx hl, EnergyDebugMenuPage2Text;ldtx hl, GlossaryMenuPage2Text
 .page_one
 	jp ProcessTextFromID
 
@@ -127,21 +127,21 @@ OpenGlossaryScreen:
 	call EmptyScreen
 	lb de, 5, 0
 	call InitTextPrinting
-	ldtx hl, PokemonCardGlossaryText
+	ldtx hl, EnergyDebugText ;ldtx hl, PokemonCardGlossaryText
 	call ProcessTextFromID
 	lb de, 0, 4
 	lb bc, 20, 14
 	call DrawRegularTextBox
 
-	ld a, [wGlossaryPageNo]
+	ld a, [wEnergyDebugPageNo] ;ld a, [wGlossaryPageNo]
 	or a
 	jr nz, .back_page
 
-	ld hl, GlossaryData1
+	ld hl, EnergyDebugMenuData1 ;ld hl, GlossaryData1
 	jr .front_page
 
 .back_page
-	ld hl, GlossaryData2
+	ld hl, EnergyDebugMenuData2;ld hl, GlossaryData2
 .front_page
 	pop af
 	; hl += (a + (a << 2)).
@@ -190,24 +190,24 @@ OpenGlossaryScreen:
 ; unit: 5 bytes.
 ; [structure]
 ; horizontal align (1) / title text id (2) / desc. text id (2)
-MACRO glossary_entry
+MACRO energy_debug_menu_entry ;MACRO glossary_entry
 	db \1
 	tx \2
 	tx \3
 ENDM
 
-GlossaryData1:
-	glossary_entry 7, AboutTheDeckText, DeckDescriptionText
-	glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
-	glossary_entry 7, AboutTheHandText, HandDescriptionText
-	glossary_entry 6, AboutTheArenaText, ArenaDescriptionText
-	glossary_entry 6, AboutTheBenchText, BenchDescriptionText
-	glossary_entry 4, AboutTheActivePokemonText, ActivePokemonDescriptionText
-	glossary_entry 5, AboutBenchPokemonText, BenchPokemonDescriptionText
-	glossary_entry 7, AboutPrizesText, PrizesDescriptionText
-	glossary_entry 5, AboutDamageCountersText, DamageCountersDescriptionText
+EnergyDebugMenuData1;GlossaryData1:
+	energy_debug_menu_entry 7, EnergyDebugMenuAddEnergyText, EnergyDebugMenuWhichEnergyText ;glossary_entry 7, AboutTheDeckText, DeckDescriptionText
+	energy_debug_menu_entry 5, EnerguDebugMenuRemoveEnergyText, EnergyDebugMenuWhichEnergyText ;glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
+	;glossary_entry 7, AboutTheHandText, HandDescriptionText
+	;glossary_entry 6, AboutTheArenaText, ArenaDescriptionText
+	;glossary_entry 6, AboutTheBenchText, BenchDescriptionText
+	;glossary_entry 4, AboutTheActivePokemonText, ActivePokemonDescriptionText
+	;glossary_entry 5, AboutBenchPokemonText, BenchPokemonDescriptionText
+	;glossary_entry 7, AboutPrizesText, PrizesDescriptionText
+	;glossary_entry 5, AboutDamageCountersText, DamageCountersDescriptionText
 
-GlossaryData2:
+EnergyDebugMenuData2: ; GlossaryData2:
 	glossary_entry 5, AboutEnergyCardsText, EnergyCardsDescriptionText
 	glossary_entry 5, AboutTrainerCardsText, TrainerCardsDescriptionText
 	glossary_entry 5, AboutBasicPokemonText, BasicPokemonDescriptionText
