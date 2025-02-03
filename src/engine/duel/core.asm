@@ -7142,6 +7142,10 @@ InitializeDuelVariables:
 ; draw [wDuelInitialPrizes] cards from the turn holder's deck and place them as prizes:
 ; write their deck indexes to DUELVARS_PRIZE_CARDS, set their location to
 ; CARD_LOCATION_PRIZE, and set [wDuelInitialPrizes] bits of DUELVARS_PRIZES.
+; ~~~
+; draw [wDuelInitialEnergyZone] cards from the turn holder's deck and place them in the Energy Zone:
+; write their deck indexes to DUELVARS_ENERGY_ZONE_CARDS, seth their location to
+; CARD_LOCATION_ENERGY_ZONE, and set [wDuelInitialEnergyZone] bits of DUELVARS_ENERGY_ZONE.
 InitTurnDuelistPrizes:
 	ldh a, [hWhoseTurn]
 	ld d, a
@@ -7171,8 +7175,40 @@ InitTurnDuelistPrizes:
 	ld [hl], a
 	ret
 
+InitTurnDuelistEnergyZoneCards:
+	ldh a, [wWhoseTurn]
+	ld d, a
+	ld e, DUELVARS_ENERGY_ZONE_CARDS
+	ld a, [wDuelInitialEnergyZone]
+	ld c, a
+	ld b, 0
+.draw_energy_zone_loop
+	call DrawCardFromDeck
+	ld [de], a
+	inc de 
+	ld h, d 
+	ld l, a 
+	ld [hl], CARD_LOCATION_ENERGY_ZONE
+	inc b 
+	ld a, b 
+	cp c 
+	jr nz, .draw_energy_zone_loop
+	push hl
+	ld e, c 
+	ld d, $00
+	ld hl, EnergyZoneBitmasks
+	add hl, de 
+	ld a, [hl]
+	pop hl
+	ld l, DUELVARS_ENERGY_ZONE
+	ld [hl], a 
+	ret 
+
 PrizeBitmasks:
 	db %0, %1, %11, %111, %1111, %11111, %111111
+
+EnergyZoneBitmasks:
+	dw %0, %1, %11, %111, %1111, %11111, %111111, %1111111, %11111111, %111111111, %1111111111, %11111111111, %111111111111, %1111111111111
 
 ; update the turn holder's DUELVARS_PRIZES following that duelist
 ; drawing a number of prizes equal to register a
@@ -7194,6 +7230,27 @@ TakeAPrizes:
 	call GetTurnDuelistVariable
 	ld [hl], b
 	ret
+
+; update the turn holder's DUELVARS_ENERGY_ZONE following that duelist
+; drawing a number of energies equel to register a 
+TakeAEnergies:
+	or a 
+	ret z 
+	ld c, a 
+	call CountEnergies
+	sub c 
+	jr nc, .no_underflow
+	xor a 
+.no_underflow
+	ld c, a 
+	ld b, $00
+	ld hl, EnergyZoneBitmasks
+	add hl, bc 
+	ld b, [hl]
+	ld a, DUELVARS_ENERGY_ZONE
+	call GetTurnDuelistVariable
+	ld [hl], b 
+	ret 
 
 ; clear the non-turn holder's duelvars starting at DUELVARS_ARENA_CARD_DISABLED_ATTACK_INDEX
 ; these duelvars only last a two-player turn at most.
