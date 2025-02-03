@@ -568,6 +568,10 @@ wOpponentName:: ; cc16
 wNPCDuelPrizes:: ; cc18
 	ds $1
 
+; an overworld script starting a duel sets this addess to the value to be written into wDuelInitialEnergyZone
+wNPCDuelEnergyZone:: ; cc18
+	ds $1
+
 ; an overworld script starting a duel sets this address to the value to be written into wOpponentDeckID
 wNPCDuelDeckID:: ; cc19
 	ds $1
