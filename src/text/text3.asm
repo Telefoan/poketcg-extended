@@ -601,9 +601,9 @@ EnergyDebugMenuPage1Text:
 	done
 
 EnergyDebugMenuPage2Text:
-	text "Fire				Grass"
-	line "Lightning			Water"
-	line "Fighting			Psychic"
+	text "Fire              Grass"
+	line "Lightning         Water"
+	line "Fighting          Psychic"
 	line "Colorless"
 	done
 
@@ -624,7 +624,7 @@ EnergyDebugMenuAddEnergyText: ;AboutTheDeckText:
 	text "Add Energy" ;text "About the Deck"
 	done
 
-EnergyDebugMenuRemoveEnergyText ;AboutTheDiscardPileText:
+EnergyDebugMenuRemoveEnergyText: ;AboutTheDiscardPileText:
 	text "Remove Energy"
 	done
 
@@ -692,10 +692,10 @@ AboutRetreatingText:
 	text "About Retreating"
 	done
 
-EnergyDebugMenuWhichEnergyText ;DeckDescriptionText:
-	text "Fire				Grass"
-	line "Lightning			Water"
-	line "Fighting			Psychic"
+EnergyDebugMenuWhichEnergyText: ;DeckDescriptionText:
+	text "Fire              Grass"
+	line "Lightning         Water"
+	line "Fighting          Psychic"
 	line "Colorless"
 	done
 

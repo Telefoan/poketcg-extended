@@ -692,12 +692,12 @@ TextOffsets::
 	textpointer LegendaryArticunoDescriptionText
 	textpointer LegendaryDragoniteDescriptionText
 	textpointer MysteriousPokemonDescriptionText
-	textpointer PokemonCardGlossaryText
-	textpointer GlossaryMenuPage1Text
-	textpointer GlossaryMenuPage2Text
+	;textpointer PokemonCardGlossaryText
+	;textpointer GlossaryMenuPage1Text
+	;textpointer GlossaryMenuPage2Text
 	textpointer ChooseWordAndPressAButtonText
-	textpointer AboutTheDeckText
-	textpointer AboutTheDiscardPileText
+	;textpointer AboutTheDeckText
+	;textpointer AboutTheDiscardPileText
 	textpointer AboutTheHandText
 	textpointer AboutTheArenaText
 	textpointer AboutTheBenchText
@@ -714,8 +714,8 @@ TextOffsets::
 	textpointer AboutWeaknessText
 	textpointer AboutResistanceText
 	textpointer AboutRetreatingText
-	textpointer DeckDescriptionText
-	textpointer DiscardPileDescriptionText
+	;textpointer DeckDescriptionText
+	;textpointer DiscardPileDescriptionText
 	textpointer HandDescriptionText
 	textpointer ArenaDescriptionText
 	textpointer BenchDescriptionText
@@ -2911,3 +2911,9 @@ TextOffsets::
 	textpointer WouldYouLikeToConcedeText
 	textpointer IcyWindName
 	textpointer HypnosisAbilityDescription
+	textpointer EnergyDebugText
+	textpointer EnergyDebugMenuPage1Text
+	textpointer EnergyDebugMenuPage2Text
+	textpointer EnergyDebugMenuAddEnergyText
+	textpointer EnergyDebugMenuRemoveEnergyText
+	textpointer EnergyDebugMenuWhichEnergyText

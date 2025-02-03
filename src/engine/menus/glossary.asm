@@ -196,9 +196,9 @@ MACRO energy_debug_menu_entry ;MACRO glossary_entry
 	tx \3
 ENDM
 
-EnergyDebugMenuData1;GlossaryData1:
-	energy_debug_menu_entry 7, EnergyDebugMenuAddEnergyText, EnergyDebugMenuWhichEnergyText ;glossary_entry 7, AboutTheDeckText, DeckDescriptionText
-	energy_debug_menu_entry 5, EnerguDebugMenuRemoveEnergyText, EnergyDebugMenuWhichEnergyText ;glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
+EnergyDebugMenuData1: ;GlossaryData1:
+	energy_debug_menu_entry 7, EnergyDebugMenuAddEnergyText, EnergyDebugMenuWhichEnergyText;glossary_entry 7, AboutTheDeckText, DeckDescriptionText
+	energy_debug_menu_entry 5, EnergyDebugMenuRemoveEnergyText, EnergyDebugMenuWhichEnergyText;glossary_entry 5, AboutTheDiscardPileText, DiscardPileDescriptionText
 	;glossary_entry 7, AboutTheHandText, HandDescriptionText
 	;glossary_entry 6, AboutTheArenaText, ArenaDescriptionText
 	;glossary_entry 6, AboutTheBenchText, BenchDescriptionText
@@ -208,12 +208,12 @@ EnergyDebugMenuData1;GlossaryData1:
 	;glossary_entry 5, AboutDamageCountersText, DamageCountersDescriptionText
 
 EnergyDebugMenuData2: ; GlossaryData2:
-	glossary_entry 5, AboutEnergyCardsText, EnergyCardsDescriptionText
-	glossary_entry 5, AboutTrainerCardsText, TrainerCardsDescriptionText
-	glossary_entry 5, AboutBasicPokemonText, BasicPokemonDescriptionText
-	glossary_entry 5, AboutEvolutionCardsText, EvolutionCardsDescriptionText
-	glossary_entry 6, AboutAttackingText, AttackingDescriptionText
-	glossary_entry 5, AboutPokemonPowerText, PokemonPowerDescriptionText
-	glossary_entry 6, AboutWeaknessText, WeaknessDescriptionText
-	glossary_entry 6, AboutResistanceText, ResistanceDescriptionText
-	glossary_entry 6, AboutRetreatingText, RetreatingDescriptionText
+	energy_debug_menu_entry 5, AboutEnergyCardsText, EnergyCardsDescriptionText
+	energy_debug_menu_entry 5, AboutTrainerCardsText, TrainerCardsDescriptionText
+	energy_debug_menu_entry 5, AboutBasicPokemonText, BasicPokemonDescriptionText
+	energy_debug_menu_entry 5, AboutEvolutionCardsText, EvolutionCardsDescriptionText
+	energy_debug_menu_entry 6, AboutAttackingText, AttackingDescriptionText
+	energy_debug_menu_entry 5, AboutPokemonPowerText, PokemonPowerDescriptionText
+	energy_debug_menu_entry 6, AboutWeaknessText, WeaknessDescriptionText
+	energy_debug_menu_entry 6, AboutResistanceText, ResistanceDescriptionText
+	energy_debug_menu_entry 6, AboutRetreatingText, RetreatingDescriptionText
