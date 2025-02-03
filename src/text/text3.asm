@@ -615,7 +615,7 @@ EnergyDebugMenuAddEnergyText: ;AboutTheDeckText:
 	text "Add Energy" ;text "About the Deck"
 	done
 
-EnergyDebugMenuRemoveEnergyText ;AboutTheDiscardPileText:
+EnergyDebugMenuRemoveEnergyText: ;AboutTheDiscardPileText:
 	text "Remove Energy"
 	done
 
@@ -683,7 +683,7 @@ AboutRetreatingText:
 	text "About Retreating"
 	done
 
-EnergyDebugMenuWhichEnergyText ;DeckDescriptionText:
+EnergyDebugMenuWhichEnergyText: ;DeckDescriptionText:
 	text "Fire				Grass"
 	line "Lightning			Water"
 	line "Fighting			Psychic"
