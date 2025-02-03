@@ -592,9 +592,9 @@ EnergyDebugMenuPage1Text:
 	done
 
 EnergyDebugMenuPage2Text:
-	text "Fire				Grass"
-	line "Lightning			Water"
-	line "Fighting			Psychic"
+	text "Fire              Grass"
+	line "Lightning         Water"
+	line "Fighting          Psychic"
 	line "Colorless"
 	done
 
