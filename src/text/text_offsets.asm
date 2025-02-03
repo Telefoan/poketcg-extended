@@ -2907,3 +2907,4 @@ TextOffsets::
 	textpointer EnergyDebugMenuPage2Text
 	textpointer EnergyDebugMenuAddEnergyText
 	textpointer EnergyDebugMenuRemoveEnergyText
+	textpointer EnergyDebugMenuWhichEnergyText
