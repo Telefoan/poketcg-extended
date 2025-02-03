@@ -714,7 +714,7 @@ TextOffsets::
 	textpointer AboutWeaknessText
 	textpointer AboutResistanceText
 	textpointer AboutRetreatingText
-	textpointer DeckDescriptionText
+	;textpointer DeckDescriptionText
 	;textpointer DiscardPileDescriptionText
 	textpointer HandDescriptionText
 	textpointer ArenaDescriptionText

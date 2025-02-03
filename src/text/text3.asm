@@ -684,9 +684,9 @@ AboutRetreatingText:
 	done
 
 EnergyDebugMenuWhichEnergyText: ;DeckDescriptionText:
-	text "Fire				Grass"
-	line "Lightning			Water"
-	line "Fighting			Psychic"
+	text "Fire              Grass"
+	line "Lightning         Water"
+	line "Fighting          Psychic"
 	line "Colorless"
 	done
 
