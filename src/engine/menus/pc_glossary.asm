@@ -5,7 +5,7 @@ _PCMenu_Glossary:
 	lb de, $30, $ff
 	call SetupText
 	call FlashWhiteScreen
-	farcall OpenGlossaryScreen
+	farcall OpenEnergyDebugScreen ;farcall OpenGlossaryScreen
 	pop af
 	ld [wd291], a
 	ret

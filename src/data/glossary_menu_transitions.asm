@@ -1,4 +1,4 @@
-OpenGlossaryScreen_TransitionTable:
+OpenEnergyDebugScreen_TransitionTable: ;OpenGlossaryScreen_TransitionTable:
 	cursor_transition $08, $28, $00, $04, $01, $05, $05
 	cursor_transition $08, $38, $00, $00, $02, $06, $06
 	cursor_transition $08, $48, $00, $01, $03, $07, $07
