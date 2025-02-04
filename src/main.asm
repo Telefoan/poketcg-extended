@@ -83,6 +83,7 @@ SECTION "Menus 4", ROMX
 INCLUDE "engine/copy_card_name.asm"
 INCLUDE "engine/menus/play_area.asm"
 INCLUDE "engine/menus/glossary.asm"
+INCLUDE "engine/menus/energy_debuf.asm"
 
 SECTION "Effect Commands", ROMX
 INCLUDE "engine/duel/effect_commands.asm"
