@@ -2902,3 +2902,10 @@ TextOffsets::
 	textpointer AreYouBoyOrGirlText
 	textpointer BoyText
 	textpointer GirlText
+	textpointer EnergyDebugMenuText
+	textpointer DebugAddEnergyText
+	textpointer DebugRemoveEnergyText
+	textpointer DebugExitText
+	textpointer DebugSelectOptionText
+	textpointer DebugMenuPageText
+	textpointer EnergyDebugMenuChooseEnergyText

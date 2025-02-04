@@ -196,3 +196,41 @@ BoyText:
 GirlText:
 	text "Girl"
 	done
+
+EnergyDebugMenuText:
+	text "Energy Debug Menu"
+	done
+
+EnergyDebugMenuChooseEnergyText:
+	text "Energy Select Menu"
+	done
+
+DebugAddEnergyText:
+	text "Add Energy"
+	done
+
+DebugRemoveEnergyText:
+	text "Remove Energy"
+	done
+
+DebugExitText:
+	text "Exit"
+	done
+
+DebugSelectOptionText:
+	text "Please select an option"
+	done
+
+DebugMenuPageText:
+	text "Add Energy"
+	line "Remove Energy"
+	line "Exit"
+	done
+
+DebugEnergyPageText:
+	text "Fire                Psychic"
+	line "Grass               Dark"
+	line "Lightning           Steel"
+	line "Water               Dragon"
+	line "Fighting            Colorless"
+	done
