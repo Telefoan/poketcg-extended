@@ -30,3 +30,4 @@ OpenEnergyDebugChooseEnergyScreen_TransitionTable:
 	cursor_transition $58, $48, $00, $06, $08, $02, $02; Index: $07		Steel
 	cursor_transition $58, $58, $00, $07, $09, $03, $03; Index: $08		Dragon
 	cursor_transition $58, $68, $00, $08, $05, $04, $04; Index: $09		Colorless
+	

@@ -28,7 +28,7 @@ _OpenDuelCheckMenu::
 
 .jump_table
 	dw DuelCheckMenu_InPlayArea
-	dw DuelCheckMenu_Glossary
+	dw DuelCheckMenu_EnergyDebug
 	dw DuelCheckMenu_YourPlayArea
 	dw DuelCheckMenu_OppPlayArea
 
@@ -39,9 +39,9 @@ DuelCheckMenu_InPlayArea:
 	farcall OpenInPlayAreaScreen
 	ret
 
-; opens the Glossary submenu
-DuelCheckMenu_Glossary:
-	farcall OpenGlossaryScreen
+; opens the Energy Debug submenu
+DuelCheckMenu_EnergyDebug:
+	farcall OpenEnergyDebugScreen
 	ret
 
 ; opens the Your Play Area submenu
@@ -236,7 +236,7 @@ DuelCheckMenu_OppPlayArea:
 CheckMenuData:
 	textitem  2, 14, InPlayAreaText
 	textitem  2, 16, YourPlayAreaText
-	textitem 12, 14, GlossaryText
+	textitem 12, 14, EnergyDebugText
 	textitem 12, 16, OppPlayAreaText
 	db $ff
 
@@ -1689,7 +1689,7 @@ YourOrOppPlayAreaScreen_HandleInput:
 
 .make_bitmask_done
 ; check if the moved cursor refers to an existing item.
-; it's always true when this function was called from the glossary procedure.
+; it's always true when this function was called from the energy Debug procedure.
 	ld a, [wDuelInitialPrizesUpperBitsSet]
 	and b
 	jr nz, .next

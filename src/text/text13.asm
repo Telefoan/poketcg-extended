@@ -234,3 +234,7 @@ DebugEnergyPageText:
 	line "Water               Dragon"
 	line "Fighting            Colorless"
 	done
+
+EnergyDebugText:
+	text "Energy Debug"
+	done
