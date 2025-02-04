@@ -106,7 +106,7 @@ OpenEnergyDebugScreen:
 	ld a, [wGlossaryPageNo]
 	
 	ldtx hl, DebugMenuPageText
-	jr ProcessTextFromID
+	jp ProcessTextFromID
 
 .choose_energy
     xor a
@@ -156,5 +156,5 @@ EnergyDebug_RemoveEnergy:
     ret
 
 EnergyDebug_Exit:
-    farcall _EnegyDebug_Exit
+    farcall _EnergyDebug_Exit
     ret
