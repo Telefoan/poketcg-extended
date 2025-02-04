@@ -156,5 +156,4 @@ EnergyDebug_RemoveEnergy:
     ret
 
 EnergyDebug_Exit:
-    farcall _EnergyDebug_Exit
     ret
