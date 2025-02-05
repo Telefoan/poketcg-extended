@@ -135,7 +135,7 @@ OpenEnergyDebugScreen:
 	call InitTextPrinting
 	ld a, [wGlossaryPageNo]
 	
-	ldtx hl, DebugMenuPageText
+	ldtx hl, DebugEnergyPageText
 	jp ProcessTextFromID
 
 .choose_energy
