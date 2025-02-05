@@ -2910,3 +2910,4 @@ TextOffsets::
 	textpointer DebugMenuPageText
 	textpointer EnergyDebugMenuChooseEnergyText
 	textpointer EnergyDebugText
+	textpointer DebugEnergyPageText
