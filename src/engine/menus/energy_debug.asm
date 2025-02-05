@@ -7,6 +7,7 @@ EnergyDebugMenu:
     pop de
 	pop bc
 	pop hl
+    ret
 .loop
     ld a, 1 << AUTO_CLOSE_TEXTBOX
 .wait_input
