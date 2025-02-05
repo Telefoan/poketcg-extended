@@ -2,6 +2,7 @@ EnergyDebugMenu:
     push hl
 	push bc
 	push de
+    push nc
     call DisplayEnergyDebugMenu
 .loop
     ld a, 1 << AUTO_CLOSE_TEXTBOX
@@ -10,8 +11,8 @@ EnergyDebugMenu:
 	call HandleMenuInput
 	jr nc, .wait_input
 	ld a, e
-	ld [wGlossaryPageNo], a
-	ldh a, [hCurMenuItem]
+	ld [wd237], a
+	ldh a, [hffb4]
 	cp e
 	jr nz, .exit
 	cp $5
@@ -25,6 +26,7 @@ EnergyDebugMenu:
     pop de
 	pop bc
 	pop hl
+    pop nc
 	jp DuelCheckMenu_InPlayArea
 
 
