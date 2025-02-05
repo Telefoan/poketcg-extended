@@ -41,7 +41,7 @@ DuelCheckMenu_InPlayArea:
 
 ; opens the Energy Debug submenu
 DuelCheckMenu_EnergyDebug:
-	farcall EnergyDebugMenu
+	farcall OpenEnergyDebugMenu
 	ret
 
 ; opens the Your Play Area submenu

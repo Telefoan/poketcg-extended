@@ -1,13 +1,17 @@
-EnergyDebugMenu:
+OpenEnergyDebugMenu:
     push hl
 	push bc
 	push de
-    call DisplayEnergyDebugMenu
+    call EnergyDebugMenu
     call CloseAdvancedDialogueBox
     pop de
 	pop bc
 	pop hl
     ret
+
+
+EnergyDebugMenu:
+    call DisplayEnergyDebugMenu
 .loop
     ld a, 1 << AUTO_CLOSE_TEXTBOX
 .wait_input
@@ -21,7 +25,7 @@ EnergyDebugMenu:
 	jr nz, .exit
 	cp $5
 	jr z, .exit
-	ld a, [wMenuInputTablePointer]
+	ld a, [wd237]
 	ld hl, EnergyDebugMainMenuPointerTable
 	call JumpToFunctionInTable
 	ld hl, DisplayEnergyDebugMenu
@@ -47,7 +51,7 @@ EnergyDebugMenuParams:
 	dw NULL ; function pointer if non-0
 
 DisplayEnergyDebugMenu:
-	ld a, [wMenuInputTablePointer]
+	ld a, [wd237]
 	ld hl, EnergyDebugMenuParams
 	farcall InitAndPrintMenu
 	ret
