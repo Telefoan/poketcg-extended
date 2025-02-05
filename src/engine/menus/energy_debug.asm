@@ -40,7 +40,7 @@ OpenEnergyDebugScreen:
     cp $02 ; $02: Exit
 	jr z, .exit
 
-    call .choose_energy
+    call .display_energy_menu
 	call .display_menu
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
