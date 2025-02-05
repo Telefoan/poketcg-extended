@@ -571,10 +571,10 @@ Func_c3ee:
 Func_c3ff:
 	ld a, [wBGMapWidth]
 	sub SCREEN_WIDTH
-	ld [wd237], a
+	ld [wSpareMemoryBlock1], a
 	ld a, [wBGMapHeight]
 	sub SCREEN_HEIGHT
-	ld [wd238], a
+	ld [wSpareMemoryBlock2], a
 	call Func_c41c
 	call Func_c469
 	call SetScreenScrollWram
@@ -589,7 +589,7 @@ Func_c41c:
 	ld [wSCYBuffer], a
 ; update wSCXBuffer
 	push bc
-	ld a, [wd237]
+	ld a, [wSpareMemoryBlock1]
 	sla a
 	sla a
 	sla a ; *8
@@ -607,7 +607,7 @@ Func_c41c:
 	ld [wSCXBuffer], a
 
 ; update wSCYBuffer
-	ld a, [wd238]
+	ld a, [wSpareMemoryBlock2]
 	sla a
 	sla a
 	sla a ; *8

@@ -1916,10 +1916,10 @@ wSCXBuffer:: ; d235
 wSCYBuffer:: ; d236
 	ds $1
 
-wd237:: ; d237
+wSpareMemoryBlock1:: ; d237
 	ds $1
 
-wd238:: ; d238
+wSpareMemoryBlock2:: ; d238
 	ds $1
 
 ; current tileset to load to VRAM
