@@ -3,7 +3,7 @@ OpenEnergyDebugMenu:
 	push bc
 	push de
     call EnergyDebugMenu
-    call CloseAdvancedDialogueBox
+    ;call CloseAdvancedDialogueBox
     pop de
 	pop bc
 	pop hl
