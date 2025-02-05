@@ -1,12 +1,12 @@
 OpenEnergyDebugMenu:
-    push hl
-	push bc
-	push de
+    ;push hl
+	;push bc
+	;push de
     call EnergyDebugMenu
     ;call CloseAdvancedDialogueBox
-    pop de
-	pop bc
-	pop hl
+    ;pop de
+	;pop bc
+	;pop hl
     ret
 
 
