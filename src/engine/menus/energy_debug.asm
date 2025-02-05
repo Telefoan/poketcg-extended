@@ -1,6 +1,6 @@
 OpenEnergyDebugScreen:
     xor a
-	ld [wGlossaryPageNo], a
+	ld [wSpareMemoryBlock1], a
 	call .display_menu
 
     xor a
@@ -72,7 +72,7 @@ OpenEnergyDebugScreen:
 	ld a, TX_SYMBOL
 	ld [hli], a
 
-	ld a, [wGlossaryPageNo]
+	ld a, [wSpareMemoryBlock1]
 	add SYM_1
 	ld [hli], a
 
@@ -97,7 +97,7 @@ OpenEnergyDebugScreen:
 
 	lb de, 1, 3
 	call InitTextPrinting
-	ld a, [wGlossaryPageNo]
+	ld a, [wSpareMemoryBlock1]
 	
 	ldtx hl, DebugMenuPageText
 	jp ProcessTextFromID
@@ -108,7 +108,7 @@ OpenEnergyDebugScreen:
 	ld a, TX_SYMBOL
 	ld [hli], a
 
-	ld a, [wGlossaryPageNo]
+	ld a, [wSpareMemoryBlock1]
 	add SYM_1
 	ld [hli], a
 
@@ -133,14 +133,14 @@ OpenEnergyDebugScreen:
 
 	lb de, 1, 3
 	call InitTextPrinting
-	ld a, [wGlossaryPageNo]
+	ld a, [wSpareMemoryBlock1]
 	
 	ldtx hl, DebugEnergyPageText
 	jp ProcessTextFromID
 
 .choose_energy
     xor a
-	ld [wGlossaryPageNo], a
+	ld [wSpareMemoryBlock1], a
 	call .display_energy_menu
 
     xor a
