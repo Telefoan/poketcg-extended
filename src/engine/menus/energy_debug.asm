@@ -112,7 +112,7 @@ HandleColorChoiceScreen:
 	lb de, 2, 0
 	ld c, NUM_TYPES
 
-    rs
+.loop_colors
 	ld a, [hli]
 	push de
 	push bc
