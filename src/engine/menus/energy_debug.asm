@@ -15,6 +15,8 @@ OpenEnergyDebugScreen:
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 
+
+
 .next
 	ld a, $01
 	ld [wVBlankOAMCopyToggle], a
@@ -154,6 +156,7 @@ OpenEnergyDebugScreen:
 	ld [wDuelInitialPrizesUpperBitsSet], a
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
+
 .display_energy_menu
     xor a
 	ld [wTileMapFill], a
