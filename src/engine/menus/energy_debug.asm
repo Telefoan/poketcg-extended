@@ -102,7 +102,7 @@ OpenEnergyDebugScreen:
 	ldtx hl, DebugMenuPageText
 	jp ProcessTextFromID
 
-OpenEnergyDebugChooseEnergyScreen
+OpenEnergyDebugChooseEnergyScreen:
 	xor a
 	ld [wSpareMemoryBlock1], a
 	call .display_menu
@@ -125,13 +125,13 @@ OpenEnergyDebugChooseEnergyScreen
 	call DoFrame
 	ldh a, [hKeysPressed]
 	and SELECT
-	jr nz, .on_select
+	jp nz, .on_select
 
 	farcall YourOrOppPlayAreaScreen_HandleInput
-	jr nc, .next
+	jp nc, .next
 
 	cp -1 ; b button
-	jr nz, .check_button
+	jp nz, .check_button
 
 	farcall ZeroObjectPositionsWithCopyToggleOn
 	ret
@@ -145,7 +145,7 @@ OpenEnergyDebugChooseEnergyScreen
 	call .display_menu
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
-	jr .next
+	jp .next
 
 .on_select
 	ld a, $01
