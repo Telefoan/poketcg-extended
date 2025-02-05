@@ -62,11 +62,47 @@ OpenEnergyDebugScreen:
 	call InitTextPrinting
 	ldtx hl, EnergyDebugMenuText
 	call ProcessTextFromID
-	call .print_menu
+	call .print_menu_debug
 	ldtx hl, DebugSelectOptionText
 	jp DrawWideTextBox_PrintText
 
-.print_menu
+.print_menu_debug
+    ld hl, wDefaultText
+
+	ld a, TX_SYMBOL
+	ld [hli], a
+
+	ld a, [wGlossaryPageNo]
+	add SYM_1
+	ld [hli], a
+
+	ld a, TX_SYMBOL
+	ld [hli], a
+
+	ld a, SYM_SLASH
+	ld [hli], a
+
+	ld a, TX_SYMBOL
+	ld [hli], a
+
+	ld a, SYM_2
+	ld [hli], a
+
+	ld [hl], TX_END
+
+	lb de, 16, 1
+	call InitTextPrinting
+	ld hl, wDefaultText
+	call ProcessText
+
+	lb de, 1, 3
+	call InitTextPrinting
+	ld a, [wGlossaryPageNo]
+	
+	ldtx hl, DebugMenuPageText
+	jp ProcessTextFromID
+
+.print_menu_energy
     ld hl, wDefaultText
 
 	ld a, TX_SYMBOL
@@ -133,7 +169,7 @@ OpenEnergyDebugScreen:
 	call InitTextPrinting
 	ldtx hl, EnergyDebugMenuChooseEnergyText
 	call ProcessTextFromID
-	call .print_menu
+	call .print_menu_energy
 	ldtx hl, DebugSelectOptionText
 	jp DrawWideTextBox_PrintText
 
