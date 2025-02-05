@@ -37,7 +37,7 @@ OpenEnergyDebugScreen:
 	farcall ZeroObjectPositionsWithCopyToggleOn
 	pop af
 
-    call .display_energy_menu
+    call OpenEnergyDebugChooseEnergyScreen
 	call .display_menu
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
@@ -62,11 +62,11 @@ OpenEnergyDebugScreen:
 	call InitTextPrinting
 	ldtx hl, EnergyDebugMenuText
 	call ProcessTextFromID
-	call .print_menu_debug
+	call .print_menu
 	ldtx hl, DebugSelectOptionText
 	jp DrawWideTextBox_PrintText
 
-.print_menu_debug
+.print_menu
     ld hl, wDefaultText
 
 	ld a, TX_SYMBOL
@@ -102,7 +102,76 @@ OpenEnergyDebugScreen:
 	ldtx hl, DebugMenuPageText
 	jp ProcessTextFromID
 
-.print_menu_energy
+OpenEnergyDebugChooseEnergyScreen
+	xor a
+	ld [wSpareMemoryBlock1], a
+	call .display_menu
+
+    xor a
+    ld [wInPlayAreaCurPosition], a 
+    ld de, OpenEnergyDebugChooseEnergyScreen_TransitionTable
+    ld hl, wMenuInputTablePointer
+	ld [hl], e
+	inc hl
+	ld [hl], d
+	ld a, $ff
+	ld [wDuelInitialPrizesUpperBitsSet], a
+	xor a
+	ld [wCheckMenuCursorBlinkCounter], a
+
+.next
+	ld a, $01
+	ld [wVBlankOAMCopyToggle], a
+	call DoFrame
+	ldh a, [hKeysPressed]
+	and SELECT
+	jr nz, .on_select
+
+	farcall YourOrOppPlayAreaScreen_HandleInput
+	jr nc, .next
+
+	cp -1 ; b button
+	jr nz, .check_button
+
+	farcall ZeroObjectPositionsWithCopyToggleOn
+	ret
+
+.check_button
+	push af
+	farcall ZeroObjectPositionsWithCopyToggleOn
+	pop af
+
+    ;call OpenEnergyDebugChooseEnergyScreen
+	call .display_menu
+	xor a
+	ld [wCheckMenuCursorBlinkCounter], a
+	jr .next
+
+.on_select
+	ld a, $01
+	farcall PlaySFXConfirmOrCancel
+
+.display_menu ;display energy Debug Menu
+    xor a
+	ld [wTileMapFill], a
+	call ZeroObjectPositions
+	ld a, $01
+	ld [wVBlankOAMCopyToggle], a
+	call DoFrame
+	call EmptyScreen
+	call Set_OBJ_8x8
+	farcall LoadCursorTile
+
+	lb de, 5, 0
+	call InitTextPrinting
+	ldtx hl, EnergyDebugMenuChooseEnergyText
+	call ProcessTextFromID
+	call .print_menu
+	ldtx hl, DebugSelectOptionText
+	jp DrawWideTextBox_PrintText
+
+
+.print_menu
     ld hl, wDefaultText
 
 	ld a, TX_SYMBOL
@@ -137,42 +206,6 @@ OpenEnergyDebugScreen:
 	
 	ldtx hl, DebugEnergyPageText
 	jp ProcessTextFromID
-
-.choose_energy
-    xor a
-	ld [wSpareMemoryBlock1], a
-	call .display_energy_menu
-
-    xor a
-	ld [wInPlayAreaCurPosition], a
-    ld de, OpenEnergyDebugChooseEnergyScreen_TransitionTable ; this data is stored in bank 2.
-    ld hl, wMenuInputTablePointer
-	ld [hl], e
-	inc hl
-	ld [hl], d
-	ld a, $ff
-	ld [wDuelInitialPrizesUpperBitsSet], a
-	xor a
-	ld [wCheckMenuCursorBlinkCounter], a
-
-.display_energy_menu
-    xor a
-	ld [wTileMapFill], a
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	call DoFrame
-	call EmptyScreen
-	call Set_OBJ_8x8
-	farcall LoadCursorTile
-
-	lb de, 5, 0
-	call InitTextPrinting
-	ldtx hl, EnergyDebugMenuChooseEnergyText
-	call ProcessTextFromID
-	call .print_menu_energy
-	ldtx hl, DebugSelectOptionText
-	jp DrawWideTextBox_PrintText
 
 
 EnergyDebugMainMenuPointerTable:
