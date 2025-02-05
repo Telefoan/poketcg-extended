@@ -37,9 +37,6 @@ OpenEnergyDebugScreen:
 	farcall ZeroObjectPositionsWithCopyToggleOn
 	pop af
 
-    cp $02 ; $02: Exit
-	jr z, .exit
-
     call .display_energy_menu
 	call .display_menu
 	xor a
@@ -49,15 +46,6 @@ OpenEnergyDebugScreen:
 .on_select
 	ld a, $01
 	farcall PlaySFXConfirmOrCancel
-.exit
-    ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	call DoFrame
-	ldh a, [hKeysPressed]
-    cp -1 ; b button
-	jr nz, .check_button
-    farcall ZeroObjectPositionsWithCopyToggleOn
-	ret
 
 .display_menu ;display energy Debug Menu
     xor a

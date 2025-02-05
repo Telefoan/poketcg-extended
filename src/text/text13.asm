@@ -224,7 +224,6 @@ DebugSelectOptionText:
 DebugMenuPageText:
 	text "Add Energy"
 	line "Remove Energy"
-	line "Exit"
 	done
 
 DebugEnergyPageText:

@@ -14,9 +14,8 @@ OpenGlossaryScreen_TransitionTable:
 
 OpenEnergyDebugScreen_TransitionTable:
 	;				  x,   y,   att, i-u, i-d, i-r, i-l.
-	cursor_transition $08, $28, $00, $02, $01, $01, $01; index 00		Add Energy
-	cursor_transition $08, $38, $00, $00, $02, $00, $00; index 01		remove energy
-	cursor_transition $08, $48, $00, $01, $00, $02, $02; index 02		Exit
+	cursor_transition $08, $28, $00, $01, $01, $00, $00; index 00		Add Energy
+	cursor_transition $08, $38, $00, $00, $00, $01, $01; index 01		remove energy
 
 OpenEnergyDebugChooseEnergyScreen_TransitionTable:
 	;				  x,   y,   att, i-u, i-d, i-r, i-l  index ##		text
@@ -30,4 +29,3 @@ OpenEnergyDebugChooseEnergyScreen_TransitionTable:
 	cursor_transition $58, $48, $00, $06, $08, $02, $02; Index: $07		Steel
 	cursor_transition $58, $58, $00, $07, $09, $03, $03; Index: $08		Dragon
 	cursor_transition $58, $68, $00, $08, $05, $04, $04; Index: $09		Colorless
-	
