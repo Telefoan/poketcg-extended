@@ -1,4 +1,7 @@
 EnergyDebugMenu:
+    push hl
+	push bc
+	push de
     call DisplayEnergyDebugMenu
 .loop
     ld a, 1 << AUTO_CLOSE_TEXTBOX
@@ -19,6 +22,9 @@ EnergyDebugMenu:
 	ld hl, DisplayEnergyDebugMenu
 	jr .loop
 .exit
+    pop de
+	pop bc
+	pop hl
 	jp DuelCheckMenu_InPlayArea
 
 
