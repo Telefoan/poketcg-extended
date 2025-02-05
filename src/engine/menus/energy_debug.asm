@@ -1,179 +1,47 @@
-OpenEnergyDebugScreen:
-    xor a
+EnergyDebugMenu:
+    call DisplayEnergyDebugMenu
+.loop
+    ld a, 1 << AUTO_CLOSE_TEXTBOX
+.wait_input
+    call DoFrameIfLCDEnabled
+	call HandleMenuInput
+	jr nc, .wait_input
+	ld a, e
 	ld [wGlossaryPageNo], a
-	call .display_menu
+	ldh a, [hCurMenuItem]
+	cp e
+	jr nz, .exit
+	cp $5
+	jr z, .exit
+	ld a, [wMenuInputTablePointer]
+	ld hl, EnergyDebugMainMenuPointerTable
+	call JumpToFunctionInTable
+	ld hl, DisplayEnergyDebugMenu
+	jr .loop
+.exit
+	jp DuelCheckMenu_InPlayArea
 
-    xor a
-    ld [wInPlayAreaCurPosition], a 
-    ld de, OpenEnergyDebugScreen_TransitionTable
-    ld hl, wMenuInputTablePointer
-	ld [hl], e
-	inc hl
-	ld [hl], d
-	ld a, $ff
-	ld [wDuelInitialPrizesUpperBitsSet], a
-	xor a
-	ld [wCheckMenuCursorBlinkCounter], a
 
-.next
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	call DoFrame
-	ldh a, [hKeysPressed]
-	and SELECT
-	jr nz, .on_select
+EnergyDebugMenuParams:
+    db  0,  0 ;  menu coords
+	db  14, 14 ;  menu text box dimensions
 
-	farcall YourOrOppPlayAreaScreen_HandleInput
-	jr nc, .next
+	db 2, 2 ; text alignment for InitTextPrinting
+	tx DebugMenuPageText
+	db $ff
 
-	cp -1 ; b button
-	jr nz, .check_button
+	db 1, 2 ; cursor x, cursor y
+	db 2 ; y displacement between items
+	db 2 ; number of items
+	db SYM_CURSOR_R ; cursor tile number
+	db SYM_SPACE ; tile behind cursor
+	dw NULL ; function pointer if non-0
 
-	farcall ZeroObjectPositionsWithCopyToggleOn
+DisplayEnergyDebugMenu:
+	ld a, [wMenuInputTablePointer]
+	ld hl, EnergyDebugMenuParams
+	farcall InitAndPrintMenu
 	ret
-
-.check_button
-	push af
-	farcall ZeroObjectPositionsWithCopyToggleOn
-	pop af
-
-    call .display_energy_menu
-	call .display_menu
-	xor a
-	ld [wCheckMenuCursorBlinkCounter], a
-	jr .next
-
-.on_select
-	ld a, $01
-	farcall PlaySFXConfirmOrCancel
-
-.display_menu ;display energy Debug Menu
-    xor a
-	ld [wTileMapFill], a
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	call DoFrame
-	call EmptyScreen
-	call Set_OBJ_8x8
-	farcall LoadCursorTile
-
-	lb de, 5, 0
-	call InitTextPrinting
-	ldtx hl, EnergyDebugMenuText
-	call ProcessTextFromID
-	call .print_menu_debug
-	ldtx hl, DebugSelectOptionText
-	jp DrawWideTextBox_PrintText
-
-.print_menu_debug
-    ld hl, wDefaultText
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, [wGlossaryPageNo]
-	add SYM_1
-	ld [hli], a
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, SYM_SLASH
-	ld [hli], a
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, SYM_2
-	ld [hli], a
-
-	ld [hl], TX_END
-
-	lb de, 16, 1
-	call InitTextPrinting
-	ld hl, wDefaultText
-	call ProcessText
-
-	lb de, 1, 3
-	call InitTextPrinting
-	ld a, [wGlossaryPageNo]
-	
-	ldtx hl, DebugMenuPageText
-	jp ProcessTextFromID
-
-.print_menu_energy
-    ld hl, wDefaultText
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, [wGlossaryPageNo]
-	add SYM_1
-	ld [hli], a
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, SYM_SLASH
-	ld [hli], a
-
-	ld a, TX_SYMBOL
-	ld [hli], a
-
-	ld a, SYM_2
-	ld [hli], a
-
-	ld [hl], TX_END
-
-	lb de, 16, 1
-	call InitTextPrinting
-	ld hl, wDefaultText
-	call ProcessText
-
-	lb de, 1, 3
-	call InitTextPrinting
-	ld a, [wGlossaryPageNo]
-	
-	ldtx hl, DebugEnergyPageText
-	jp ProcessTextFromID
-
-.choose_energy
-    xor a
-	ld [wGlossaryPageNo], a
-	call .display_energy_menu
-
-    xor a
-	ld [wInPlayAreaCurPosition], a
-    ld de, OpenEnergyDebugChooseEnergyScreen_TransitionTable ; this data is stored in bank 2.
-    ld hl, wMenuInputTablePointer
-	ld [hl], e
-	inc hl
-	ld [hl], d
-	ld a, $ff
-	ld [wDuelInitialPrizesUpperBitsSet], a
-	xor a
-	ld [wCheckMenuCursorBlinkCounter], a
-
-.display_energy_menu
-    xor a
-	ld [wTileMapFill], a
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	call DoFrame
-	call EmptyScreen
-	call Set_OBJ_8x8
-	farcall LoadCursorTile
-
-	lb de, 5, 0
-	call InitTextPrinting
-	ldtx hl, EnergyDebugMenuChooseEnergyText
-	call ProcessTextFromID
-	call .print_menu_energy
-	ldtx hl, DebugSelectOptionText
-	jp DrawWideTextBox_PrintText
-
 
 EnergyDebugMainMenuPointerTable:
 	dw EnergyDebug_AddEnergy
@@ -186,3 +54,113 @@ EnergyDebug_AddEnergy:
 EnergyDebug_RemoveEnergy:
     .choose_energy
     ret
+
+HandleColorChoiceScreen:
+	or a
+	call z, SwapTurn
+	push af
+	call .DrawScreen
+	pop af
+	call z, SwapTurn
+
+	ld hl, .menu_params
+	xor a
+	call InitializeMenuParameters
+	call EnableLCD
+
+.loop_input
+	call DoFrame
+	call HandleMenuInput
+	jr nc, .loop_input
+	cp -1 ; b pressed?
+	jr z, .set_carry
+	ld e, a
+	ld d, $00
+	ld hl, EnergyDebugListItemToColor
+	add hl, de
+	ld a, [hl]
+	or a
+	ret
+.set_carry
+	scf
+	ret
+
+.menu_params
+	db 1, 1 ; cursor x, cursor y
+	db 2 ; y displacement between items
+	db 7 ; number of items
+	db SYM_CURSOR_R ; cursor tile number
+	db SYM_SPACE ; tile behind cursor
+	dw NULL ; function pointer if non-0
+
+.DrawScreen:
+	push hl
+	push af
+	call EmptyScreen
+	call ZeroObjectPositions
+	call LoadDuelCardSymbolTiles
+
+    lb de, 4, 1
+	ldtx hl, ColorListText
+	call InitTextPrinting_ProcessTextFromID
+
+    lb de, 1, 14
+	pop hl
+	call InitTextPrinting_ProcessTextFromID
+
+    ld hl, EnergyTileAndBGP
+	lb de, 2, 0
+	ld c, NUM_TYPES
+
+    rs
+	ld a, [hli]
+	push de
+	push bc
+	push hl
+	lb hl, 1, 2
+	lb bc, 2, 2
+	call FillRectangle
+	pop hl
+	push hl
+	call BankswitchVRAM1
+	ld a, [hl]
+	lb hl, 0, 0
+	lb bc, 2, 2
+	call FillRectangle
+	call BankswitchVRAM0
+
+.skip_vram1
+	pop hl
+	pop bc
+	pop de
+	inc hl
+	inc e
+	inc e
+	dec c
+	jr nz, .loop_colors
+	ret
+
+EnergyTileAndBGP:
+	; tile, BG
+	db $e4, $02
+	db $e0, $01
+	db $eC, $02
+	db $e8, $01
+	db $f0, $03
+	db $f4, $03
+    ; dark placeholder
+    ; steel placeholder
+    ; Dragon placeholder
+    db $f8, $00 ;i think this should be the colorless symbol and pallet but idk what and where that would be
+
+EnergyDebugListItemToColor:
+	db FIRE
+	db GRASS
+    db LIGHTNING
+	db WATER
+	db FIGHTING
+	db PSYCHIC
+    ;db DARK 
+    ;db STEEL 
+    ;db DRAGON 
+    db COLORLESS 

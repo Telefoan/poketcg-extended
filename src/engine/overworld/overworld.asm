@@ -345,7 +345,7 @@ SetOverworldNPCFlags:
 	pop hl
 	ret
 
-Func_c2a3:
+OverworldFadeToWhite: ;formerly Func_c2a3
 	push hl
 	push bc
 	push de
@@ -1125,7 +1125,7 @@ PauseMenu:
 	jr nz, .exit
 	cp $5
 	jr z, .exit
-	call Func_c2a3
+	call OverworldFadeToWhite
 	ld a, [wSelectedPauseMenuItem]
 	ld hl, PauseMenuPointerTable
 	call JumpToFunctionInTable
@@ -1206,7 +1206,7 @@ PCMenu:
 	jr nz, .exit
 	cp $3
 	jr z, .exit
-	call Func_c2a3
+	call OverworldFadeToWhite
 	ld a, [wSelectedPCMenuItem]
 	ld hl, PointerTable_c846
 	call JumpToFunctionInTable
