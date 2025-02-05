@@ -15,8 +15,6 @@ OpenEnergyDebugScreen:
 	xor a
 	ld [wCheckMenuCursorBlinkCounter], a
 
-
-
 .next
 	ld a, $01
 	ld [wVBlankOAMCopyToggle], a
@@ -105,6 +103,7 @@ OpenEnergyDebugScreen:
 	jp ProcessTextFromID
 
 .print_menu_energy
+    inc wGlossaryPageNo
     ld hl, wDefaultText
 
 	ld a, TX_SYMBOL
@@ -180,13 +179,11 @@ OpenEnergyDebugScreen:
 EnergyDebugMainMenuPointerTable:
 	dw EnergyDebug_AddEnergy
 	dw EnergyDebug_RemoveEnergy
-	dw EnergyDebug_Exit
 
 EnergyDebug_AddEnergy:
+    .choose_energy
     ret
 
 EnergyDebug_RemoveEnergy:
-    ret
-
-EnergyDebug_Exit:
+    .choose_energy
     ret
