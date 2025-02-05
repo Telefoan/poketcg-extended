@@ -103,7 +103,6 @@ OpenEnergyDebugScreen:
 	jp ProcessTextFromID
 
 .print_menu_energy
-    inc wGlossaryPageNo
     ld hl, wDefaultText
 
 	ld a, TX_SYMBOL
