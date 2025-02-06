@@ -1326,11 +1326,11 @@ VenomothCard:
 	; attack 2
 	energy GRASS, 2 ; energies
 	tx VenomPowderName ; name
-	tx VenomPowderDescription ; description
+	tx FoulGasDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VenomothVenomPowderEffectCommands ; effect commands
+	dw FoulGas_PoisonOrConfusionEffect ; effect commands
 	db INFLICT_POISON | INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3

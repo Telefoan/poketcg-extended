@@ -2347,41 +2347,41 @@ Shift_PlayerSelectEffect:
 	ldh [hAIPkmnPowerEffectParam], a
 	ret c ; cancelled
 
-; check whether the color selected is valid
-	; look in Turn Duelist's Play Area
-	call .CheckColorInPlayArea
-	ret nc
-	; look in NonTurn Duelist's Play Area
-	call SwapTurn
-	call .CheckColorInPlayArea
-	call SwapTurn
-	ret nc
-	; not found in either Duelist's Play Area
-	ldtx hl, UnableToSelectText
+;; check whether the color selected is valid
+;	; look in Turn Duelist's Play Area
+;	call .CheckColorInPlayArea
+;	ret nc
+;	; look in NonTurn Duelist's Play Area
+;	call SwapTurn
+;	call .CheckColorInPlayArea
+;	call SwapTurn
+;	ret nc
+;	; not found in either Duelist's Play Area
+;	ldtx hl, UnableToSelectText
 	call DrawWideTextBox_WaitForInput
 	jr Shift_PlayerSelectEffect ; loop back to start
 
-; checks in input color in a exists in Turn Duelist's Play Area
+; checks if input color in a exists in Turn Duelist's Play Area
 ; returns carry if not found.
-.CheckColorInPlayArea:
-	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
-	call GetTurnDuelistVariable
-	ld c, a
-	ld b, PLAY_AREA_ARENA
-.loop_play_area
-	push bc
-	ld a, b
-	call GetPlayAreaCardColor
-	pop bc
-	ld hl, hAIPkmnPowerEffectParam
-	cp [hl]
-	ret z ; found
-	inc b
-	dec c
-	jr nz, .loop_play_area
-	; not found
-	scf
-	ret
+;.CheckColorInPlayArea:
+;	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
+;	call GetTurnDuelistVariable
+;	ld c, a
+;	ld b, PLAY_AREA_ARENA
+;.loop_play_area
+;	push bc
+;	ld a, b
+;	call GetPlayAreaCardColor
+;	pop bc
+;	ld hl, hAIPkmnPowerEffectParam
+;	cp [hl]
+;	ret z ; found
+;	inc b
+;	dec c
+;	jr nz, .loop_play_area
+;	; not found
+;	scf
+;	ret
 
 Shift_ChangeColorEffect:
 	ldh a, [hTempStorage]
