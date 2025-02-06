@@ -41,7 +41,7 @@ DuelCheckMenu_InPlayArea:
 
 ; opens the Energy Debug submenu
 DuelCheckMenu_EnergyDebug:
-	farcall OpenEnergyDebugScreen
+	call EnergyDebug_AddEnergy_Fire
 	ret
 
 ; opens the Your Play Area submenu
@@ -2033,3 +2033,5 @@ GetFirstSetPrizeCard:
 	ld a, b
 	pop bc
 	ret
+
+_EnergyDebugSelectEnergy::

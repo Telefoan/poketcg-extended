@@ -80,3 +80,12 @@ DrawPlayAreaToPlacePrizeCards::
 	call _DrawPlayAreaToPlacePrizeCards
 	pop af
 	jp BankswitchROM
+
+EnergyDebugSelectEnergy::
+	lhd a, [hBankROM]
+	push af
+	la a, BANK(_EnergyDebugSelectEnergy)
+	call BankswitchROM
+	call _EnergyDebugSelectEnergy
+	pop af
+	jp BankswitchROM
