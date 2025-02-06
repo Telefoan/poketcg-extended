@@ -221,16 +221,16 @@ EnergyDebug_RemoveEnergy:
 
 
 EnergyDebugAddChooseEnergyPointerTable:
-	db EnergyDebug_AddEnergy_Fire
-	db EnergyDebug_AddEnergy_Grass
-	db EnergyDebug_AddEnergy_Lightning
-	db EnergyDebug_AddEnergy_Water
-	db EnergyDebug_AddEnergy_Fighting
-	db EnergyDebug_AddEnergy_Psychic
-	db EnergyDebug_AddEnergy_Dark
-	db EnergyDebug_AddEnergy_Steel
-	db EnergyDebug_AddEnergy_Dragon
-	db EnergyDebug_AddEnergy_Colorless
+	dw EnergyDebug_AddEnergy_Fire
+	dw EnergyDebug_AddEnergy_Grass
+	dw EnergyDebug_AddEnergy_Lightning
+	dw EnergyDebug_AddEnergy_Water
+	dw EnergyDebug_AddEnergy_Fighting
+	dw EnergyDebug_AddEnergy_Psychic
+	dw EnergyDebug_AddEnergy_Dark
+	dw EnergyDebug_AddEnergy_Steel
+	dw EnergyDebug_AddEnergy_Dragon
+	dw EnergyDebug_AddEnergy_Colorless
 
 EnergyDebug_AddEnergy_Fire:
 	call EnergyDebug_IncrementEnergy_Step1
