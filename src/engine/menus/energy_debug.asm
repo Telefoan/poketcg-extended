@@ -233,7 +233,7 @@ EnergyDebugAddChooseEnergyPointerTable:
 	dw EnergyDebug_AddEnergy_Colorless
 
 EnergyDebug_AddEnergy_Fire:
-	call EnergyDebug_IncrementEnergy_Step1
+	call GetPlayAreaCardAttachedEnergies
 	ld a, [wAttachedEnergies]
 	add %10000000
 	ld [wAttachedEnergies], a
@@ -273,11 +273,5 @@ EnergyDebug_EnergyRemoval_DiscardEffect:
 	ret c
 
 EnergyDebug_IncrementEnergy_Step1:
-	push hl
-	push de
-	push bc
-	xor a 
-	ld c, NUM_TYPES
-	ld hl, wAttachedEnergies
-	ret
+	call GetPlayAreaCardAttachedEnergies
 
