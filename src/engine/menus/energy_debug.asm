@@ -233,7 +233,7 @@ EnergyDebugAddChooseEnergyPointerTable:
 	dw EnergyDebug_AddEnergy_Colorless
 
 EnergyDebug_AddEnergy_Fire:
-	ldh [hTempCardIndex_ff98], 
+	ldh [hTempCardIndex_ff98], a
 	call EnergyDebug_IncrementEnergy_Step1
 
 
