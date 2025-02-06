@@ -234,10 +234,13 @@ EnergyDebugAddChooseEnergyPointerTable:
 
 EnergyDebug_AddEnergy_Fire:
 	call EnergyDebug_IncrementEnergy_Step1
-	
-	ld de, FireEnergyCard
-	call EnergyDebug_IncrementEnergy_Step3
+	ld a, [wAttachedEnergies]
+	add %10000000
+	ld [wAttachedEnergies], a
 	ret
+	;ld de, FireEnergyCard
+	;call EnergyDebug_IncrementEnergy_Step3
+	;ret
 	
 
 EnergyDebug_AddEnergy_Grass:
@@ -285,23 +288,3 @@ EnergyDebug_IncrementEnergy_Step1:
 
 	ret
 
-EnergyDebug_IncrementEnergy_Step3:
-	call LoadCardDataToBuffer2_FromCardID; load card data to buffer 2 from CARD INFORMATION, not Deck index
-	ld a, [wLoadedCard2Type]
-	bit TYPE_ENERGY_F, a
-	jr z, .not_an_energy_card
-	and TYPE_PKMN
-	ld e, a 
-	ld d, $0
-	ld hl, wAttachedEnergies
-	add hl, de
-	inc [hl] ; increment the number of energy cards of this type
-	cp COLORLESS
-	jr nz, .not_colorless
-	inc [hl] ; each colorless energy counts as two
-	ret
-.not_an_energy_card
-.not_colorless
-	pop bc
-	pop de
-	pop hl
