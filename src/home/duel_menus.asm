@@ -82,9 +82,9 @@ DrawPlayAreaToPlacePrizeCards::
 	jp BankswitchROM
 
 EnergyDebugSelectEnergy::
-	lhd a, [hBankROM]
+	ldh a, [hBankROM]
 	push af
-	la a, BANK(_EnergyDebugSelectEnergy)
+	ld a, BANK(_EnergyDebugSelectEnergy)
 	call BankswitchROM
 	call _EnergyDebugSelectEnergy
 	pop af
