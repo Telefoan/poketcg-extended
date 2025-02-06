@@ -233,15 +233,9 @@ EnergyDebugAddChooseEnergyPointerTable:
 	dw EnergyDebug_AddEnergy_Colorless
 
 EnergyDebug_AddEnergy_Fire:
-	call GetPlayAreaCardAttachedEnergies
-	ld a, [wAttachedEnergies]
-	add %10000000
-	ld [wAttachedEnergies], a
-	ret
-	;ld de, FireEnergyCard
-	;call EnergyDebug_IncrementEnergy_Step3
-	;ret
-	
+	ldh [hTempCardIndex_ff98], 
+	call EnergyDebug_IncrementEnergy_Step1
+
 
 EnergyDebug_AddEnergy_Grass:
 
@@ -273,5 +267,31 @@ EnergyDebug_EnergyRemoval_DiscardEffect:
 	ret c
 
 EnergyDebug_IncrementEnergy_Step1:
-	call GetPlayAreaCardAttachedEnergies
+	ld a, c
+	ld a, [wOncePerTurnFlags]
+	AND ALREADY_PLAYED_ENERGY
+	jr nz, .already_played_energy
+	call HasAlivePokemonInPlayArea
+	call OpenPlayAreaScreenForSelection ; choose card to play energy card on
+	jp c, DuelMainInterface ; exit if no card was chosen
+.play_energy_set_played
+	ld hl, wOncePerTurnFlags
+	set ALREADY_PLAYED_ENERGY_F, [hl]
+.play_energy
+	ldh a, [hTempPlayAreaLocation_ff9d]
+	ldh [hTempPlayAreaLocation_ffa1], a
+	ld e, a
+	ldh a, [hTempCardIndex_ff98] ; this is the card we're playing
+	ldh [hTempStorage], a
+	call PutHandCardInPlayArea
+	call PrintPlayAreaCardList_EnableLCD
+	ld a, OPPACTION_PLAY_ENERGY
+	ldh [hOppActionTableIndex], a
+	call PrintAttachedEnergyToPokemon
+	jp DuelMainInterface
+	
+.already_played_energy
+	ldtx hl, MayOnlyAttachOneEnergyCardText
+	call DrawWideTextBox_WaitForInput
+;	fallthrough
 

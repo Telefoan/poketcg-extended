@@ -541,7 +541,7 @@ PlayEnergyCard:
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld e, a
-	ldh a, [hTempCardIndex_ff98]
+	ldh a, [hTempCardIndex_ff98] ; this is the card we're playing
 	ldh [hTempStorage], a
 	call PutHandCardInPlayArea
 	call PrintPlayAreaCardList_EnableLCD
