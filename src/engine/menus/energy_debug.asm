@@ -279,12 +279,5 @@ EnergyDebug_IncrementEnergy_Step1:
 	xor a 
 	ld c, NUM_TYPES
 	ld hl, wAttachedEnergies
-
-	ld a, [hl]
-	push hl
-	push de
-	push bc
-	ld a, l
-
 	ret
 
