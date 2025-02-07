@@ -101,15 +101,15 @@ CopyCGBPalettes::
 	ld e, a
 .next_byte
 	ld a, e
-	ld [$ff00+c], a
+	ldh [$ff00+c], a
 	inc c
 .wait
 	ldh a, [rSTAT]
 	and 1 << STAT_BUSY ; wait until hblank or vblank
 	jr nz, .wait
 	ld a, [hl]
-	ld [$ff00+c], a
-	ld a, [$ff00+c]
+	ldh [$ff00+c], a
+	ldh a, [$ff00+c]
 	cp [hl]
 	jr nz, .wait
 	inc hl
