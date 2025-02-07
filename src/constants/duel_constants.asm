@@ -25,6 +25,7 @@ DEF DUEL_LOSS EQU $1
 
 ; wPlayerDuelVariables or wOpponentDuelVariables constants
 DEF DUELVARS_CARD_LOCATIONS                   EQUS "LOW(wPlayerCardLocations)"               ; 00
+;DEF DUELVARS_ENERGY_ZONE_CARDS               EQUS "LOW(wPlayerEnergyZoneCards)"			; 3c
 DEF DUELVARS_PRIZE_CARDS                      EQUS "LOW(wPlayerPrizeCards)"                  ; 3c
 DEF DUELVARS_HAND                             EQUS "LOW(wPlayerHand)"                        ; 42
 DEF DUELVARS_DECK_CARDS                       EQUS "LOW(wPlayerDeckCards)"                   ; 7e
@@ -67,6 +68,7 @@ DEF DUELVARS_ARENA_CARD_SUBSTATUS2            EQUS "LOW(wPlayerArenaCardSubstatu
 DEF DUELVARS_ARENA_CARD_CHANGED_WEAKNESS      EQUS "LOW(wPlayerArenaCardChangedWeakness)"    ; e9
 DEF DUELVARS_ARENA_CARD_CHANGED_RESISTANCE    EQUS "LOW(wPlayerArenaCardChangedResistance)"  ; ea
 DEF DUELVARS_ARENA_CARD_SUBSTATUS3            EQUS "LOW(wPlayerArenaCardSubstatus3)"         ; eb
+;DEF DUELVARS_VICTORY_POINTS                  EQUS "LOW(wPlayerVictoryPoints)"				; ec
 DEF DUELVARS_PRIZES                           EQUS "LOW(wPlayerPrizes)"                      ; ec
 DEF DUELVARS_NUMBER_OF_CARDS_IN_DISCARD_PILE  EQUS "LOW(wPlayerNumberOfCardsInDiscardPile)"  ; ed
 DEF DUELVARS_NUMBER_OF_CARDS_IN_HAND          EQUS "LOW(wPlayerNumberOfCardsInHand)"         ; ee
@@ -84,6 +86,7 @@ DEF DUELVARS_ARENA_CARD_LAST_TURN_EFFECT      EQUS "LOW(wPlayerArenaCardLastTurn
 DEF CARD_LOCATION_DECK         EQU $00
 DEF CARD_LOCATION_HAND         EQU $01
 DEF CARD_LOCATION_DISCARD_PILE EQU $02
+;DEf CARD_LOCATION_ENERGY_ZONE	EQU$08
 DEF CARD_LOCATION_PRIZE        EQU $08
 DEF CARD_LOCATION_ARENA        EQU $10
 DEF CARD_LOCATION_BENCH_1      EQU $11
@@ -255,6 +258,9 @@ DEF EFFECT_FAILED_UNSUCCESSFUL EQU $02
 ; wAnimationQueue length
 DEF ANIMATION_QUEUE_LENGTH EQU 7
 
+; Energy Zone and Victory Points notes:
+; idk what to do with these, i dont want to have to define every energy
+; probably just going to axe these
 DEF PRIZES_1    EQU $01
 DEF PRIZES_2    EQU $02
 DEF PRIZES_3    EQU $03

@@ -7216,6 +7216,7 @@ InitializeDuelVariables:
 	ret
 
 ; draw [wDuelInitialPrizes] cards from the turn holder's deck and place them as prizes:
+; ([wDuelInitialPrizes] refers to the number of prizes)
 ; write their deck indexes to DUELVARS_PRIZE_CARDS, set their location to
 ; CARD_LOCATION_PRIZE, and set [wDuelInitialPrizes] bits of DUELVARS_PRIZES.
 InitTurnDuelistPrizes:
