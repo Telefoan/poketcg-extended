@@ -317,6 +317,8 @@ wCardPageNumber:: ; cbc7
 ; how many selectable items are in a play area screen. used to set wNumMenuItems
 ; in order to navigate through a play area screen. this becomes the number of bench
 ; Pokemon cards if wExcludeArenaPokemon is 1, and that number plus 1 if it's 0.
+; pocketUi notes:
+; gonna update this once i know how many selectable items i have
 wNumPlayAreaItems:: ; cbc8
 	ds $1
 

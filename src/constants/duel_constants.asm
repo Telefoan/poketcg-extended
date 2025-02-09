@@ -1,9 +1,10 @@
-DEF MAX_BENCH_POKEMON     EQU 5
-DEF MAX_PLAY_AREA_POKEMON EQU 6 ; arena + bench
-DEF MAX_HP                EQU 120
+; updated for pocketUI
+DEF MAX_BENCH_POKEMON     EQU 3
+DEF MAX_PLAY_AREA_POKEMON EQU 4 ; arena + bench
+DEF MAX_HP                EQU 220
 DEF HP_BAR_LENGTH         EQU MAX_HP / 10
 
-DEF STARTING_HAND_SIZE EQU 7
+DEF STARTING_HAND_SIZE EQU 5
 
 ; hWhoseTurn constants
 DEF PLAYER_TURN   EQUS "HIGH(wPlayerDuelVariables)"
@@ -36,32 +37,32 @@ DEF DUELVARS_ARENA_CARD_HP                    EQUS "LOW(wPlayerArenaCardHP)"    
 DEF DUELVARS_BENCH1_CARD_HP                   EQUS "LOW(wPlayerBench1CardHP)"                ; c9
 DEF DUELVARS_BENCH2_CARD_HP                   EQUS "LOW(wPlayerBench2CardHP)"                ; ca
 DEF DUELVARS_BENCH3_CARD_HP                   EQUS "LOW(wPlayerBench3CardHP)"                ; cb
-DEF DUELVARS_BENCH4_CARD_HP                   EQUS "LOW(wPlayerBench4CardHP)"                ; cc
-DEF DUELVARS_BENCH5_CARD_HP                   EQUS "LOW(wPlayerBench5CardHP)"                ; cd
+;DEF DUELVARS_BENCH4_CARD_HP                   EQUS "LOW(wPlayerBench4CardHP)"                ; cc
+;DEF DUELVARS_BENCH5_CARD_HP                   EQUS "LOW(wPlayerBench5CardHP)"                ; cd
 DEF DUELVARS_ARENA_CARD_STAGE                 EQUS "LOW(wPlayerArenaCardStage)"              ; ce
 DEF DUELVARS_BENCH1_CARD_STAGE                EQUS "LOW(wPlayerBench1CardStage)"             ; cf
 DEF DUELVARS_BENCH2_CARD_STAGE                EQUS "LOW(wPlayerBench2CardStage)"             ; d0
 DEF DUELVARS_BENCH3_CARD_STAGE                EQUS "LOW(wPlayerBench3CardStage)"             ; d1
-DEF DUELVARS_BENCH4_CARD_STAGE                EQUS "LOW(wPlayerBench4CardStage)"             ; d2
-DEF DUELVARS_BENCH5_CARD_STAGE                EQUS "LOW(wPlayerBench5CardStage)"             ; d3
+;DEF DUELVARS_BENCH4_CARD_STAGE                EQUS "LOW(wPlayerBench4CardStage)"             ; d2
+;DEF DUELVARS_BENCH5_CARD_STAGE                EQUS "LOW(wPlayerBench5CardStage)"             ; d3
 DEF DUELVARS_ARENA_CARD_CHANGED_TYPE          EQUS "LOW(wPlayerArenaCardChangedType)"        ; d4
 DEF DUELVARS_BENCH1_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench1CardChangedType)"       ; d5
 DEF DUELVARS_BENCH2_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench2CardChangedType)"       ; d6
 DEF DUELVARS_BENCH3_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench3CardChangedType)"       ; d7
-DEF DUELVARS_BENCH4_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench4CardChangedType)"       ; d8
-DEF DUELVARS_BENCH5_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench5CardChangedType)"       ; d9
+;DEF DUELVARS_BENCH4_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench4CardChangedType)"       ; d8
+;DEF DUELVARS_BENCH5_CARD_CHANGED_COLOR        EQUS "LOW(wPlayerBench5CardChangedType)"       ; d9
 DEF DUELVARS_ARENA_CARD_ATTACHED_DEFENDER     EQUS "LOW(wPlayerArenaCardAttachedDefender)"   ; da
 DEF DUELVARS_BENCH1_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench1CardAttachedDefender)"  ; db
 DEF DUELVARS_BENCH2_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench2CardAttachedDefender)"  ; dc
 DEF DUELVARS_BENCH3_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench3CardAttachedDefender)"  ; dd
-DEF DUELVARS_BENCH4_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench4CardAttachedDefender)"  ; de
-DEF DUELVARS_BENCH5_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench5CardAttachedDefender)"  ; df
+;DEF DUELVARS_BENCH4_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench4CardAttachedDefender)"  ; de
+;DEF DUELVARS_BENCH5_CARD_ATTACHED_DEFENDER    EQUS "LOW(wPlayerBench5CardAttachedDefender)"  ; df
 DEF DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER    EQUS "LOW(wPlayerArenaCardAttachedPluspower)"  ; e0
 DEF DUELVARS_BENCH1_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench1CardAttachedPluspower)" ; e1
 DEF DUELVARS_BENCH2_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench2CardAttachedPluspower)" ; e2
 DEF DUELVARS_BENCH3_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench3CardAttachedPluspower)" ; e3
-DEF DUELVARS_BENCH4_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench4CardAttachedPluspower)" ; e4
-DEF DUELVARS_BENCH5_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench5CardAttachedPluspower)" ; e5
+;DEF DUELVARS_BENCH4_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench4CardAttachedPluspower)" ; e4
+;DEF DUELVARS_BENCH5_CARD_ATTACHED_PLUSPOWER   EQUS "LOW(wPlayerBench5CardAttachedPluspower)" ; e5
 DEF DUELVARS_ARENA_CARD_SUBSTATUS1            EQUS "LOW(wPlayerArenaCardSubstatus1)"         ; e7
 DEF DUELVARS_ARENA_CARD_SUBSTATUS2            EQUS "LOW(wPlayerArenaCardSubstatus2)"         ; e8
 DEF DUELVARS_ARENA_CARD_CHANGED_WEAKNESS      EQUS "LOW(wPlayerArenaCardChangedWeakness)"    ; e9
@@ -89,8 +90,8 @@ DEF CARD_LOCATION_ARENA        EQU $10
 DEF CARD_LOCATION_BENCH_1      EQU $11
 DEF CARD_LOCATION_BENCH_2      EQU $12
 DEF CARD_LOCATION_BENCH_3      EQU $13
-DEF CARD_LOCATION_BENCH_4      EQU $14
-DEF CARD_LOCATION_BENCH_5      EQU $15
+;DEF CARD_LOCATION_BENCH_4      EQU $14
+;DEF CARD_LOCATION_BENCH_5      EQU $15
 
 ; card location flags (DUELVARS_CARD_LOCATIONS)
 DEF CARD_LOCATION_PLAY_AREA_F  EQU 4 ; includes arena and bench
@@ -103,8 +104,8 @@ DEF PLAY_AREA_ARENA   EQU $0
 DEF PLAY_AREA_BENCH_1 EQU $1
 DEF PLAY_AREA_BENCH_2 EQU $2
 DEF PLAY_AREA_BENCH_3 EQU $3
-DEF PLAY_AREA_BENCH_4 EQU $4
-DEF PLAY_AREA_BENCH_5 EQU $5
+;DEF PLAY_AREA_BENCH_4 EQU $4
+;DEF PLAY_AREA_BENCH_5 EQU $5
 
 ; duelist types (DUELVARS_DUELIST_TYPE)
 DEF DUELIST_TYPE_PLAYER   EQU $00
@@ -255,12 +256,12 @@ DEF EFFECT_FAILED_UNSUCCESSFUL EQU $02
 ; wAnimationQueue length
 DEF ANIMATION_QUEUE_LENGTH EQU 7
 
-DEF PRIZES_1    EQU $01
-DEF PRIZES_2    EQU $02
-DEF PRIZES_3    EQU $03
-DEF PRIZES_4    EQU $04
-DEF PRIZES_5    EQU $05
-DEF PRIZES_6    EQU $06
+;DEF PRIZES_1    EQU $01
+;DEF PRIZES_2    EQU $02
+;DEF PRIZES_3    EQU $03
+;DEF PRIZES_4    EQU $04
+;DEF PRIZES_5    EQU $05
+;DEF PRIZES_6    EQU $06
 
 ; constants to use as input to LookForCardInDeck
 	const_def $80

@@ -1867,7 +1867,7 @@ ChooseInitialArenaAndBenchPokemon:
 	call EmptyScreen
 	ld a, BOXMSG_BENCH_POKEMON
 	call DrawDuelBoxMessage
-	ldtx hl, ChooseUpTo5BasicPkmnToPlaceOnBenchText
+	ldtx hl, ChooseUpTo3BasicPkmnToPlaceOnBenchText
 	call PrintScrollableText_NoTextBoxLabel
 	ld a, PRACTICEDUEL_PUT_STARYU_IN_BENCH
 	call DoPracticeDuelAction
@@ -6942,7 +6942,7 @@ Func_6fa5:
 	ret nc
 	call SwapTurn
 	bank1call DrawDuelMainScene
-	ldtx hl, TookAllThePrizesText
+	ldtx hl, ScoredAllTheVictoryPoints
 	call DrawWideTextBox_WaitForInput
 	call SwapTurn
 	scf

@@ -104,7 +104,7 @@ TextOffsets::
 	textpointer ThereAreNoBasicPokemonInHand
 	textpointer NeitherPlayerHasBasicPkmnText
 	textpointer ReturnCardsToDeckAndDrawAgainText
-	textpointer ChooseUpTo5BasicPkmnToPlaceOnBenchText
+	textpointer ChooseUpTo3BasicPkmnToPlaceOnBenchText
 	textpointer PleaseChooseAnActivePokemonText
 	textpointer ChooseYourBenchPokemonText
 	textpointer YouDrewText
@@ -122,7 +122,7 @@ TextOffsets::
 	textpointer NoneText
 	textpointer YesText
 	textpointer CardsText
-	textpointer TookAllThePrizesText
+	textpointer ScoredAllTheVictoryPoints
 	textpointer ThereAreNoPokemonInPlayAreaText
 	textpointer WasKnockedOutText
 	textpointer HavePokemonPowerText
@@ -133,7 +133,7 @@ TextOffsets::
 	textpointer DuelistIsThinkingText
 	textpointer ClearOpponentNameText
 	textpointer SelectComputerOpponentText
-	textpointer NumberOfPrizesText
+	textpointer NumberOfVictoryPoints
 	textpointer Player2Text
 	textpointer ResetBackUpRamText
 	textpointer YourDataWasDestroyedSomehowText
@@ -352,7 +352,7 @@ TextOffsets::
 	textpointer ThereWasNoEffectFromPoisonConfusionText
 	textpointer ExchangedCardsInDuelistsHandText
 	textpointer PrizesCardsText
-	textpointer ChooseTheNumberOfPrizesText
+	textpointer ChooseTheNumberOfVictoryPoints
 	textpointer PleaseWaitDecidingNumberOfPrizesText
 	textpointer BeginAPrizeDuelWithText
 	textpointer AreYouBothReadyToCardPopText

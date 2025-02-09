@@ -54,13 +54,13 @@ HandleAIAntiMewtwoDeckStrategy:
 	jr .set_carry
 
 ; else, check number of Pokemon that are set up in Bench
-; if less than 4, return carry.
+; if less than 2, return carry.
 .count_bench
 	farcall CountNumberOfSetUpBenchPokemon
-	cp 4
+	cp 2
 	jr c, .set_carry
 
-; if there's at least 4 Pokemon in the Bench set up,
+; if there's at least 2 Pokemon in the Bench set up,
 ; process Trainer hand cards of AI_TRAINER_CARD_PHASE_05
 	ld a, AI_TRAINER_CARD_PHASE_05
 	farcall AIProcessHandTrainerCards

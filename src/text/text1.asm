@@ -456,8 +456,8 @@ ReturnCardsToDeckAndDrawAgainText:
 	line "and draw again."
 	done
 
-ChooseUpTo5BasicPkmnToPlaceOnBenchText:
-	text "You may choose up to 5 Basic Pokémon"
+ChooseUpTo3BasicPkmnToPlaceOnBenchText:
+	text "You may choose up to 3 Basic Pokémon"
 	line "to place on the Bench."
 	done
 
@@ -540,9 +540,9 @@ CardsText:
 	text "Cards"
 	done
 
-TookAllThePrizesText:
-	text "<RAMNAME> took"
-	line "all the Prizes!"
+ScoredAllTheVictoryPoints:
+	text "<RAMNAME> scored all"
+	line "the Victory Points!"
 	done
 
 ThereAreNoPokemonInPlayAreaText:
