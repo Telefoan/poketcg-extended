@@ -353,7 +353,7 @@ TextOffsets::
 	textpointer ExchangedCardsInDuelistsHandText
 	textpointer PrizesCardsText
 	textpointer ChooseTheNumberOfVictoryPoints
-	textpointer PleaseWaitDecidingNumberOfPrizesText
+	textpointer PleaseWaitDecidingNumberOfVictoryPointsText
 	textpointer BeginAPrizeDuelWithText
 	textpointer AreYouBothReadyToCardPopText
 	textpointer ThePopWasntSuccessfulText

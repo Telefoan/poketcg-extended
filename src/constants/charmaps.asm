@@ -434,44 +434,44 @@ ENDM
 	txsymbol FIGHTING   ; $05
 	txsymbol PSYCHIC    ; $06
 	txsymbol COLORLESS  ; $07
-	txsymbol POISONED   ; $08
-	txsymbol ASLEEP     ; $09
-	txsymbol CONFUSED   ; $0a
-	txsymbol PARALYZED  ; $0b
-	txsymbol CURSOR_U   ; $0c
-	txsymbol POKEMON    ; $0d
-	txsymbol ATK_DESCR  ; $0e
-	txsymbol CURSOR_R   ; $0f
-	txsymbol HP         ; $10
-	txsymbol Lv         ; $11
-	txsymbol E          ; $12
-	txsymbol No         ; $13
-	txsymbol PLUSPOWER  ; $14
-	txsymbol DEFENDER   ; $15
-	txsymbol HP_OK      ; $16
-	txsymbol HP_NOK     ; $17
-	txsymbol BOX_TOP_L  ; $18
-	txsymbol BOX_TOP_R  ; $19
-	txsymbol BOX_BTM_L  ; $1a
-	txsymbol BOX_BTM_R  ; $1b
-	txsymbol BOX_TOP    ; $1c
-	txsymbol BOX_BOTTOM ; $1d
-	txsymbol BOX_LEFT   ; $1e
-	txsymbol BOX_RIGHT  ; $1f
-	txsymbol 0          ; $20
-	txsymbol 1          ; $21
+	txsymbol DARKNESS	; $08
+	txsymbol STEEL		; $09
+	txsymbol POISONED   ; $0a
+	txsymbol ASLEEP     ; $0b
+	txsymbol CONFUSED   ; $0c
+	txsymbol PARALYZED  ; $0d
+	txsymbol CURSOR_U   ; $0e
+	txsymbol POKEMON    ; $0f
+	txsymbol ATK_DESCR  ; $10
+	txsymbol CURSOR_R   ; $11
+	txsymbol HP         ; $12
+	txsymbol Lv         ; $13
+	txsymbol E          ; $14
+	txsymbol No         ; $15
+	txsymbol PLUSPOWER  ; $16
+	txsymbol DEFENDER   ; $17
+	txsymbol HP_OK      ; $18
+	txsymbol HP_NOK     ; $19
+	txsymbol BOX_TOP_L  ; $1a
+	txsymbol BOX_TOP_R  ; $1b
+	txsymbol BOX_BTM_L  ; $1c
+	txsymbol BOX_BTM_R  ; $1d
+	txsymbol BOX_TOP_OR_BOTTOM  ; $1e  
+	txsymbol BOX_SIDE 	; $1f
+	txsymbol 0  		; $20
+	txsymbol 1	  		; $21
 	txsymbol 2          ; $22
 	txsymbol 3          ; $23
 	txsymbol 4          ; $24
 	txsymbol 5          ; $25
 	txsymbol 6          ; $26
 	txsymbol 7          ; $27
-	txsymbol 8          ; $28
+	txsymbol 8        ; $28
 	txsymbol 9          ; $29
-	txsymbol DOT        ; $2a
-	txsymbol PLUS       ; $2b
-	txsymbol MINUS      ; $2c
-	txsymbol CROSS      ; $2d
+	txsymbol DOT          ; $2a
+	txsymbol PLUS        ; $2b
+	txsymbol MINUS       ; $2c
+	txsymbol CROSS		; $2d      
 	txsymbol SLASH      ; $2e
 	txsymbol CURSOR_D   ; $2f
 	txsymbol PRIZE      ; $30

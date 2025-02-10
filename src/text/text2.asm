@@ -741,14 +741,15 @@ PrizesCardsText:
 	line "       cards"
 	done
 
-ChooseTheNumberOfPrizesText:
+ChooseTheNumberOfVictoryPointsText:
 	text "Choose the number"
-	line "of Prizes."
+	line "of Victory Points."
 	done
 
-PleaseWaitDecidingNumberOfPrizesText:
+PleaseWaitDecidingNumberOfVictoryPointsText:
 	text "Please wait..."
-	line "Deciding the number of Prizes..."
+	line "Deciding the number of"
+	line "Victory Points..."
 	done
 
 BeginAPrizeDuelWithText:

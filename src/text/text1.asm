@@ -592,8 +592,8 @@ SelectComputerOpponentText:
 	text "Select a computer opponent."
 	done
 
-NumberOfPrizesText:
-	text "Number of Prizes"
+NumberOfVictoryPointsText:
+	text "Number of Victory Points"
 	done
 
 Player2Text:
