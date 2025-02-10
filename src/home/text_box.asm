@@ -158,7 +158,7 @@ ContinueDrawingTextBoxDMG::
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
 	ld a, SYM_BOX_TOP_BTM
-	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
+	lb de, SYM_BOX_CORNER, SYM_BOX_CORNER
 ;	fallthrough
 
 ; copies b bytes of data to sp-$1f and to hl, and returns hl += BG_MAP_WIDTH
@@ -228,7 +228,7 @@ ContinueDrawingTextBoxCGB::
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
 	ld a, SYM_BOX_TOP_BTM
-	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
+	lb de, SYM_BOX_CORNER, SYM_BOX_CORNER
 	jp CopyCurrentLineTilesAndAttrCGB
 
 ; d = id of top left tile
