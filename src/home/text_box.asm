@@ -93,7 +93,7 @@ DrawLabeledTextBox::
 .draw_top_border_line_loop
 	ld a, TX_SYMBOL
 	ld [hli], a
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	ld [hli], a
 	dec b
 	jr nz, .draw_top_border_line_loop
@@ -140,7 +140,7 @@ DrawRegularTextBox::
 	jr z, DrawRegularTextBoxCGB
 	call DECoordToBGMap0Address
 	; top line (border) of the text box
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	lb de, SYM_BOX_TOP_L, SYM_BOX_TOP_R
 	call CopyLine
 ;	fallthrough
@@ -152,12 +152,12 @@ ContinueDrawingTextBoxDMG::
 	dec c
 .draw_text_box_body_loop
 	ld a, SYM_SPACE
-	lb de, BOX_SIDE, BOX_SIDE
+	lb de, SYM_BOX_SIDE, SYM_BOX_SIDE
 	call CopyLine
 	dec c
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
 ;	fallthrough
 
@@ -201,7 +201,7 @@ CopyLine::
 DrawRegularTextBoxCGB::
 	call DECoordToBGMap0Address
 	; top line (border) of the text box
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	lb de, SYM_BOX_TOP_L, SYM_BOX_TOP_R
 	call CopyCurrentLineTilesAndAttrCGB
 ;	fallthrough
@@ -213,7 +213,7 @@ ContinueDrawingTextBoxCGB::
 	dec c
 .draw_text_box_body_loop
 	ld a, SYM_SPACE
-	lb de, BOX_SIDE, BOX_SIDE
+	lb de, SYM_BOX_SIDE, SYM_BOX_SIDE
 	push hl
 	call CopyLine
 	pop hl
@@ -227,7 +227,7 @@ ContinueDrawingTextBoxCGB::
 	dec c
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
 	jp CopyCurrentLineTilesAndAttrCGB
 

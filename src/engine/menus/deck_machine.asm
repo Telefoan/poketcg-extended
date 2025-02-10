@@ -1037,7 +1037,7 @@ DrawListScrollArrows:
 	ld a, SYM_CURSOR_U
 	jr .got_tile_1
 .no_up_cursor
-	ld a, BOX_SIDE
+	ld a, SYM_BOX_SIDE
 .got_tile_1
 	lb bc, 19, 1
 	call WriteByteToBGMap0
@@ -1055,7 +1055,7 @@ DrawListScrollArrows:
 .no_down_cursor
 	ld a, TRUE
 	ld [wUnableToScrollDown], a
-	ld a, BOX_SIDE
+	ld a, SYM_BOX_SIDE
 .got_tile_2
 	lb bc, 19, 11
 	jp WriteByteToBGMap0

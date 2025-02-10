@@ -871,7 +871,7 @@ DrawCardTypeIconsAndPrintCardCounts:
 	call Set_OBJ_8x8
 	call PrepareMenuGraphics
 	lb bc, 0, 5
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	call FillBGMapLineWithA
 	call DrawCardTypeIcons
 	call PrintCardTypeCounts
@@ -3396,7 +3396,7 @@ PrintPlayersCardsHeaderInfo:
 	call PrepareMenuGraphics
 .skip_empty_screen
 	lb bc, 0, 4
-	ld a, BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_OR_BOTTOM
 	call FillBGMapLineWithA
 	call PrintTotalNumberOfCardsInCollection
 	call PrintPlayersCardsText
