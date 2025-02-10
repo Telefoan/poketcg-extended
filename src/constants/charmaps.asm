@@ -475,3 +475,11 @@ ENDM
 	txsymbol SLASH      ; $2e
 	txsymbol CURSOR_D   ; $2f
 	txsymbol PRIZE      ; $30
+	;txsymbol unused_1	; $31
+	;txsymbol unused_2	; $32
+	;txsymbol unused_3	; $33
+	;txsymbol unused_4	; $34
+	;txsymbol unused_5	; $35
+	;txsymbol unused_6	; $36
+	;txsymbol unused_7	; $37
+	
