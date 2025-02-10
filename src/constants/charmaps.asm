@@ -452,12 +452,12 @@ ENDM
 	txsymbol DEFENDER   ; $17
 	txsymbol HP_OK      ; $18
 	txsymbol HP_NOK     ; $19
-	txsymbol BOX_TOP_L  ; $1a
-	txsymbol BOX_TOP_R  ; $1b
-	txsymbol BOX_BTM_L  ; $1c
-	txsymbol BOX_BTM_R  ; $1d
-	txsymbol BOX_TOP_OR_BOTTOM  ; $1e  
-	txsymbol BOX_SIDE 	; $1f
+	txsymbol BOX_CORNER  ; $1a
+	txsymbol BOX_TOP_BTM  ; $1b
+	txsymbol BOX_SIDE  ; $1c
+	txsymbol UNUSED_8  ; $1d
+	txsymbol UNUSED_9  ; $1e  
+	txsymbol UNUSED_10 	; $1f
 	txsymbol 0  		; $20
 	txsymbol 1	  		; $21
 	txsymbol 2          ; $22

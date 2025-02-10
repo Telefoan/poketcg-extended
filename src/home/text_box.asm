@@ -64,7 +64,7 @@ DrawLabeledTextBox::
 	ld hl, wc000
 	ld a, TX_SYMBOL
 	ld [hli], a
-	ld a, SYM_BOX_TOP_L
+	ld a, SYM_BOX_CORNER
 	ld [hli], a
 	; white tile before the text
 	ld a, FW_SPACE
@@ -93,7 +93,7 @@ DrawLabeledTextBox::
 .draw_top_border_line_loop
 	ld a, TX_SYMBOL
 	ld [hli], a
-	ld a, SYM_BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_BTM
 	ld [hli], a
 	dec b
 	jr nz, .draw_top_border_line_loop
@@ -101,7 +101,7 @@ DrawLabeledTextBox::
 .draw_top_border_right_tile
 	ld a, TX_SYMBOL
 	ld [hli], a
-	ld a, SYM_BOX_TOP_R
+	ld a, SYM_BOX_CORNER
 	ld [hli], a
 	ld [hl], TX_END
 	pop bc
@@ -140,8 +140,8 @@ DrawRegularTextBox::
 	jr z, DrawRegularTextBoxCGB
 	call DECoordToBGMap0Address
 	; top line (border) of the text box
-	ld a, SYM_BOX_TOP_OR_BOTTOM
-	lb de, SYM_BOX_TOP_L, SYM_BOX_TOP_R
+	ld a, SYM_BOX_TOP_BTM
+	lb de, SYM_BOX_CORNER, SYM_BOX_CORNER
 	call CopyLine
 ;	fallthrough
 
@@ -157,7 +157,7 @@ ContinueDrawingTextBoxDMG::
 	dec c
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
-	ld a, SYM_BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_BTM
 	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
 ;	fallthrough
 
@@ -201,8 +201,8 @@ CopyLine::
 DrawRegularTextBoxCGB::
 	call DECoordToBGMap0Address
 	; top line (border) of the text box
-	ld a, SYM_BOX_TOP_OR_BOTTOM
-	lb de, SYM_BOX_TOP_L, SYM_BOX_TOP_R
+	ld a, SYM_BOX_TOP_BTM
+	lb de, SYM_BOX_CORNER, SYM_BOX_CORNER
 	call CopyCurrentLineTilesAndAttrCGB
 ;	fallthrough
 
@@ -227,7 +227,7 @@ ContinueDrawingTextBoxCGB::
 	dec c
 	jr nz, .draw_text_box_body_loop
 	; bottom line (border) of the text box
-	ld a, SYM_BOX_TOP_OR_BOTTOM
+	ld a, SYM_BOX_TOP_BTM
 	lb de, SYM_BOX_BTM_L, SYM_BOX_BTM_R
 	jp CopyCurrentLineTilesAndAttrCGB
 
