@@ -2539,10 +2539,10 @@ DuelHorizontalSeparatorTileData:
 
 DuelHorizontalSeparatorCGBPalData:
 ; x, y, pals[], 0
-	db 0, 4, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, 0
-	db 9, 5, $02, $02, 0
-	db 9, 6, $02, $02, 0
-	db 9, 7, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, 0
+	db 0, 4, $02, $02, $02, $02, $02, $02, $02, $02, $02, 0
+	db 9, 5, $02, 0
+	db 10, 6, $02, 0
+	db 11, 7, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, $02, 0
 	db $ff
 
 ; if this is a practice duel, execute the practice duel action at wPracticeDuelAction
