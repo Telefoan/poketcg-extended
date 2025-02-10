@@ -152,7 +152,7 @@ ContinueDrawingTextBoxDMG::
 	dec c
 .draw_text_box_body_loop
 	ld a, SYM_SPACE
-	lb de, SYM_BOX_LEFT, SYM_BOX_RIGHT
+	lb de, SYM_BOX_SIDE, SYM_BOX_SIDE
 	call CopyLine
 	dec c
 	jr nz, .draw_text_box_body_loop
@@ -213,7 +213,7 @@ ContinueDrawingTextBoxCGB::
 	dec c
 .draw_text_box_body_loop
 	ld a, SYM_SPACE
-	lb de, SYM_BOX_LEFT, SYM_BOX_RIGHT
+	lb de, SYM_BOX_SIDE, SYM_BOX_SIDE
 	push hl
 	call CopyLine
 	pop hl
