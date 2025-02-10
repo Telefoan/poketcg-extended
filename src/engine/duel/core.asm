@@ -2531,10 +2531,10 @@ DuelEAndHPTileData:
 
 DuelHorizontalSeparatorTileData:
 ; x, y, tiles[], 0
-	db 0, 4, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1a, $00, 0
-	db 9, 5, $00, $1a, 0
-	db 9, 6, $1a, $00, 0
-	db 9, 7, $1a, $36, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, 0
+	db 0, 4, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1a, 0
+	db 9, 5, $1a, 0
+	db 10, 6, $1a, 0
+	db 11, 7, $1a, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, $1b, 0
 	db $ff
 
 DuelHorizontalSeparatorCGBPalData:
