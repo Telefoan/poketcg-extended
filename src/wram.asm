@@ -456,7 +456,10 @@ wEnergyDiscardMenuNumerator:: ; cbfb
 
 ; used by TurnDuelistTakePrizes to store the remaining Prizes, so that if more than that
 ; amount would be taken, only the remaining amount is taken
-wTempNumRemainingPrizeCards:: ; cbfc
+; Energy Zone notes:
+; should be maintained, once energies are discarded 
+; they should be sent back here instead of to the discard pile
+wTempNumRemainingPrizeCards:: ; cbfc 
 	ds $1
 
 ; if FALSE, player is placing initial arena pokemon
@@ -508,6 +511,9 @@ wDuelFinished:: ; cc07
 	ds $1
 
 ; current duel is a [wDuelInitialPrizes]-prize match
+; Energy Zone Notes:
+; either use this for energy zone or find another, 
+; if another, use this for victory points instead of prizes
 wDuelInitialPrizes:: ; cc08
 	ds $1
 
@@ -648,6 +654,10 @@ wNoDamageOrEffect:: ; ccc7
 
 ; used by CountKnockedOutPokemon and TurnDuelistTakePrizes to store the amount
 ; of prizes to take (equal to the number of Pokemon knocked out)
+; Energy Zone & Victory Points notes:
+; yeah, i think i should just copy the code i need for the energy zone, 
+; this looks like it would be useful for victory points and not 
+; Energy zone
 wNumberPrizeCardsToTake:: ; ccc8
 	ds $1
 
@@ -879,6 +889,8 @@ wCoinTossNumTossed:: ; cd9f
 wAIDuelVars::
 ; saves the prizes that the AI already used Peek on
 ; each bit corresponds to a Prize card
+; Energy Zone and Victory Points notes:
+; FREE REAL ESTATE
 wAIPeekedPrizes:: ; cda5
 	ds $1
 
@@ -905,6 +917,9 @@ wAIBarrierFlagCounter:: ; cda7
 ; to avoid being placed as prize cards
 ; when setting up AI duelist's cards at duel start.
 ; (see SetUpBossStartingHandAndDeck)
+; Energy Zone and Victory Points notes:
+; copy this, it might be useful for ensuring that non-energy cards are
+; not pulled into the energy pile
 wAICardListAvoidPrize:: ; cda8
 	ds $2
 
@@ -1003,6 +1018,9 @@ wAIPlayerWeakness:: ; cdd0
 wAIPlayerResistance:: ; cdd1
 	ds $1
 ; player's prize count
+; energy zone and victory points notes:
+; ping this for victory points, might need to invert it???
+; or not, still counts the number of victory points
 wAIPlayerPrizeCount:: ; cdd2
 	ds $1
 ; opponent's prize count
@@ -1306,11 +1324,15 @@ wInPlayAreaTemporaryPosition:: ; ce58
 
 ; number of prize cards still to be
 ; picked by the player
+; energy zone and victory points notes:
+; subtract the number of claimed points from total points 
 wNumberOfPrizeCardsToSelect:: ; ce59
 	ds $1
 
 ; pointer to a $ff-terminated list
 ; of the prize cards selected by the player
+; energy Zone and Victory points notes:
+; FREE REAL ESTATE
 wSelectedPrizeCardListPtr:: ; ce5a
 	ds $2
 
@@ -1338,6 +1360,8 @@ wInPlayAreaFromSelectButton:: ; ce60
 
 ; it's used only in one function,
 ; which means that it's a kind of local variable, but defined in wram.
+; Energy Zone and Victory points notes:
+; FREE REAL ESTATE
 wPrizeCardCursorTemporaryPosition:: ; ce61
 	ds $1
 
@@ -1918,10 +1942,10 @@ wSCXBuffer:: ; d235
 wSCYBuffer:: ; d236
 	ds $1
 
-wd237:: ; d237
+wSpareMemoryBlock1:: ; d237
 	ds $1
 
-wd238:: ; d238
+wSpareMemoryBlock2:: ; d238
 	ds $1
 
 ; current tileset to load to VRAM

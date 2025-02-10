@@ -296,7 +296,7 @@ PrintCardSetListEntries:
 	ld a, SYM_CURSOR_U
 	jr .got_up_cursor_tile
 .no_up_cursor
-	ld a, SYM_BOX_TOP_R
+	ld a, SYM_BOX_CORNER
 .got_up_cursor_tile
 	call WriteByteToBGMap0
 
@@ -381,7 +381,7 @@ PrintCardSetListEntries:
 	pop de
 	ld a, TRUE
 	ld [wUnableToScrollDown], a
-	ld a, SYM_BOX_BTM_R
+	ld a, SYM_BOX_CORNER
 .got_down_cursor_tile
 	lb bc, 19, 17
 	call WriteByteToBGMap0

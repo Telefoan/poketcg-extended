@@ -144,7 +144,7 @@ ZeroRAM::
 	ld b, $fff0 - $ff80
 	xor a
 .zero_hram_loop
-	ld [$ff00+c], a
+	ldh [$ff00+c], a
 	inc c
 	dec b
 	jr nz, .zero_hram_loop

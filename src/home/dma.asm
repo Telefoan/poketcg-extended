@@ -5,7 +5,7 @@ CopyDMAFunction::
 	ld hl, DMA
 .loop
 	ld a, [hli]
-	ld [$ff00+c], a
+	ldh [$ff00+c], a
 	inc c
 	dec b
 	jr nz, .loop

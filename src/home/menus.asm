@@ -801,7 +801,7 @@ WideTextBoxMenuParameters::
 	db 1 ; y displacement between items
 	db 1 ; number of items
 	db SYM_CURSOR_D ; cursor tile number
-	db SYM_BOX_TOP_OR_BOTTOM ; tile behind cursor
+	db SYM_BOX_TOP_BTM ; tile behind cursor
 	dw NULL ; function pointer if non-0
 
 ; display a two-item horizontal menu with custom text provided in hl and handle input
