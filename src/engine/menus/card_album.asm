@@ -296,7 +296,7 @@ PrintCardSetListEntries:
 	ld a, SYM_CURSOR_U
 	jr .got_up_cursor_tile
 .no_up_cursor
-	ld a, SYM_BOX_TOP_R
+	ld a, SYM_BOX_CORNER
 .got_up_cursor_tile
 	call WriteByteToBGMap0
 
