@@ -67,6 +67,8 @@ DEF CARD_DATA_ATTACK2_ANIMATION       rb
 ; TYPE_PKMN card only
 DEF CARD_DATA_RETREAT_COST          rb
 DEF CARD_DATA_WEAKNESS              rb
+; energy zone and Victory Points notes:
+; remove this through...
 DEF CARD_DATA_RESISTANCE            rb
 DEF CARD_DATA_CATEGORY              rw
 DEF CARD_DATA_POKEDEX_NUMBER        rb
@@ -75,10 +77,16 @@ DEF CARD_DATA_LENGTH                rw
 DEF CARD_DATA_WEIGHT                rw
 DEF CARD_DATA_PKMN_DESCRIPTION      rw
 DEF CARD_DATA_UNKNOWN2              rb
+; ... this. its not necessary
 
 DEF PKMN_CARD_DATA_LENGTH EQU _RS
 
 ; generic type (color) constants
+; energy zone and victory points notes:
+;  this is currently set to inhabit a single
+; 	byte (8 bits, 00-07)
+;  we're going to have to figure out how to allow it to 
+; 	inhabit 2 bytes (16 bits, 00-16 [00-0f?])
 	const_def
 	const FIRE        ; $00
 	const GRASS       ; $01
@@ -86,9 +94,12 @@ DEF PKMN_CARD_DATA_LENGTH EQU _RS
 	const WATER       ; $03
 	const FIGHTING    ; $04
 	const PSYCHIC     ; $05
+	;const DARKNESS	; $06
+	;const STEEL 	; $07
+	;const DRAGON	; $08	
 DEF NUM_COLORED_TYPES EQU const_value
-	const COLORLESS   ; $06
-	const UNUSED_TYPE ; $07
+	const COLORLESS   ; $09
+	const UNUSED_TYPE ; $0a
 DEF NUM_TYPES EQU const_value
 
 ; generic type (color) flag constants
@@ -98,7 +109,10 @@ DEF LIGHTNING_F EQU $1 << LIGHTNING ; $04
 DEF WATER_F     EQU $1 << WATER     ; $08
 DEF FIGHTING_F  EQU $1 << FIGHTING  ; $10
 DEF PSYCHIC_F   EQU $1 << PSYCHIC   ; $20
-DEF COLORLESS_F EQU $1 << COLORLESS ; $40
+;DEF DARKNESS_F	EQU $1 << DARKNESS	; $40
+;DEF STEEL_F 	EQU $1 << STEEL		; $80
+;DEF DRAGON_F	EQU $1 << DRAGON	; $a0
+DEF COLORLESS_F EQU $1 << COLORLESS ; $140
 
 ; CARD_DATA_TYPE constants
 DEF TYPE_PKMN_FIRE      EQU FIRE
@@ -107,6 +121,9 @@ DEF TYPE_PKMN_LIGHTNING EQU LIGHTNING
 DEF TYPE_PKMN_WATER     EQU WATER
 DEF TYPE_PKMN_FIGHTING  EQU FIGHTING
 DEF TYPE_PKMN_PSYCHIC   EQU PSYCHIC
+;DEF TYPE_PKMN_DARKNESS	EQU DARKNESS
+;DEF TYPE_PKMN_STEEL	EQU STEEL
+;DEF TYPE_PKMN_DRAGON	EQU DRAGON
 DEF TYPE_PKMN_COLORLESS EQU COLORLESS
 DEF TYPE_PKMN_UNUSED    EQU UNUSED_TYPE
 	const_def TYPE_PKMN_UNUSED + 1 - TYPE_PKMN_FIRE
@@ -117,10 +134,15 @@ DEF TYPE_ENERGY EQU const_value
 	const TYPE_ENERGY_WATER            ; $0b
 	const TYPE_ENERGY_FIGHTING         ; $0c
 	const TYPE_ENERGY_PSYCHIC          ; $0d
-	const TYPE_ENERGY_DOUBLE_COLORLESS ; $0e
-	const TYPE_ENERGY_UNUSED           ; $0f
-	const TYPE_TRAINER                 ; $10
-	const TYPE_TRAINER_UNUSED          ; $11
+	;const TYPE_ENERGY_DARKNESS			; $0e
+	;const TYPE_ENERGY_STEEL			; $0f
+	;const TYPE_ENERGY_DRAGON			; $10
+	const TYPE_ENERGY_DOUBLE_COLORLESS ; $11
+	const TYPE_ENERGY_UNUSED           ; $12
+	;const TYPE_ENERGY_SINGLE_COLORLESS ; $12
+	const TYPE_TRAINER                 ; $13
+	const TYPE_TRAINER_UNUSED          ; $14
+	;const TYPE_TRAINER_SUPPORTER		; $14
 DEF NUM_CARD_TYPES EQU const_value - 1
 
 DEF TYPE_PKMN      EQU %111
@@ -170,6 +192,9 @@ DEF WR_LIGHTNING EQU $20
 DEF WR_WATER     EQU $10
 DEF WR_FIGHTING  EQU $08
 DEF WR_PSYCHIC   EQU $04
+;DEF WR_DARKNESS	EQU $a0
+;DEF WR_STEEL	EQU $140
+;DEF WR_DRAGON	EQU $280
 
 ; CARD_DATA_ATTACK*_CATEGORY constants
 DEF DAMAGE_NORMAL EQU $00
