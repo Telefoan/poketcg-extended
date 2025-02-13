@@ -4651,7 +4651,7 @@ DisplayPlayAreaScreen:
 	ld [wSelectedDuelSubMenuItem], a
 	inc a
 	ld [wPlayAreaScreenLoaded], a
-.asm_6022
+.prepare_screen
 	call ZeroObjectPositionsAndToggleOAMCopy
 	call EmptyScreen
 	call LoadDuelCardSymbolTiles
@@ -4669,18 +4669,18 @@ DisplayPlayAreaScreen:
 	call InitializeMenuParameters
 	ld a, [wNumPlayAreaItems]
 	ld [wNumMenuItems], a
-.asm_604c
+.pause_to_select
 	call DoFrame
 	call SelectingBenchPokemonMenu
 	jr nc, .asm_6061
 	cp $02
-	jp z, .asm_60ac
+	jp z, .load_card_to_temp_location
 	pop af
 	ldh [hTempCardIndex_ff98], a
 	jr OpenPlayAreaScreenForSelection
 .asm_6061
 	call HandleMenuInput
-	jr nc, .asm_604c
+	jr nc, .pause_to_select
 	ld a, e
 	ld [wSelectedDuelSubMenuItem], a
 	ld a, [wExcludeArenaPokemon]
@@ -4695,11 +4695,11 @@ DisplayPlayAreaScreen:
 	add DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	cp -1
-	jr z, .asm_6022
+	jr z, .prepare_screen
 	call GetCardIDFromDeckIndex
 	call LoadCardDataToBuffer1_FromCardID
 	call OpenCardPage_FromCheckPlayArea
-	jr .asm_6022
+	jr .prepare_screen
 .asm_6091
 	ld a, [wExcludeArenaPokemon]
 	ld c, a
@@ -4708,21 +4708,21 @@ DisplayPlayAreaScreen:
 	ldh [hTempPlayAreaLocation_ff9d], a
 	ldh a, [hCurMenuItem]
 	cp $ff
-	jr z, .asm_60b5
+	jr z, .load_card_to_temp_location_and_set_carry_flag
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	or a
-	jr nz, .asm_60ac
+	jr nz, .load_card_to_temp_location
 	jr .skip_ahead
-.asm_60ac
+.load_card_to_temp_location 
 	pop af
 	ldh [hTempCardIndex_ff98], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	ldh [hCurMenuItem], a
 	or a
 	ret
-.asm_60b5
+.load_card_to_temp_location_and_set_carry_flag
 	pop af
 	ldh [hTempCardIndex_ff98], a
 	ldh a, [hTempPlayAreaLocation_ff9d]
@@ -4733,6 +4733,8 @@ DisplayPlayAreaScreen:
 PlayAreaScreenMenuParameters_ActivePokemonIncluded:
 	db 0, 0 ; cursor x, cursor y
 	db 3 ; y displacement between items
+	; pocketUI note:
+	; change below to 4 
 	db 6 ; number of items
 	db SYM_CURSOR_R ; cursor tile number
 	db SYM_SPACE ; tile behind cursor
@@ -4741,6 +4743,8 @@ PlayAreaScreenMenuParameters_ActivePokemonIncluded:
 PlayAreaScreenMenuParameters_ActivePokemonExcluded:
 	db 0, 3 ; cursor x, cursor y
 	db 3 ; y displacement between items
+	; pocketUI note:
+	; change below to 4 
 	db 6 ; number of items
 	db SYM_CURSOR_R ; cursor tile number
 	db SYM_SPACE ; tile behind cursor
