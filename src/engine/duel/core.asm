@@ -197,9 +197,14 @@ HandleTurn:
 	call InitVariablesToBeginTurn
 	call DisplayDrawOneCardScreen
 	call DrawCardFromDeck
+	; energy zone and victory points notes:
+	; somewhere in here i gotta fuck shit up
+	; to not lose if you run out of cards
 	jr nc, .deck_not_empty
 	ld a, TURN_PLAYER_LOST
 	ld [wDuelFinished], a
+	; maybe something like:
+	; .deck_empty
 	ret
 
 .deck_not_empty
@@ -215,6 +220,19 @@ HandleTurn:
 	call SwapTurn
 	call c, DisplayPlayerDrawCardScreen
 	jr DuelMainInterface
+
+;.deck_empty
+;	ld a NO_CARDS_TO_DRAW
+;	ld a, [wDuelistType] 
+;	cp DUELIST_TYPE_PLAYER
+;	jr z, .player_turn
+;
+;; opponent's turn
+;	call SwapTurn
+;	call IsClairvoyanceActive
+;	call SwapTurn
+;	call c, DisplayPlayerDrawCardScreen
+;	jr DuelMainInterface
 
 ; player's turn
 .player_turn
