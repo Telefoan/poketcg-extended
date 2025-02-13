@@ -55,8 +55,11 @@ DEF SELECT_CHECK EQU $02
 	const INPLAYAREA_PLAYER_BENCH_1      ; $00
 	const INPLAYAREA_PLAYER_BENCH_2      ; $01
 	const INPLAYAREA_PLAYER_BENCH_3      ; $02
+	; energy zone and victory points notes:
+	; remove from here...
 	const INPLAYAREA_PLAYER_BENCH_4      ; $03
 	const INPLAYAREA_PLAYER_BENCH_5      ; $04
+	; ... to here,
 	const INPLAYAREA_PLAYER_ACTIVE       ; $05
 	const INPLAYAREA_PLAYER_HAND         ; $06
 	const INPLAYAREA_PLAYER_DISCARD_PILE ; $07
@@ -66,8 +69,10 @@ DEF SELECT_CHECK EQU $02
 	const INPLAYAREA_OPP_BENCH_1         ; $0b
 	const INPLAYAREA_OPP_BENCH_2         ; $0c
 	const INPLAYAREA_OPP_BENCH_3         ; $0d
+	; and here...
 	const INPLAYAREA_OPP_BENCH_4         ; $0e
 	const INPLAYAREA_OPP_BENCH_5         ; $0f
+	; ...to here
 DEF NUM_INPLAYAREA_POSITIONS EQU const_value
 	const INPLAYAREA_PLAYER_PLAY_AREA    ; $10
 	const INPLAYAREA_OPP_PLAY_AREA       ; $11

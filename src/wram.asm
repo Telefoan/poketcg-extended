@@ -454,9 +454,11 @@ wEnergyDiscardMenuNumerator:: ; cbfb
 
 ; used by TurnDuelistTakePrizes to store the remaining Prizes, so that if more than that
 ; amount would be taken, only the remaining amount is taken
-; Energy Zone notes:
+; Energy Zone and victory points notes:
 ; should be maintained, once energies are discarded 
 ; they should be sent back here instead of to the discard pile
+; or maybe i need another thing like this for energy and save this
+; for victory points
 wTempNumRemainingPrizeCards:: ; cbfc 
 	ds $1
 
