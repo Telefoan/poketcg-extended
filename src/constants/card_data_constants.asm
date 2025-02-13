@@ -27,6 +27,7 @@ DEF MAX_UNNAMED_DECK_NUM     EQU 999
 ; all card types
 RSRESET
 DEF CARD_DATA_TYPE                  rb
+;DEF CARD_DATA_TYPE					rw ; i think this makes it 2 bytes instead of 1
 DEF CARD_DATA_GFX                   rw
 DEF CARD_DATA_NAME                  rw
 DEF CARD_DATA_RARITY                rb

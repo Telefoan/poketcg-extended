@@ -1072,6 +1072,9 @@ FightingGfx::
 	dw $04
 	INCBIN "gfx/titlescreen/energies/fighting.2bpp"
 
+;DarknessGfx::
+;	dw $04
+;	INCBIN "gfx/titlescreen/energies/darkness.2bpp"
 
 SECTION "Gfx 13", ROMX
 
@@ -1159,6 +1162,18 @@ PsychicEnergyCardGfx::
 DoubleColorlessEnergyCardGfx::
 	INCBIN "gfx/cards/doublecolorlessenergy.2bpp"
 	INCBIN "gfx/cards/doublecolorlessenergy.pal"
+
+;DarknessEnergyCardGfx::
+;	INCBIN "gfx/cards/darknessenergy.2bpp"
+;	INCBIN "gfx/cards/darknessenergy.pal
+;
+;SteelEnergyCardGfx::
+;	INCBIN "gfx/cards/steelenergy.2bpp"
+;	INCBIN "gfx/cards/steelenergy.pal"
+;
+;DragonEnergyCardGfx::
+;	INCBIN "gfx/cards/dragonenergy.2bpp"
+;	INCBIN "gfx/cards/dragonenergy.pal"
 
 BulbasaurCardGfx::
 	INCBIN "gfx/cards/bulbasaur.2bpp"

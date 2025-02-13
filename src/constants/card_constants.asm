@@ -6,6 +6,9 @@
 	const FIGHTING_ENERGY             ; $05
 	const PSYCHIC_ENERGY              ; $06
 	const DOUBLE_COLORLESS_ENERGY     ; $07
+	;const DARKNESS_ENERGY				; $08
+	;const STEEL_ENERGY					; $09
+	;const DRAGON_ENERGY				; $0a
 	const BULBASAUR                   ; $08
 	const IVYSAUR                     ; $09
 	const VENUSAUR_LV64               ; $0a
