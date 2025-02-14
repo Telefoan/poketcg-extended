@@ -175,7 +175,8 @@ TwoByteNumberToTxSymbolInDE::
 	ret
 
 
-; converts the number at hl to TX_SYMBOL text format and writes it to wStringBuffer,
+; converts the number at hl to TX_SYMBOL text format
+; and writes it to wStringBuffer,
 ; replacing any leading zeros with SYM_SPACE
 ; input:
 ;	hl = number to convert to text symbols
