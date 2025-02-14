@@ -231,7 +231,7 @@ GetPointerToTextHeader::
 ; calls InitTextPrintingInTextbox after drawing the text box
 DrawTextReadyLabeledOrRegularTextBox::
 	push hl
-	lb de, 0, 10
+	lb de, 0, 12
 	lb bc, 20, 6
 	call AdjustCoordinatesForBGScroll
 	ld a, [wIsTextBoxLabeled]
