@@ -5042,44 +5042,59 @@ PrintPlayAreaCardInformation:
 	ld b, 5
 	ld a, SYM_E
 	call WriteByteToBGMap0
-	; print the HP bar as #/# (current HP/max HP)
+	; print the HP bar
 	inc c
 	ld a, SYM_HP
 	call WriteByteToBGMap0
-	inc b
 	ld a, [wCurPlayAreaSlot]
 	add DUELVARS_ARENA_CARD_HP
 	call GetTurnDuelistVariable
 	or a
 	jr z, .zero_hp
-	cp 100
-	jr c, .twodigits
-    inc b
-.twodigits
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	inc b
-	inc b
-	inc b
-	ld a, [wLoadedCard1HP]
-	cp 100
-	jr nc, .threedigits
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	ld a, SYM_SLASH
-	jp WriteByteToBGMap0
-.threedigits
 	ld e, a
-	ld a, SYM_SLASH
-	call WriteByteToBGMap0
-	inc b
-	ld a, e    
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	; might need to erase the last number from the previous printing,
-	; in case the Active Pokémon's current HP went from 3 digits to 2.
-	inc b
-	inc b
-	inc b
-	ld a, SYM_SPACE
-	jp WriteByteToBGMap0
+		;start old HP Bar
+	;ld a, [wLoadedCard1HP]
+	;ld d, a
+	;call DrawHPBar
+	;ld a, [wCurPlayAreaY]
+	;inc a
+	;inc a
+	;ld c, a
+	;ld b, 7
+	;call BCCoordToBGMap0Address
+	;ld hl, wDefaultText
+	;ld b, 12
+	;jp SafeCopyDataHLtoDE
+		;end old hp bar
+		;start new hp bar
+	ld a, [wCurPlayAreaSlot]
+    add DUELVARS_ARENA_CARD_HP
+    call GetTurnDuelistVariable
+    cp 100
+    jr nc, .threedigits
+    dec b
+    .threedigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    inc b
+    inc b
+    inc b
+    ld a, [wLoadedCard1HP]
+    cp 100
+    jr c, .twodigits
+    ld e, a
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    inc b
+    ld a, e    
+    call WriteTwoByteNumberInTxSymbolFormat
+    ret
+    .twodigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+		;end new hp bar
+
+
 .zero_hp
 	; if fainted, print "Knock Out" in place of the HP bar
 	ld a, [wCurPlayAreaY]
