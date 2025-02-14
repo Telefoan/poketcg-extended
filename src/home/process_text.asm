@@ -32,6 +32,15 @@ ProcessText::
 	pop de
 	ret
 
+; like ProcessText, except it calls InitTextPrinting first
+; preserves bc and de
+; input:
+;	de = screen coordinates at which to begin printing the text
+;	[hl] = first byte of a TX_END/null-terminated text string
+InitTextPrinting_ProcessText::
+	call InitTextPrinting
+;	fallthrough
+
 ; processes the text character provided in a checking for specific control characters.
 ; hl points to the text character coming right after the one loaded into a.
 ; returns carry if the character was not processed by this function.
