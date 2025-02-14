@@ -299,6 +299,8 @@ PrintStartMenuDescriptionText:
 	lb de, 1, 10
 	call InitTextPrinting
 	ldtx hl, ContinueFromDiarySummaryText
+	lb bc 13, 12
+	call PrintMedalCount
 	call PrintTextNoDelay
 
 	ld a, [wTotalNumCardsCollected + 0]

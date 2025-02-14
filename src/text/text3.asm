@@ -1173,9 +1173,6 @@ ContinueDiaryNewGameContinueDuelText:
 ContinueFromDiarySummaryText:
 	text "  <RAMNAME>  <RAMTEXT>"
 	line "      Master Medals Won "
-	half2full
-	textfw "<RAMNUM>"
-	text ""
 	line "      Album           "
 	half2full
 	textfw "/"
