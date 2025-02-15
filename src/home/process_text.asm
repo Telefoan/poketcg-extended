@@ -800,6 +800,6 @@ GetFullWidthFontTileOffset::
 ; input:
 ;	de = screen coordinates at which to begin printing the text
 ;	[hl] = first byte of a TX_END/null-terminated text string
-;InitTextPrinting_ProcessText::
-;	call InitTextPrinting
-;	fallthrough
+InitTextPrinting_ProcessText::
+	call InitTextPrinting
+	fallthrough

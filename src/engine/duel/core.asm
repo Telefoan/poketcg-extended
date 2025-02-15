@@ -2404,11 +2404,10 @@ DrawDuelHUD:
 	add SCREEN_WIDTH
 	ld d, a
 .print_color_icon
-	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	push de
-	pop bc
+	call InitTextPrinting_ProcessText
+	ld b, d 
+	ld c, e 
 	call GetArenaCardColor
 	inc a ; TX_SYMBOL color tiles start at 1
 	dec b ; place the color symbol one tile to the left of the start of the card's name
@@ -2419,53 +2418,23 @@ DrawDuelHUD:
 	ld b, [hl]
 	inc hl
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
-	lb de, 9, PLAY_AREA_ARENA
+	push bc
+	lb e, PLAY_AREA_ARENA
 	call PrintPlayAreaCardAttachedEnergies
 
 	; print HP bar
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
-		;start old hp bar
-	;ld a, [wLoadedCard1HP]
-	;ld d, a ; max HP
-	;ld a, DUELVARS_ARENA_CARD_HP
-	;call GetTurnDuelistVariable
-	;ld e, a ; cur HP
-	;call DrawHPBar
-	;ld hl, wHUDEnergyAndHPBarsX
-	;ld b, [hl]
-	;inc hl
-	;ld c, [hl] ; wHUDEnergyAndHPBarsY
-	;inc c ; [wHUDEnergyAndHPBarsY] + 1
-	;call BCCoordToBGMap0Address
-	;push de
-	;ld hl, wDefaultText
-	;ld b, HP_BAR_LENGTH / 2 ; first row of the HP bar
-	;call SafeCopyDataHLtoDE
-	;pop de
-	;ld hl, BG_MAP_WIDTH
-	;add hl, de
-	;ld e, l
-	;ld d, h
-	;ld hl, wDefaultText + HP_BAR_LENGTH / 2
-	;ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
-	;call SafeCopyDataHLtoDE
-
-		;end old hp bar
-		;start new hp bar
-	ld hl, wHUDEnergyAndHPBarsX
-    ld b, [hl]
-    inc hl
-    ld c, [hl] ; wHUDEnergyAndHPBarsY
-    inc c ; [wHUDEnergyAndHPBarsY] + 1
-    ld a, DUELVARS_ARENA_CARD_HP
+	pop bc
+	inc c ; [wHUDEnergyAndHPBarsY] + 1
+	ld a, DUELVARS_ARENA_CARD_HP
     call GetTurnDuelistVariable
     cp 100
     jr nc, .threedigits
     dec b
 .threedigits
-    call WriteTwoByteNumberInTxSymbolFormat
+    call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
     inc b
     inc b
     inc b
@@ -2477,25 +2446,26 @@ DrawDuelHUD:
     call WriteByteToBGMap0
     inc b
     ld a, e    
-    call WriteTwoByteNumberInTxSymbolFormat
-    jr .skip
+    call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	; might need to erase the last number from the previous printing,
+	; in case the Active Pokémon's current HP went from 3 digits to 2.
+	inc b
+	inc b
+	inc b
+	xor a ; SYM_SPACE
+	call WriteByteToBGMap0
+	jr .check_pluspower
 .twodigits 
-    call WriteTwoByteNumberInTxSymbolFormat
+    call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
     ld a, SYM_SLASH
     call WriteByteToBGMap0
-    .skip
-    inc b
-    inc b
-    inc b
-    ld a, SYM_SPACE
-    call WriteByteToBGMap0
+    
 
     ; print number of attached Pluspower and Defender with respective icon, if any
-    ld hl, wHUDEnergyAndHPBarsX
+.check_pluspower
+	ld hl, wHUDEnergyAndHPBarsX
     ld a, [hli]
     add 7
-		;end new hp bar
-
 	ld b, a
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	inc c
@@ -2514,7 +2484,7 @@ DrawDuelHUD:
 	ld a, DUELVARS_ARENA_CARD_ATTACHED_DEFENDER
 	call GetTurnDuelistVariable
 	or a
-	jr z, .done
+	ret z
 	inc c
 	ld a, SYM_DEFENDER
 	call WriteByteToBGMap0
@@ -2522,8 +2492,6 @@ DrawDuelHUD:
 	ld a, [hl] ; number of attached Defender
 	add SYM_0
 	call WriteByteToBGMap0
-.done
-	ret
 
 ; draws an horizontal line that separates the arena side of each duelist
 ; also colorizes the line on CGB
