@@ -2492,7 +2492,7 @@ DrawDuelHUD:
 .check_pluspower
 	ld hl, wHUDEnergyAndHPBarsX
 	ld a, [hli]
-	add 6
+	add 7
 	ld b, a
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	inc c
