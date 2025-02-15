@@ -2452,10 +2452,6 @@ DrawDuelHUD:
 	;ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
 	;call SafeCopyDataHLtoDE
 
-	; print number of attached Pluspower and Defender with respective icon, if any
-	;ld hl, wHUDEnergyAndHPBarsX
-	;ld a, [hli]
-	;add 6
 		;end old hp bar
 		;start new hp bar
 	ld hl, wHUDEnergyAndHPBarsX
@@ -2468,7 +2464,7 @@ DrawDuelHUD:
     cp 100
     jr nc, .threedigits
     dec b
-    .threedigits
+.threedigits
     call WriteTwoByteNumberInTxSymbolFormat
     inc b
     inc b
@@ -2483,7 +2479,7 @@ DrawDuelHUD:
     ld a, e    
     call WriteTwoByteNumberInTxSymbolFormat
     jr .skip
-    .twodigits 
+.twodigits 
     call WriteTwoByteNumberInTxSymbolFormat
     ld a, SYM_SLASH
     call WriteByteToBGMap0
