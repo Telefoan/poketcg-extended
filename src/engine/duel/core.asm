@@ -2422,7 +2422,7 @@ DrawDuelHUD:
 	lb de, 9, PLAY_AREA_ARENA
 	call PrintPlayAreaCardAttachedEnergies
 
-	; print HP as #/# (current HP/max HP)
+	; print HP bar
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
@@ -2452,47 +2452,54 @@ DrawDuelHUD:
 	;ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
 	;call SafeCopyDataHLtoDE
 
-	
+	; print number of attached Pluspower and Defender with respective icon, if any
+	;ld hl, wHUDEnergyAndHPBarsX
+	;ld a, [hli]
+	;add 6
 		;end old hp bar
 		;start new hp bar
-	pop bc 
-	inc c ; [wHUDEnergyAndHPBarsY] + 1
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	cp 100
-	jr nc, .threedigits
-	dec b
-.threedigits
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	inc b 
-	inc b 
-	inc b 
-	ld a, [wLoadedCard1HP]
-	cp 100
-	jr c, .twodigits
-	ld e, a 
-	ld a, SYM_SLASH
-	call WriteByteToBGMap0
-	inc b 
-	ld a, e 
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	inc b 
-	inc b 
-	inc b 
-	xor a ; SYM_SPACE
-	call WriteByteToBGMap0
-	jr .check_pluspower
-.twodigits
-	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
-	ld a, SYM_SLASH
-	call WriteByteToBGMap0
-
-		;end new hp bar
-	; print number of attached Pluspower and Defender with respective icon, if any
-.check_pluspower
 	ld hl, wHUDEnergyAndHPBarsX
-	ld a, [hli]
-	add 6
+    ld b, [hl]
+    inc hl
+    ld c, [hl] ; wHUDEnergyAndHPBarsY
+    inc c ; [wHUDEnergyAndHPBarsY] + 1
+    ld a, DUELVARS_ARENA_CARD_HP
+    call GetTurnDuelistVariable
+    cp 100
+    jr nc, .threedigits
+    dec b
+    .threedigits
+    call WriteTwoByteNumberInTxSymbolFormat
+    inc b
+    inc b
+    inc b
+    ld a, [wLoadedCard1HP]
+    cp 100
+    jr c, .twodigits
+    ld e, a
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    inc b
+    ld a, e    
+    call WriteTwoByteNumberInTxSymbolFormat
+    jr .skip
+    .twodigits 
+    call WriteTwoByteNumberInTxSymbolFormat
+    ld a, SYM_SLASH
+    call WriteByteToBGMap0
+    .skip
+    inc b
+    inc b
+    inc b
+    ld a, SYM_SPACE
+    call WriteByteToBGMap0
+
+    ; print number of attached Pluspower and Defender with respective icon, if any
+    ld hl, wHUDEnergyAndHPBarsX
+    ld a, [hli]
+    add 7
+		;end new hp bar
+
 	ld b, a
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	inc c
