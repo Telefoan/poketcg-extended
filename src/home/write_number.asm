@@ -49,7 +49,7 @@ WriteOneByteNumberInHalfwidthTextFormat_TrimLeadingZeros::
 	ld hl, wStringBuffer + 1
 	ld [hl], TX_HALFWIDTH
 	pop de
-	call InitTextPrinting_ProcessText
+	call InitTextPrinting
 	pop bc
 	ret
 
@@ -182,8 +182,8 @@ TwoByteNumberToTxSymbolInDE::
 ; output:
 ;	hl = pointer for first non-zero digit in wStringBuffer
 ;	[wStringBuffer] = number in text symbol format (6 bytes, but the last one is empty)
-TwoByteNumberToTxSymbol_TrimLeadingZeros::
-	ld de, wStringBuffer
+;TwoByteNumberToTxSymbol_TrimLeadingZeros::
+;	ld de, wStringBuffer
 ;	fallthrough
 
 ; converts the number at hl to TX_SYMBOL text format and writes it to de,
