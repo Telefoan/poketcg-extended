@@ -2419,7 +2419,7 @@ DrawDuelHUD:
 	inc hl
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	push bc
-	lb e, PLAY_AREA_ARENA
+	ld e, PLAY_AREA_ARENA
 	call PrintPlayAreaCardAttachedEnergies
 
 	; print HP bar
