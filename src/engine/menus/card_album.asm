@@ -393,22 +393,20 @@ PrintCardSetListEntries:
 	done
 
 ; gets the index in the card list and adds it to wCurDeckName
+; preserves bc and de
+; input:
+;	b  = [wNumVisibleCardListEntries] - number of entries that have already been printed
+;	hl = [wCardListVisibleOffset] + 1
 .AppendCardListIndex
 	push bc
 	push de
-	add hl, hl
 	ld de, wFilteredCardList
 	add hl, de
 	dec hl
-	dec hl
-	ld a, [hli]
-	ld e, a
-	ld d, [hl]
-	cp16 DOUBLE_COLORLESS_ENERGY + 1
-	jr c, .energy_card
-	cp16 VENUSAUR_LV64
+	ld a, [hl]
+	cp VENUSAUR_LV64
 	jr z, .phantom_card
-	cp16 MEW_LV15
+	cp MEW_LV15
 	jr z, .phantom_card
 
 	ld a, [wNumVisibleCardListEntries]
@@ -437,39 +435,8 @@ PrintCardSetListEntries:
 	inc hl
 	xor a ; SYM_SPACE
 	ld [hli], a
-	ld [hl], a
+	ld [hl], a ; TX_END
 	ld hl, wCurDeckName
-	pop de
-	pop bc
-	ret
-
-.energy_card
-	ld h, d
-	ld l, e
-	call CalculateOnesAndTensDigits_Long
-	ld hl, wDecimalDigitsSymbols
-	ld a, [hli]
-	ld b, a
-	ld hl, wCurDeckName + 2
-	lb de, 3, "FW3_E"
-	ld [hl], d
-	inc hl
-	ld [hl], e
-	inc hl
-	ld [hl], TX_SYMBOL
-	inc hl
-	ld a, SYM_0
-	ld [hli], a
-	ld [hl], TX_SYMBOL
-	inc hl
-	ld a, b
-	ld [hli], a
-	ld [hl], TX_SYMBOL
-	inc hl
-	xor a ; SYM_SPACE
-	ld [hli], a
-	ld [hl], a
-	ld hl, wCurDeckName + 2
 	pop de
 	pop bc
 	ret
@@ -485,13 +452,20 @@ PrintCardSetListEntries:
 	inc hl
 	xor a ; SYM_SPACE
 	ld [hli], a
-	ld [hl], a
+	ld [hl], a ; TX_END
 	ld hl, wCurDeckName
 	pop de
 	pop bc
 	ret
 
-; handles opening card page, and inputs when inside Card Album
+; handles opening card page, and inputs when inside Card Album.
+; this function is very similar to OpenCardPageFromCardList.
+; input:
+;	[wCardListCursorPos] = which list position is currently selected
+;	[wCardListVisibleOffset] = position in list of the first card that's currently shown on screen
+;	[wCardListNumCursorPositions] = NUM_CARD_ALBUM_VISIBLE_CARDS (7)
+;	wOwnedCardsCountList = $ff-terminated list with card counts of every card in the given set
+;	wCurCardListPtr = pointer for a list of card IDs for the current set (wFilteredCardList)
 HandleCardAlbumCardPage:
 	ld a, [wCardListCursorPos]
 	ld b, a

@@ -1,35 +1,28 @@
-; convert the number at hl to text (ascii) format and write it to de
-TwoByteNumberToText::
+; given a number between 0-255 in a, converts it to TX_SYMBOL format,
+; and writes it to wStringBuffer + 2 and to the BGMap0 address at bc.
+; also prints any leading zeros.
+; preserves bc and de
+; input:
+;	a = number that will be printed
+;	bc = screen coordinates at which to begin printing the number
+WriteOneByteNumberInTxSymbolFormat::
+	push de
 	push bc
-	ld bc, -10000
-	call .get_digit
-	ld bc, -1000
-	call .get_digit
-	ld bc, -100
-	call .get_digit
-	ld bc, -10
-	call .get_digit
-	ld bc, -1
-	call .get_digit
-	xor a ; TX_END
-	ld [de], a
-	pop bc
-	ret
-.get_digit
-	ld a, "0" - 1
-.subtract_loop
-	inc a
-	add hl, bc
-	jr c, .subtract_loop
+	ld l, a
+	ld h, $00
+	call TwoByteNumberToTxSymbol
+	jr WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros.print_number
+	
+; input:
+;	bc = digit offset
+;	hl = number to convert to a fullwidth text font
+GetFullwidthTextDigit::
+	ld a, TX_FULLWIDTH3
 	ld [de], a
 	inc de
-	ld a, l
-	sub c
-	ld l, a
-	ld a, h
-	sbc b
-	ld h, a
-	ret
+	ld a, "FW3_0" - 1
+	jr GetTxSymbolDigit.subtract_loop
+
 
 
 ; given a number between 0-255 in a, converts it to halfwidth text characters,
@@ -53,6 +46,24 @@ WriteOneByteNumberInHalfwidthTextFormat_TrimLeadingZeros::
 	pop bc
 	ret
 
+; given a number between 0-255 in a, converts it to TX_SYMBOL format,
+; and writes it to wStringBuffer + 2 and to the BGMap0 address at bc.
+; leading zeros replaced with SYM_SPACE.
+WriteTwoByteNumberInTxSymbolFormat::
+	push de
+	push bc
+	ld l, a
+	ld h, $00
+	call TwoByteNumberToTxSymbol_TrimLeadingZeros_Bank1
+	pop bc
+	push bc
+	call BCCoordToBGMap0Address
+	ld hl, wStringBuffer + 2
+	ld b, 3
+	call SafeCopyDataHLtoDE
+	pop bc
+	pop de
+	ret
 
 ; given a number between 0-255 in a, converts it to TX_SYMBOL format,
 ; and writes it to wStringBuffer + 2 and to the BGMap0 address at bc.
@@ -87,7 +98,7 @@ WriteThreeDigitNumberInTxSymbolFormat::
 	push de
 	push bc
 	call TwoByteNumberToTxSymbol
-	jr WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros.print_number
+	jp WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros.print_number
 
 
 ; converts the number at hl to halfwidth text (ascii) format and writes it to de
@@ -116,15 +127,6 @@ TwoByteNumberToHalfwidthText::
 GetHalfwidthTextDigit::
 	ld a, "0" - 1
 	jr GetTxSymbolDigit.subtract_loop
-
-; input:
-;	bc = digit offset
-;	hl = number to convert to a fullwidth text font
-GetFullwidthTextDigit::
-	ld a, TX_SYMBOL
-	ld [de], a
-	inc de
-;	fallthrough
 
 ; input:
 ;	bc = digit offset
@@ -182,8 +184,8 @@ TwoByteNumberToTxSymbolInDE::
 ; output:
 ;	hl = pointer for first non-zero digit in wStringBuffer
 ;	[wStringBuffer] = number in text symbol format (6 bytes, but the last one is empty)
-;TwoByteNumberToTxSymbol_TrimLeadingZeros::
-;	ld de, wStringBuffer
+TwoByteNumberToTxSymbol_TrimLeadingZeros::
+	ld de, wStringBuffer
 ;	fallthrough
 
 ; converts the number at hl to TX_SYMBOL text format and writes it to de,
@@ -215,7 +217,7 @@ TwoByteNumberToTxSymbolInDE_TrimLeadingZeros::
 ;	converts the number at hl to fullwidth text format and writes it to wStringBuffer,
 ;	replacing any leading zeros with spaces
 ; input:
-;	hl = number to covert to text
+;	hl = number to convert to text
 ; output:
 ;	hl = pointer for first non-zero digit in wStringBuffer
 ;	[wStringBuffer] = number in current text format (includes leading zeros if halfwidth)

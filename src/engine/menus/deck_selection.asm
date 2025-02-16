@@ -327,7 +327,7 @@ InputCurDeckName:
 	call DisableSRAM
 	ld l, a
 	ld de, wDefaultText
-	call TwoByteNumberToText
+	call TwoByteNumberToHalfwidthText
 
 	ld hl, wCurDeckName
 	ld [hl], $6

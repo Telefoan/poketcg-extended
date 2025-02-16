@@ -402,7 +402,7 @@ TwoByteNumberToText_CountLeadingZeros::
 	jp z, TwoByteNumberToTxSymbol_TrimLeadingZeros
 	ld de, wStringBuffer
 	push de
-	call TwoByteNumberToText
+	call TwoByteNumberToText_TrimLeadingZeros
 	pop hl
 	ld c, 4
 .digit_loop

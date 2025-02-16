@@ -908,7 +908,7 @@ HandleEnergyDiscardMenuInput:
 .print_single_number
 	ld a, [wEnergyDiscardMenuNumerator]
 	inc b
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 .wait_input
 	call DoFrame
 	call HandleCardListInput
@@ -1474,10 +1474,10 @@ PrintPlayerNumberOfHandAndDeckCards:
 	ld e, a
 	ld a, d
 	lb bc, 16, 10
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	ld a, e
 	lb bc, 10, 10
-	jp WriteTwoDigitNumberInTxSymbolFormat
+	jp WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 
 PrintOpponentNumberOfHandAndDeckCards:
 	ld a, [wOpponentNumberOfCardsInHand]
@@ -1492,10 +1492,10 @@ PrintOpponentNumberOfHandAndDeckCards:
 	ld e, a
 	ld a, d
 	lb bc, 5, 3
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	ld a, e
 	lb bc, 11, 3
-	jp WriteTwoDigitNumberInTxSymbolFormat
+	jp WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 
 DeckAndHandIconsTileData:
 ; x, y, tiles[], 0
@@ -1572,7 +1572,7 @@ PrintDuelResultStats:
 
 ; print, at d,e, the number of prizes left, of active Pokemon, and of cards left in
 ; the deck of the turn duelist. b,c are used throughout as input coords for
-; WriteTwoDigitNumberInTxSymbolFormat, and d,e for InitTextPrinting_ProcessTextFromID.
+; WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero, and d,e for InitTextPrinting_ProcessTextFromID.
 .PrintDuelistResultStats:
 	call SetNoLineSeparation
 	ldtx hl, PrizesLeftActivePokemonCardsInDeckText
@@ -1606,7 +1606,7 @@ PrintDuelResultStats:
 	ld a, DECK_SIZE
 	sub [hl]
 .print_x_cards
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	ldtx hl, CardsText
 	jp InitTextPrinting_ProcessTextFromID
 
@@ -1806,10 +1806,10 @@ HandleDuelSetup:
 	; print new deck card number
 	lb bc, 3, 5
 	ld a, e
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	lb bc, 18, 7
 	ld a, e
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	pop hl
 	pop de
 	dec e ; decrease number of cards in deck
@@ -3934,7 +3934,7 @@ DisplayCardPage_PokemonOverview:
 	; print card level and maximum HP
 	lb bc, 12, 2
 	ld a, [wLoadedCard1Level]
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	lb bc, 16, 2
 	ld a, [wLoadedCard1HP]
 	call WriteTwoByteNumberInTxSymbolFormat
@@ -4245,7 +4245,7 @@ DisplayCardPage_PokemonDescription:
 	; print the Level and HP numbers at 12,2 and 16,2 respectively
 	lb bc, 12, 2
 	ld a, [wLoadedCard1Level]
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	lb bc, 16, 2
 	ld a, [wLoadedCard1HP]
 	call WriteTwoByteNumberInTxSymbolFormat
@@ -5097,7 +5097,7 @@ PrintPlayAreaCardHeader:
 	ld c, a
 	ld b, 15
 	ld a, [wLoadedCard1Level]
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 
 	; print the 2x2 face down card image depending on the Pokemon's evolution stage
 	ld a, [wCurPlayAreaSlot]
@@ -5477,49 +5477,9 @@ AttemptRetreat:
 	ld [wGotHeadsFromConfusionCheckDuringRetreat], a
 	ret
 
-; given a number between 0-255 in a, converts it to TX_SYMBOL format,
-; and writes it to wStringBuffer + 2 and to the BGMap0 address at bc.
-; leading zeros replaced with SYM_SPACE.
-WriteTwoByteNumberInTxSymbolFormat:
-	push de
-	push bc
-	ld l, a
-	ld h, $00
-	call TwoByteNumberToTxSymbol_TrimLeadingZeros_Bank1
-	pop bc
-	push bc
-	call BCCoordToBGMap0Address
-	ld hl, wStringBuffer + 2
-	ld b, 3
-	call SafeCopyDataHLtoDE
-	pop bc
-	pop de
-	ret
-
-; given a number between 0-99 in a, converts it to TX_SYMBOL format,
-; and writes it to wStringBuffer + 3 and to the BGMap0 address at bc.
-; if the number is between 0-9, the first digit is replaced with SYM_SPACE.
-WriteTwoDigitNumberInTxSymbolFormat:
-	push hl
-	push de
-	push bc
-	ld l, a
-	ld h, $00
-	call TwoByteNumberToTxSymbol_TrimLeadingZeros_Bank1
-	pop bc
-	push bc
-	call BCCoordToBGMap0Address
-	ld hl, wStringBuffer + 3
-	ld b, 2
-	call SafeCopyDataHLtoDE
-	pop bc
-	pop de
-	pop hl
-	ret
-
 ; convert the number at hl to TX_SYMBOL text format and write it to wStringBuffer
 ; replace leading zeros with SYM_SPACE
-TwoByteNumberToTxSymbol_TrimLeadingZeros_Bank1:
+TwoByteNumberToTxSymbol_TrimLeadingZeros_Bank1::
 	ld de, wStringBuffer
 	ld bc, -10000
 	call .get_digit
@@ -7341,13 +7301,13 @@ _TossCoin::
 	lb bc, 15, 11
 	ld a, [wCoinTossNumTossed]
 	inc a ; current coin number is wCoinTossNumTossed + 1
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 	ld b, 17
 	ld a, SYM_SLASH
 	call WriteByteToBGMap0
 	inc b
 	ld a, [wCoinTossTotalNum]
-	call WriteTwoDigitNumberInTxSymbolFormat
+	call WriteTwoDigitNumberInTxSymbolFormat_TrimLeadingZero
 
 .asm_7223
 	call ResetAnimationQueue

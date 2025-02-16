@@ -151,9 +151,9 @@ PrintPlayTime_SkipUpdateTime:
 ConvertWordToNumericalDigits:
 	ld de, wDecimalChars
 	ld bc, -100 ; hundreds
-	call .GetNumberSymbol
+	call GetTxSymbolDigit
 	ld bc, -10 ; tens
-	call .GetNumberSymbol
+	call GetTxSymbolDigit
 	ld a, l ; ones
 	add SYM_0
 	ld [de], a
@@ -170,22 +170,6 @@ ConvertWordToNumericalDigits:
 	dec c
 	jr nz, .loop_digits
 .done
-	ret
-
-.GetNumberSymbol
-	ld a, SYM_0 - 1
-.loop
-	inc a
-	add hl, bc
-	jr c, .loop
-	ld [de], a
-	inc de
-	ld a, l
-	sub c
-	ld l, a
-	ld a, h
-	sbc b
-	ld h, a
 	ret
 
 ; prints album progress in coords bc
