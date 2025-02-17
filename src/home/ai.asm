@@ -17,10 +17,10 @@ LoadOpponentDeck::
 .normal_sam_duel
 	xor a
 	ld [wOpponentDeckID], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, PRACTICE_PLAYER_DECK
 	call LoadDeck
-	call SwapTurn
+	rst SwapTurn
 	ld hl, wRNG1
 	ld a, $57
 	ld [hli], a

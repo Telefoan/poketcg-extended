@@ -52,11 +52,11 @@ QueueStatusCondition:
 	; Snorlax's Thick Skinned prevents it from being statused...
 	cphl SNORLAX
 	jr nz, .can_induce_status
-	call SwapTurn
+	rst SwapTurn
 	xor a ; PLAY_AREA_ARENA
 	; ...unless already so, or if affected by Muk's Toxic Gas
 	call CheckIsIncapableOfUsingPkmnPower
-	call SwapTurn
+	rst SwapTurn
 	jr c, .can_induce_status
 
 .cant_induce_status
@@ -73,10 +73,10 @@ QueueStatusCondition:
 	ld d, $0
 	ld hl, wStatusConditionQueue
 	add hl, de
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hWhoseTurn]
 	ld [hli], a
-	call SwapTurn
+	rst SwapTurn
 	ld [hl], b ; mask of status conditions not to discard on the target
 	inc hl
 	ld [hl], c ; status condition to inflict to the target
@@ -401,9 +401,9 @@ HandleSwitchDefendingPokemonEffect:
 	ret c
 
 ; attack was successful, switch Defending Pokemon
-	call SwapTurn
+	rst SwapTurn
 	call SwapArenaWithBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 
 	xor a
 	ld [wccc5], a
@@ -774,7 +774,7 @@ LookForCardsInDeck:
 ;	e = attack index selected
 HandleDefendingPokemonAttackSelection:
 	bank1call DrawDuelMainScene
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ldh [hCurSelectionItem], a
 
@@ -810,12 +810,12 @@ HandleDefendingPokemonAttackSelection:
 	ld d, [hl]
 	inc hl
 	ld e, [hl]
-	call SwapTurn
+	rst SwapTurn
 	or a
 	ret
 
 .set_carry
-	call SwapTurn
+	rst SwapTurn
 	scf
 	ret
 
@@ -826,9 +826,9 @@ HandleDefendingPokemonAttackSelection:
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
 	bank1call OpenAttackPage
-	call SwapTurn
+	rst SwapTurn
 	bank1call DrawDuelMainScene
-	call SwapTurn
+	rst SwapTurn
 	jr .start
 
 .menu_parameters
@@ -860,7 +860,7 @@ GetAttackName:
 ; returns carry if Defending Pokemon
 ; doesn't have an attack.
 CheckIfDefendingPokemonHasAnyAttack:
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
@@ -871,11 +871,11 @@ CheckIfDefendingPokemonHasAnyAttack:
 	ld a, [hli]
 	or [hl]
 	jr nz, .has_attack
-	call SwapTurn
+	rst SwapTurn
 	scf
 	ret
 .has_attack
-	call SwapTurn
+	rst SwapTurn
 	or a
 	ret
 
@@ -966,9 +966,9 @@ DuelistSelectForcedSwitch:
 	jr z, .player
 
 ; AI opponent
-	call SwapTurn
+	rst SwapTurn
 	bank1call AIDoAction_ForcedSwitch
-	call SwapTurn
+	rst SwapTurn
 
 	ld a, [wPlayerAttackingAttackIndex]
 	ld c, a
@@ -984,7 +984,7 @@ DuelistSelectForcedSwitch:
 .player
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 	ld a, $01
 	ld [wPlayAreaSelectAction], a
@@ -1000,7 +1000,7 @@ DuelistSelectForcedSwitch:
 ; output:
 ;	a = deck index of attached energy card chosen
 AIPickEnergyCardToDiscardFromDefendingPokemon:
-	call SwapTurn
+	rst SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
 
@@ -1066,7 +1066,7 @@ AIPickEnergyCardToDiscardFromDefendingPokemon:
 ; handles AI logic to pick attack for Amnesia
 AIPickAttackForAmnesia:
 ; load Defending Pokemon attacks
-	call SwapTurn
+	rst SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call GetPlayAreaCardAttachedEnergies
 	call HandleEnergyBurn
@@ -1098,7 +1098,7 @@ AIPickAttackForAmnesia:
 ; Return in a the PLAY_AREA_* of the non-turn holder's Pokemon card in bench with the lowest (remaining) HP.
 ; if multiple cards are tied for the lowest HP, the one with the highest PLAY_AREA_* is returned.
 GetBenchPokemonWithLowestHP:
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld c, a
@@ -1198,14 +1198,14 @@ HandleColorChangeScreen:
 	ld l, a
 	lb bc, $30, TILE_SIZE
 	call LoadCardGfx
-	bank1call SetBGP6ToCardPalette
+	bank1call SetBGP6OrSGB3ToCardPalette
 	bank1call FlushAllPalettesOrSendPal23Packet
 	ld a, $a0
 	lb hl, 6, 1
 	lb de, 9, 2
 	lb bc, 8, 6
 	call FillRectangle
-	bank1call ApplyBGP6ToCardImage
+	bank1call ApplyBGP6OrSGB3ToCardImage
 
 ; print card name and level at the top
 	ld a, 16
@@ -1438,7 +1438,7 @@ VictreebelLure_AssertPokemonInBench:
 VictreebelLure_SelectSwitchPokemon:
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 .select_pokemon
 	bank1call OpenPlayAreaScreenForSelection
@@ -1457,12 +1457,12 @@ VictreebelLure_GetBenchPokemonWithLowestHP:
 ; Defending Pokemon is swapped out for the one with the PLAY_AREA_* at hTempStorage
 ; unless Mew's Neutralizing Shield or Haunter's Transparency prevents it.
 VictreebelLure_SwitchDefendingPokemon:
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ld e, a
 	call HandleNShieldAndTransparency
 	call nc, SwapArenaWithBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ld [wDuelDisplayedScreen], a
 	ret
@@ -1483,7 +1483,7 @@ GloomPoisonPowder_AIEffect:
 ; Defending Pokemon and user become confused
 FoulOdorEffect:
 	call ConfusionEffect
-	call SwapTurn
+	rst SwapTurn
 	call ConfusionEffect
 	jp SwapTurn
 
@@ -2316,7 +2316,7 @@ WeezingSelfdestructEffect:
 	ld [wIsDamageToSelf], a
 	ld a, 10
 	call DealDamageToAllBenchedPokemon
-	call SwapTurn
+	rst SwapTurn
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
 	ld a, 10
@@ -2350,9 +2350,9 @@ Shift_PlayerSelectEffect:
 	call .CheckColorInPlayArea
 	ret nc
 	; look in NonTurn Duelist's Play Area
-	call SwapTurn
+	rst SwapTurn
 	call .CheckColorInPlayArea
-	call SwapTurn
+	rst SwapTurn
 	ret nc
 	; not found in either Duelist's Play Area
 	ldtx hl, UnableToSelectText
@@ -2504,7 +2504,7 @@ PetalDance_MultiplierEffect:
 	call ATimes10
 	; a = 4 * 10 * heads
 	call SetDefiniteDamage
-	call SwapTurn
+	rst SwapTurn
 	call ConfusionEffect
 	jp SwapTurn
 
@@ -2933,7 +2933,7 @@ ApplyAmnesiaToAttack:
 
 ; the rest of the routine if for Opponent
 ; to announce which attack was used for Amnesia.
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	ld d, a
@@ -3017,7 +3017,7 @@ Blizzard_BenchDamageEffect:
 	jp DealDamageToAllBenchedPokemon
 
 .opp_bench
-	call SwapTurn
+	rst SwapTurn
 	ld a, 10
 	call DealDamageToAllBenchedPokemon
 	jp SwapTurn
@@ -3131,7 +3131,7 @@ IceBreath_ZeroDamage:
 	jp SetDefiniteDamage
 
 IceBreath_RandomPokemonDamageEffect:
-	call SwapTurn
+	rst SwapTurn
 	call PickRandomPlayAreaCard
 	ld b, a
 	ld de, 40
@@ -3260,7 +3260,7 @@ NinetalesLure_CheckBench:
 NinetalesLure_PlayerSelectEffect:
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 .loop_input
 	bank1call OpenPlayAreaScreenForSelection
@@ -3275,12 +3275,12 @@ NinetalesLure_AISelectEffect:
 	ret
 
 NinetalesLure_SwitchEffect:
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ld e, a
 	call HandleNShieldAndTransparency
 	call nc, SwapArenaWithBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ld [wDuelDisplayedScreen], a
 	ret
@@ -3399,7 +3399,7 @@ Wildfire_DiscardDeckEffect:
 	ldh a, [hTempStorage]
 	ld c, a
 	ld b, $00
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
 	call GetTurnDuelistVariable
 	ld a, DECK_SIZE
@@ -3525,7 +3525,7 @@ Rage_DamageBoostEffect:
 	jp AddToDamage
 
 MixUpEffect:
-	call SwapTurn
+	rst SwapTurn
 	call CreateHandCardList
 	call SortCardsInDuelTempListByID
 
@@ -3750,7 +3750,7 @@ MoltresLv37DiveBomb_Success50PercentEffect:
 ; used for attacks that deal 10x number of energy
 ; cards attached to the Defending card.
 GetEnergyAttachedMultiplierDamage:
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_CARD_LOCATIONS
 	call GetTurnDuelistVariable
 
@@ -3773,7 +3773,7 @@ GetEnergyAttachedMultiplierDamage:
 	cp DECK_SIZE
 	jr c, .loop
 
-	call SwapTurn
+	rst SwapTurn
 	ld l, c
 	ld h, $00
 	ld b, $00
@@ -3850,18 +3850,18 @@ Curse_CheckDamageAndBench:
 	jr nz, .set_carry
 
 ; fail if Opponent only has 1 Pokemon in Play Area
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, CannotUseSinceTheresOnly1PkmnText
 	cp 2
 	jr c, .set_carry
 
 ; fail if Opponent has no damage counters
-	call SwapTurn
+	rst SwapTurn
 	call CheckIfPlayAreaHasAnyDamage
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, NoPokemonWithDamageCountersText
 	jr c, .set_carry
 
@@ -3877,7 +3877,7 @@ Curse_CheckDamageAndBench:
 Curse_PlayerSelectEffect:
 	ldtx hl, ProcedureForCurseText
 	bank1call DrawWholeScreenTextBox
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ldh [hCurSelectionItem], a
 	bank1call SetupPlayAreaScreen
@@ -3955,13 +3955,13 @@ Curse_PlayerSelectEffect:
 	ld b, SYM_SPACE
 	call DrawSymbolOnPlayAreaCursor
 	call EraseCursor
-	call SwapTurn
+	rst SwapTurn
 	or a
 	ret
 
 .cancel
 ; return carry if operation was cancelled.
-	call SwapTurn
+	rst SwapTurn
 	scf
 	ret
 
@@ -3974,7 +3974,7 @@ Curse_TransferDamageEffect:
 
 ; figure out the type of duelist that used Curse.
 ; if it was the player, no need to draw the Play Area screen.
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_DUELIST_TYPE
 	call GetNonTurnDuelistVariable
 	cp DUELIST_TYPE_PLAYER
@@ -4007,7 +4007,7 @@ Curse_TransferDamageEffect:
 	bank1call InitAndPrintPlayAreaCardInformationAndLocation_WithTextBox
 
 .done
-	call SwapTurn
+	rst SwapTurn
 	bank1call HandleDestinyBondAndBetweenTurnKnockOuts
 	ret
 
@@ -4026,7 +4026,7 @@ DarkMind_PlayerSelectEffect:
 ; to damage, and store it before returning.
 	ldtx hl, ChoosePkmnInTheBenchToGiveDamageText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 .loop_input
 	bank1call OpenPlayAreaScreenForSelection
@@ -4051,7 +4051,7 @@ DarkMind_DamageBenchEffect:
 	ldh a, [hTempStorage]
 	cp $ff
 	ret z ; no target chosen
-	call SwapTurn
+	rst SwapTurn
 	ld b, a
 	ld de, 10
 	call DealDamageToPlayAreaPokemon_RegularAnim
@@ -4208,7 +4208,7 @@ Prophecy_PlayerSelectEffect:
 	call GetNonTurnDuelistVariable
 	cp DECK_SIZE
 	jr nc, .select_deck ; no cards, go back to deck selection
-	call SwapTurn
+	rst SwapTurn
 	call HandleProphecyScreen
 	jp SwapTurn
 
@@ -4235,7 +4235,7 @@ Prophecy_ReorderDeckEffect:
 	ret z
 
 	; non-turn duelist's deck
-	call SwapTurn
+	rst SwapTurn
 	call .ReorderCards
 	jp SwapTurn
 
@@ -4565,9 +4565,9 @@ PsywaveEffect:
 DevolutionBeam_CheckPlayArea:
 	call CheckIfTurnDuelistHasEvolvedCards
 	ret nc
-	call SwapTurn
+	rst SwapTurn
 	call CheckIfTurnDuelistHasEvolvedCards
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, ThereAreNoStage1PokemonText
 	ret
 
@@ -4606,9 +4606,9 @@ DevolutionBeam_PlayerSelectEffect:
 	ret
 
 .opp_chosen
-	call SwapTurn
+	rst SwapTurn
 	call HandleEvolvedCardSelection
-	call SwapTurn
+	rst SwapTurn
 	jr c, .start
 	ld a, $01
 	jr .store_selection
@@ -4620,9 +4620,9 @@ DevolutionBeam_PlayerSelectEffect:
 DevolutionBeam_AISelectEffect:
 	ld a, $01
 	ldh [hTempStorage], a
-	call SwapTurn
+	rst SwapTurn
 	call FindFirstNonBasicCardInPlayArea
-	call SwapTurn
+	rst SwapTurn
 	jr c, .found
 	xor a
 	ldh [hTempStorage], a
@@ -4644,7 +4644,7 @@ DevolutionBeam_DevolveEffect:
 	ret z
 
 ; opponent's Play Area
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	jr nz, .skip_handle_no_damage_effect
 	call HandleNoDamageOrEffect
@@ -5153,10 +5153,10 @@ Meditate_AIEffect:
 
 Meditate_DamageBoostEffect:
 ; add damage counters of Defending card to damage
-	call SwapTurn
+	rst SwapTurn
 	ld e, PLAY_AREA_ARENA
 	call GetCardDamageAndMaxHP
-	call SwapTurn
+	rst SwapTurn
 	jp AddToDamage
 
 MysteryAttack_AIEffect:
@@ -5264,7 +5264,7 @@ TantrumEffect:
 ; confuse Pokemon
 	ld a, ATK_ANIM_MULTIPLE_SLASH
 	ld [wLoadedAttackAnimation], a
-	call SwapTurn
+	rst SwapTurn
 	call ConfusionEffect
 	jp SwapTurn
 
@@ -5458,7 +5458,7 @@ GolemSelfdestructEffect:
 	ld [wIsDamageToSelf], a
 	ld a, 20
 	call DealDamageToAllBenchedPokemon
-	call SwapTurn
+	rst SwapTurn
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
 	ld a, 20
@@ -5505,7 +5505,7 @@ StretchKick_CheckBench:
 StretchKick_PlayerSelectEffect:
 	ldtx hl, ChoosePkmnInTheBenchToGiveDamageText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 .loop_input
 	bank1call OpenPlayAreaScreenForSelection
@@ -5521,7 +5521,7 @@ StretchKick_AISelectEffect:
 	ret
 
 StretchKick_BenchDamageEffect:
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ld b, a
 	ld de, 20
@@ -5591,7 +5591,7 @@ Peek_SelectEffect:
 .hand
 ; AI chose to look at random card in hand,
 ; so display it to the Player on screen.
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, PeekWasUsedToLookInYourHandText
 	bank1call DisplayCardDetailScreen
 	jp SwapTurn
@@ -5600,11 +5600,11 @@ Peek_SelectEffect:
 ; AI chose either a prize card or Player's top deck card,
 ; so show Play Area and draw cursor appropriately.
 	call FinishQueuedAnimations
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hAIPkmnPowerEffectParam]
 	xor $80
 	call DrawAIPeekScreen
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, CardPeekWasUsedOnText
 	jp DrawWideTextBox_WaitForInput
 
@@ -5634,9 +5634,9 @@ Wail_BenchCheck:
 	ret
 
 Wail_FillBenchEffect:
-	call SwapTurn
+	rst SwapTurn
 	call .FillBench
-	call SwapTurn
+	rst SwapTurn
 	call .FillBench
 
 ; display both Play Areas
@@ -5644,7 +5644,7 @@ Wail_FillBenchEffect:
 	call DrawWideTextBox_WaitForInput
 	bank1call HasAlivePokemonInPlayArea
 	bank1call OpenPlayAreaScreenForSelection
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInPlayArea
 	bank1call OpenPlayAreaScreenForSelection
 	jp SwapTurn
@@ -5722,7 +5722,7 @@ MagnemiteSelfdestructEffect:
 	ld [wIsDamageToSelf], a
 	ld a, 10
 	call DealDamageToAllBenchedPokemon
-	call SwapTurn
+	rst SwapTurn
 
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
@@ -5763,7 +5763,7 @@ ThunderstormEffect:
 	ld a, 1
 	ldh [hCurSelectionItem], a
 
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	ld c, a
@@ -5776,9 +5776,9 @@ ThunderstormEffect:
 	push bc
 	call .DisplayText
 	ld de, $0
-	call SwapTurn
+	rst SwapTurn
 	call TossCoin_BankB
-	call SwapTurn
+	rst SwapTurn
 	push af
 	call GetNextPositionInTempList
 	pop af
@@ -5799,7 +5799,7 @@ ThunderstormEffect:
 	ld a, b
 	ldh [hTempStorage], a
 	call ResetAnimationQueue
-	call SwapTurn
+	rst SwapTurn
 
 ; tally recoil damage
 	ldh a, [hTempStorage]
@@ -5811,7 +5811,7 @@ ThunderstormEffect:
 .skip_recoil
 
 ; deal damage for Bench Pokemon that got heads
-	call SwapTurn
+	rst SwapTurn
 	ld hl, hTempPlayAreaLocation_ffa1
 	ld b, PLAY_AREA_BENCH_1
 .loop_bench
@@ -5919,7 +5919,7 @@ Spark_PlayerSelectEffect:
 
 	ldtx hl, ChoosePkmnInTheBenchToGiveDamageText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 
 	; the following two instructions can be removed
@@ -5950,7 +5950,7 @@ Spark_BenchDamageEffect:
 	ldh a, [hTempStorage]
 	cp $ff
 	ret z
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ld b, a
 	ld de, 10
@@ -5964,17 +5964,17 @@ GrowlEffect:
 ChainLightningEffect:
 	ld a, 10
 	call SetDefiniteDamage
-	call SwapTurn
+	rst SwapTurn
 	call GetArenaCardColor
-	call SwapTurn
+	rst SwapTurn
 	ldh [hCurSelectionItem], a
 	cp COLORLESS
 	ret z ; don't damage if colorless
 
 ; opponent's Bench
-	call SwapTurn
+	rst SwapTurn
 	call .DamageSameColorBench
-	call SwapTurn
+	rst SwapTurn
 
 ; own Bench
 	ld a, TRUE
@@ -6010,12 +6010,12 @@ ChainLightningEffect:
 	ret
 
 Gigashock_PlayerSelectEffect:
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	cp 2
 	jr nc, .has_bench
-	call SwapTurn
+	rst SwapTurn
 	ld a, $ff
 	ldh [hTempList], a
 	ret
@@ -6087,7 +6087,7 @@ Gigashock_PlayerSelectEffect:
 	ldh a, [hKeysPressed]
 	and B_BUTTON
 	jr nz, .try_cancel
-	call SwapTurn
+	rst SwapTurn
 	call GetNextPositionInTempList
 	ld [hl], $ff ; terminating byte
 	ret
@@ -6162,7 +6162,7 @@ Gigashock_AISelectEffect:
 .start_selection
 ; has more than 3 Bench cards, proceed to sort them
 ; by lowest remaining HP to highest, and pick first 3.
-	call SwapTurn
+	rst SwapTurn
 	dec a
 	ld c, a
 	ld b, PLAY_AREA_BENCH_1
@@ -6224,7 +6224,7 @@ Gigashock_AISelectEffect:
 	jp SwapTurn
 
 Gigashock_BenchDamageEffect:
-	call SwapTurn
+	rst SwapTurn
 	ld hl, hTempList
 .loop_selection
 	ld a, [hli]
@@ -6250,7 +6250,7 @@ MagnetonLv28SelfdestructEffect:
 	call DealDamageToAllBenchedPokemon
 
 ; opponent's bench
-	call SwapTurn
+	rst SwapTurn
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
 	ld a, 20
@@ -6276,7 +6276,7 @@ MagnetonLv35SelfdestructEffect:
 	call DealDamageToAllBenchedPokemon
 
 ; opponent's bench
-	call SwapTurn
+	rst SwapTurn
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
 	ld a, 20
@@ -6327,7 +6327,7 @@ RandomlyDamagePlayAreaPokemon:
 .opp_play_area
 	xor a ; FALSE
 	ld [wIsDamageToSelf], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_NUMBER_OF_POKEMON_IN_PLAY_AREA
 	call GetTurnDuelistVariable
 	call Random
@@ -6745,13 +6745,13 @@ MirrorMove_AfterDamage:
 	jr nz, .change_weakness
 
 ; execute Energy discard effect for card chosen
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	call PutCardInDiscardPile
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
 	call GetTurnDuelistVariable
 	ld [hl], LAST_TURN_EFFECT_DISCARD_ENERGY
-	call SwapTurn
+	rst SwapTurn
 
 .change_weakness
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_CHANGE_WEAK
@@ -6761,11 +6761,11 @@ MirrorMove_AfterDamage:
 	ret z ; weakness wasn't changed last turn
 
 	push hl
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	pop hl
 
 	ld a, [wLoadedCard2Weakness]
@@ -6787,7 +6787,7 @@ MirrorMove_AfterDamage:
 	rla
 	jr nc, .loop_color
 	ld a, c
-	call SwapTurn
+	rst SwapTurn
 	push af
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -6960,7 +6960,7 @@ Rampage_Confusion50PercentEffect:
 	ldtx de, IfTailsYourPokemonBecomesConfusedText
 	call TossCoin_BankB
 	ret c ; heads
-	call SwapTurn
+	rst SwapTurn
 	call ConfusionEffect
 	jp SwapTurn
 
@@ -7031,7 +7031,7 @@ HyperBeam_DiscardEffect:
 	ldh a, [hTempStorage]
 	cp $ff
 	ret z ; no energy card chosen
-	call SwapTurn
+	rst SwapTurn
 	call PutCardInDiscardPile
 	ld a, DUELVARS_ARENA_CARD_LAST_TURN_EFFECT
 	call GetTurnDuelistVariable
@@ -7042,7 +7042,7 @@ HyperBeam_DiscardEffect:
 ; that is attached to Defending Pokemon,
 ; and store the Player selection in [hTempStorage].
 HandleEnergyDiscardEffectSelection:
-	call SwapTurn
+	rst SwapTurn
 	xor a ; PLAY_AREA_ARENA
 	call CreateArenaOrBenchEnergyCardList
 	jr c, .no_energy
@@ -7055,13 +7055,13 @@ HandleEnergyDiscardEffectSelection:
 	bank1call HandleEnergyDiscardMenuInput
 	jr c, .loop_input
 
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTempStorage], a ; store selected card to discard
 	ret
 
 .no_energy
-	call SwapTurn
+	rst SwapTurn
 	ld a, $ff
 	ldh [hTempStorage], a
 	ret
@@ -7090,7 +7090,7 @@ HurricaneEffect:
 
 ; look at all the card locations and put all cards
 ; that are in the Arena in the hand.
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_CARD_LOCATIONS
 	call GetTurnDuelistVariable
 .loop_locations
@@ -7170,9 +7170,9 @@ HandlePlayerMetronomeEffect:
 	ld h, [hl]
 	ld l, a
 	push hl
-	call SwapTurn
+	rst SwapTurn
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	pop de
 	ld hl, wLoadedAttackName
 	ld a, e
@@ -7248,11 +7248,11 @@ PounceEffect:
 
 ; return carry if Defending card has no weakness
 Conversion1_WeaknessCheck:
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wLoadedCard2Weakness]
 	or a
 	ret nz
@@ -7284,10 +7284,10 @@ Conversion1_ChangeWeaknessEffect:
 	ld [hl], a
 
 ; print text box
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, ChangedTheWeaknessOfPokemonToColorText
 	call PrintArenaCardNameAndColorText
-	call SwapTurn
+	rst SwapTurn
 
 ; apply substatus
 	ld a, SUBSTATUS2_CONVERSION2
@@ -7315,11 +7315,11 @@ Conversion2_PlayerSelectEffect:
 Conversion2_AISelectEffect:
 ; AI will choose Defending Pokemon's color
 ; unless it is colorless.
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer1_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wLoadedCard1Type]
 	cp COLORLESS
 	jr z, .is_colorless
@@ -7327,7 +7327,7 @@ Conversion2_AISelectEffect:
 	ret
 
 .is_colorless
-	call SwapTurn
+	rst SwapTurn
 	call AISelectConversionColor
 	jp SwapTurn
 
@@ -7577,7 +7577,7 @@ DragoniteLv41Slam_MultiplierEffect:
 	jp SetDefiniteDamage
 
 CatPunchEffect:
-	call SwapTurn
+	rst SwapTurn
 	call PickRandomPlayAreaCard
 	ld b, a
 	ld a, ATK_ANIM_CAT_PUNCH_PLAY_AREA
@@ -7723,7 +7723,7 @@ PickRandomBasicCardFromDeck:
 	ret
 
 SlicingWindEffect:
-	call SwapTurn
+	rst SwapTurn
 	call PickRandomPlayAreaCard
 	ld b, a
 	ld de, 30
@@ -7748,7 +7748,7 @@ Gale_SwitchEffect:
 	jr nz, .skip_destiny_bond
 	bank1call HandleDestinyBondSubstatus
 .skip_destiny_bond
-	call SwapTurn
+	rst SwapTurn
 	call .SwitchWithRandomBenchPokemon
 	jr c, .skip_clear_damage
 ; clear dealt damage because Pokemon was switched
@@ -7757,7 +7757,7 @@ Gale_SwitchEffect:
 	ld [hli], a
 	ld [hl], a
 .skip_clear_damage
-	call SwapTurn
+	rst SwapTurn
 ;	fallthrough for attacking card switch
 
 .SwitchWithRandomBenchPokemon
@@ -7989,7 +7989,7 @@ ImakuniEffect:
 
 ; returns carry if opponent has no energy cards attached
 EnergyRemoval_EnergyCheck:
-	call SwapTurn
+	rst SwapTurn
 	call CheckIfThereAreAnyEnergyCardsAttached
 	ldtx hl, NoEnergyAttachedToOpponentsActiveText
 	jp SwapTurn
@@ -7997,7 +7997,7 @@ EnergyRemoval_EnergyCheck:
 EnergyRemoval_PlayerSelection:
 	ldtx hl, ChoosePokemonToRemoveEnergyFromText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	call HandlePokemonAndEnergySelectionScreen
 	jp SwapTurn
 
@@ -8005,15 +8005,15 @@ EnergyRemoval_AISelection:
 	jp AIPickEnergyCardToDiscardFromDefendingPokemon
 
 EnergyRemoval_DiscardEffect:
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempPlayAreaLocation_ffa1]
 	call PutCardInDiscardPile
-	call SwapTurn
+	rst SwapTurn
 	call IsPlayerTurn
 	ret c
 
 ; show Player which Pokemon was affected
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	call DrawPlayAreaScreenToShowChanges
 	jp SwapTurn
@@ -8392,7 +8392,7 @@ FullHeal_ClearStatusEffect:
 	ret
 
 ImposterProfessorOakEffect:
-	call SwapTurn
+	rst SwapTurn
 	call CreateHandCardList
 	call SortCardsInDuelTempListByID
 
@@ -8656,14 +8656,14 @@ PokemonFlute_BenchCheck:
 	ccf
 	ret c ; not enough space in Bench
 	; check Discard Pile
-	call SwapTurn
+	rst SwapTurn
 	call CreateBasicPokemonCardListFromDiscardPile
 	ldtx hl, ThereAreNoPokemonInDiscardPileText
 	jp SwapTurn
 
 PokemonFlute_PlayerSelection:
 ; create Discard Pile list
-	call SwapTurn
+	rst SwapTurn
 	call CreateBasicPokemonCardListFromDiscardPile
 
 ; display selection screen and store Player's selection
@@ -8672,25 +8672,25 @@ PokemonFlute_PlayerSelection:
 	ldtx de, PlayerDiscardPileText
 	bank1call SetCardListHeaderText
 	bank1call DisplayCardList
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempCardIndex_ff98]
 	ldh [hTempStorage], a
 	ret
 
 PokemonFlute_PlaceInPlayAreaText:
 ; place selected card in non-Turn Duelist's Bench
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	call MoveDiscardPileCardToHand
 	call AddCardToHand
 	call PutHandPokemonCardInPlayArea
-	call SwapTurn
+	rst SwapTurn
 
 ; unless it was the Player who played the card,
 ; display the Pokemon card on screen.
 	call IsPlayerTurn
 	ret c
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ldtx hl, CardWasChosenText
 	bank1call DisplayCardDetailScreen
@@ -9306,9 +9306,9 @@ LassEffect:
 
 	call .DisplayCPUHand
 	; do for non-Turn Duelist
-	call SwapTurn
+	rst SwapTurn
 	call .ShuffleDuelistHandTrainerCardsInDeck
-	call SwapTurn
+	rst SwapTurn
 	; do for Turn Duelist
 ;	fallthrough
 
@@ -9346,7 +9346,7 @@ LassEffect:
 	ret
 
 .DisplayCPUHand
-	call SwapTurn
+	rst SwapTurn
 	call .DisplayOppHand
 	jp SwapTurn
 
@@ -9789,7 +9789,7 @@ SuperEnergyRemoval_EnergyCheck:
 	call CheckIfThereAreAnyEnergyCardsAttached
 	ldtx hl, NoEnergyCardsAttachedToPokemonInYourPlayAreaText
 	ret c
-	call SwapTurn
+	rst SwapTurn
 	call CheckIfThereAreAnyEnergyCardsAttached
 	ldtx hl, NoEnergyCardsAttachedToPokemonInOppPlayAreaText
 	jp SwapTurn
@@ -9804,7 +9804,7 @@ SuperEnergyRemoval_PlayerSelection:
 	ldtx hl, ChoosePokemonToRemoveEnergyFromText
 	call DrawWideTextBox_WaitForInput
 
-	call SwapTurn
+	rst SwapTurn
 	ld a, 3
 	ldh [hCurSelectionItem], a
 .select_opp_pkmn
@@ -9812,7 +9812,7 @@ SuperEnergyRemoval_PlayerSelection:
 	bank1call OpenPlayAreaScreenForSelection
 	jr nc, .opp_pkmn_selected
 	; B was pressed
-	call SwapTurn
+	rst SwapTurn
 	ret ; return if operation was cancelled
 .opp_pkmn_selected
 	ld e, a
@@ -9874,7 +9874,7 @@ SuperEnergyRemoval_PlayerSelection:
 .done
 	call GetNextPositionInTempList_TrainerEffects
 	ld [hl], $ff
-	call SwapTurn
+	rst SwapTurn
 	or a
 	ret
 
@@ -9887,7 +9887,7 @@ SuperEnergyRemoval_DiscardEffect:
 
 ; iterate and discard opponent's energy cards
 	inc hl
-	call SwapTurn
+	rst SwapTurn
 .loop
 	ld a, [hli]
 	cp $ff
@@ -9897,7 +9897,7 @@ SuperEnergyRemoval_DiscardEffect:
 
 .done_discard
 ; if it's Player's turn, return...
-	call SwapTurn
+	rst SwapTurn
 	call IsPlayerTurn
 	ret c
 ; ...otherwise show Play Area of affected Pokemon
@@ -9907,7 +9907,7 @@ SuperEnergyRemoval_DiscardEffect:
 ; in player's Play Area
 	xor a
 	ld [wDuelDisplayedScreen], a
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hPlayAreaEffectTarget]
 	call DrawPlayAreaScreenToShowChanges
 	jp SwapTurn
@@ -10076,7 +10076,7 @@ GustOfWind_BenchCheck:
 GustOfWind_PlayerSelection:
 	ldtx hl, ChooseAPokemonToSwitchWithActivePokemonText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	bank1call HasAlivePokemonInBench
 	bank1call OpenPlayAreaScreenForSelection
 	ldh a, [hTempPlayAreaLocation_ff9d]
@@ -10089,11 +10089,11 @@ GustOfWind_SwitchEffect:
 	call PlayTrainerEffectAnimation
 
 ; switch Arena card
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempStorage]
 	ld e, a
 	call SwapArenaWithBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 	call ClearDamageReductionSubstatus2
 	xor a
 	ld [wDuelDisplayedScreen], a

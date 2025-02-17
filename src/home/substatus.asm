@@ -200,7 +200,7 @@ HandleStrikesBack_AgainstDamagingAttack::
 	push hl
 	push de
 	; subtract 10 HP from attacking Pokemon (turn holder's arena Pokemon)
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
@@ -230,7 +230,7 @@ HandleStrikesBack_AgainstDamagingAttack::
 	xor a ; PLAY_AREA_ARENA
 	call PrintPlayAreaCardKnockedOutIfNoHP
 .not_knocked_out
-	call SwapTurn
+	rst SwapTurn
 	pop de
 	pop hl
 	ret
@@ -520,9 +520,9 @@ CountPokemonWithActivePkmnPowerInBothPlayAreas::
 	call CountTurnDuelistPokemonWithActivePkmnPower
 	ld c, a
 	pop de
-	call SwapTurn
+	rst SwapTurn
 	call CountTurnDuelistPokemonWithActivePkmnPower
-	call SwapTurn
+	rst SwapTurn
 	add c
 	or a
 	scf
@@ -802,9 +802,9 @@ HandleStrikesBack_AgainstResidualAttack::
 	ld a, [wDealtDamage]
 	or a
 	ret z
-	call SwapTurn
+	rst SwapTurn
 	call CheckIsIncapableOfUsingPkmnPower_ArenaCard
-	call SwapTurn
+	rst SwapTurn
 	ret c
 	ld hl, 10 ; damage to be dealt to attacker
 	call ApplyStrikesBack_AgainstResidualAttack
@@ -849,9 +849,9 @@ ClearChangedTypesIfMuk::
 	call GetCardIDFromDeckIndex
 	cp16 MUK
 	ret nz
-	call SwapTurn
+	rst SwapTurn
 	call .zero_changed_types
-	call SwapTurn
+	rst SwapTurn
 .zero_changed_types
 	ld a, DUELVARS_ARENA_CARD_CHANGED_TYPE
 	call GetTurnDuelistVariable

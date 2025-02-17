@@ -183,12 +183,16 @@ GetCardPointer::
 	scf
 	ret
 
-; input:
-; hl = card_gfx_index
-; de = where to load the card gfx to
-; bc are supposed to be $30 (number of tiles of a card gfx) and TILE_SIZE respectively
+; copies a card graphic to vram and its palette to wCardPalette
 ; card_gfx_index = (<Name>CardGfx - CardGraphics) / 8  (using absolute ROM addresses)
-; also copies the card's palette to wCardPalette
+; input:
+;	hl = card_gfx_index
+;	de = where to load the card gfx to
+;	b = number of tiles used for a card graphic (should always be $30)
+;	c = number of bytes in a tile (should always be TILE_SIZE, or 16)
+; output:
+;	[wCardPalette] = palette of the card being loaded
+; updated 2/16/25
 LoadCardGfx::
 	ldh a, [hBankROM]
 	push af
@@ -199,7 +203,7 @@ LoadCardGfx::
 	srl h
 	ld a, BANK(CardGraphics)
 	add h
-	call BankswitchROM
+	call BankswitchROM ; updated 2/16/25
 	pop hl
 	; once we have the bank, get the pointer: multiply by 8 and discard the bank offset
 	add hl, hl
@@ -207,14 +211,10 @@ LoadCardGfx::
 	add hl, hl
 	res 7, h
 	set 6, h ; $4000 ≤ hl ≤ $7fff
-	call CopyGfxData
+	call CopyGfxData ; updated 2/16/25
 	ld b, CGB_PAL_SIZE
 	ld de, wCardPalette
-.copy_card_palette
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, .copy_card_palette
-	pop af
+	call CopyNBytesFromHLToDE ; updated 2/16/25
+	pop af 
 	jp BankswitchROM
+

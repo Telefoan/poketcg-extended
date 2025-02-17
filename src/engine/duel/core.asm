@@ -27,9 +27,9 @@ StartDuel_VSAIOpp::
 	ld a, [wNPCDuelDeckID]
 	ld [wOpponentDeckID], a
 	call LoadPlayerDeck
-	call SwapTurn
+	rst SwapTurn
 	call LoadOpponentDeck
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ld [wCurrentDuelMenuItem], a
 	call SetupDuel
@@ -67,7 +67,7 @@ MainDuelLoop:
 	jr z, .practice_duel
 
 .next_turn
-	call SwapTurn
+	rst SwapTurn
 	jr MainDuelLoop
 
 .practice_duel
@@ -210,9 +210,9 @@ HandleTurn:
 	jr z, .player_turn
 
 ; opponent's turn
-	call SwapTurn
+	rst SwapTurn
 	call IsClairvoyanceActive
-	call SwapTurn
+	rst SwapTurn
 	call c, DisplayPlayerDrawCardScreen
 	jr DuelMainInterface
 
@@ -328,7 +328,7 @@ DuelMenuShortcut_PlayerDiscardPile:
 
 ; draw the non-turn holder's play area screen
 OpenNonTurnHolderPlayAreaScreen:
-	call SwapTurn
+	rst SwapTurn
 	call OpenTurnHolderPlayAreaScreen
 	jp SwapTurn
 
@@ -339,7 +339,7 @@ OpenTurnHolderPlayAreaScreen:
 
 ; draw the non-turn holder's discard pile screen
 OpenNonTurnHolderDiscardPileScreen:
-	call SwapTurn
+	rst SwapTurn
 	call OpenDiscardPileScreen
 	jp SwapTurn
 
@@ -350,7 +350,7 @@ OpenTurnHolderDiscardPileScreen:
 ; draw the non-turn holder's hand screen. simpler version of OpenPlayerHandScreen
 ; used only for checking the cards rather than for playing them.
 OpenNonTurnHolderHandScreen_Simple:
-	call SwapTurn
+	rst SwapTurn
 	call OpenTurnHolderHandScreen_Simple
 	jp SwapTurn
 
@@ -370,9 +370,9 @@ OpenTurnHolderHandScreen_Simple:
 
 ; triggered by pressing B + START in the duel menu
 DuelMenuShortcut_OpponentActivePokemon:
-	call SwapTurn
+	rst SwapTurn
 	call OpenActivePokemonScreen
-	call SwapTurn
+	rst SwapTurn
 	jp DuelMainInterface
 
 ; triggered by pressing START in the duel menu
@@ -697,7 +697,7 @@ OpenVariousPlayAreaScreens_FromSelectPresses:
 	ret c
 	call .Func_45a9
 	ret c
-	call SwapTurn
+	rst SwapTurn
 	call .Func_45a9
 	jp SwapTurn
 
@@ -1005,12 +1005,12 @@ OpenAttackPage:
 	ld de, v0Tiles1 + $20 tiles
 	call LoadLoaded1CardGfx
 	call SetOBP1ToCardPalette
-	call SetBGP6ToCardPalette
+	call SetBGP6OrSGB3ToCardPalette
 	call FlushAllPalettesOrSendPal23Packet
 	lb de, $38, $30 ; X Position and Y Position of top-left corner
 	call PlaceCardImageOAM
 	lb de, 6, 4
-	call ApplyBGP6ToCardImage
+	call ApplyBGP6OrSGB3ToCardImage
 	ldh a, [hCurMenuItem]
 	ld [wSelectedDuelSubMenuItem], a
 	add a
@@ -1547,7 +1547,7 @@ DrawDuelistPortraitsAndNames:
 PrintDuelResultStats:
 	lb de, 8, 8
 	call .PrintDuelistResultStats
-	call SwapTurn
+	rst SwapTurn
 	lb de, 1, 1
 	call .PrintDuelistResultStats
 	jp SwapTurn
@@ -1628,15 +1628,15 @@ DisplayCardListDetails:
 HandleDuelSetup:
 ; init variables and shuffle cards
 	call InitializeDuelVariables
-	call SwapTurn
+	rst SwapTurn
 	call InitializeDuelVariables
-	call SwapTurn
+	rst SwapTurn
 	call PlayShuffleAndDrawCardsAnimation_BothDuelists
 	call ShuffleDeckAndDrawSevenCards
 	ldh [hTempStorage], a
-	call SwapTurn
+	rst SwapTurn
 	call ShuffleDeckAndDrawSevenCards
-	call SwapTurn
+	rst SwapTurn
 	ld c, a
 
 ; check if any Basic Pokémon cards were drawn
@@ -1661,14 +1661,14 @@ HandleDuelSetup:
 	jr .hand_cards_ok
 
 .opp_drew_no_basic_pkmn
-	call SwapTurn
+	rst SwapTurn
 .ensure_opp_basic_pkmn_loop
 	call DisplayNoBasicPokemonInHandScreenAndText
 	call InitializeDuelVariables
 	call PlayShuffleAndDrawCardsAnimation_TurnDuelist
 	call ShuffleDeckAndDrawSevenCards
 	jr c, .ensure_opp_basic_pkmn_loop
-	call SwapTurn
+	rst SwapTurn
 	jr .hand_cards_ok
 
 .neither_drew_basic_pkmn
@@ -1676,10 +1676,10 @@ HandleDuelSetup:
 	call DrawWideTextBox_WaitForInput
 	call DisplayNoBasicPokemonInHandScreen
 	call InitializeDuelVariables
-	call SwapTurn
+	rst SwapTurn
 	call DisplayNoBasicPokemonInHandScreen
 	call InitializeDuelVariables
-	call SwapTurn
+	rst SwapTurn
 	call PrintReturnCardsToDeckDrawAgain
 	jp HandleDuelSetup
 
@@ -1689,9 +1689,9 @@ HandleDuelSetup:
 	ld a, PLAYER_TURN
 	ldh [hWhoseTurn], a
 	call ChooseInitialArenaAndBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 	call ChooseInitialArenaAndBenchPokemon
-	call SwapTurn
+	rst SwapTurn
 	jp c, .error
 	call DrawPlayAreaToPlacePrizeCards
 	ldtx hl, PlacingThePrizesText
@@ -1710,9 +1710,9 @@ HandleDuelSetup:
 
 	ldh [hWhoseTurn], a
 	call InitTurnDuelistPrizes
-	call SwapTurn
+	rst SwapTurn
 	call InitTurnDuelistPrizes
-	call SwapTurn
+	rst SwapTurn
 	call EmptyScreen
 	ld a, BOXMSG_COIN_TOSS
 	call DrawDuelBoxMessage
@@ -1731,7 +1731,7 @@ HandleDuelSetup:
 	ldtx de, IfHeadsDuelistPlaysFirstText
 	call TossCoin
 	jr c, .play_first
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, YouPlaySecondText
 .play_first
 	call DrawWideTextBox_WaitForInput
@@ -1748,7 +1748,7 @@ HandleDuelSetup:
 	ldtx de, IfHeadsDuelistPlaysFirstText
 	call TossCoin
 	jr c, .play_second
-	call SwapTurn
+	rst SwapTurn
 	ldtx hl, YouPlayFirstText
 .play_second
 	call DrawWideTextBox_WaitForInput
@@ -2222,7 +2222,7 @@ PlayDeckShuffleAnimation:
 ; includes the background, both arena Pokemon, and both HUDs.
 DrawDuelMainScene::
 	ld a, DUELVARS_DUELIST_TYPE
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	cp DUELIST_TYPE_PLAYER
 	jr z, .draw
 	ldh a, [hWhoseTurn]
@@ -2238,50 +2238,50 @@ DrawDuelMainScene::
 	ld a, [wDuelDisplayedScreen]
 	cp DUEL_MAIN_SCENE
 	ret z
-	call ZeroObjectPositionsAndToggleOAMCopy
-	call EmptyScreen
-	call LoadSymbolsFont
+	call ZeroObjectPositionsAndToggleOAMCopy ; updated 2/16/25
+	call EmptyScreen ; updated 2/16/25
+	call LoadSymbolsFont ; updated 2/16/25
+	lb de, $38, $9f 
+	call SetupText ; updated 2/16/25
 	ld a, DUEL_MAIN_SCENE
 	ld [wDuelDisplayedScreen], a
 	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	ld de, v0Tiles1 + $50 tiles
-	call LoadPlayAreaCardGfx
-	call SetBGP7ToCardPalette
-	call SwapTurn
+	call LoadPlayAreaCardGfx ; updated 2/16/25
+	call SetBGP7OrSGB2ToCardPalette ; updated 2/16/25
+	rst SwapTurn ; updated 2/16/25
 	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	ld de, v0Tiles1 + $20 tiles
-	call LoadPlayAreaCardGfx
-	call SetBGP6ToCardPalette
-	call FlushAllPalettesOrSendPal23Packet
-	call SwapTurn
+	call LoadPlayAreaCardGfx ; updated 2/16/25
+	call SetBGP6OrSGB3ToCardPalette ; updated 2/16/25
+	call FlushAllPalettesOrSendPal23Packet ; updated 2/16/25
+	rst SwapTurn ; updated 2/16/25
 ; next, draw the Pokemon in the arena
 ;.place_player_arena_pkmn
 	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	cp -1
+	get_turn_duelist_var
+	inc a ; cp -1 (empty play area slot?)
 	jr z, .place_opponent_arena_pkmn
 	ld a, $d0 ; v0Tiles1 + $50 tiles
 	lb hl, 6, 1
 	lb de, 0, 5
 	lb bc, 8, 6
-	call FillRectangle
-	call ApplyBGP7ToCardImage
+	call FillRectangle ; updated 2/16/25
+	call ApplyBGP7OrSGB2ToCardImage ; updated 2/16/25
 .place_opponent_arena_pkmn
-	call SwapTurn
 	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
-	cp -1
+	call GetNonTurnDuelistVariable ; updated 2/16/25
+	inc a ; cp -1 (empty play area slot?)
 	jr z, .place_other_elements
 	ld a, $a0 ; v0Tiles1 + $20 tiles
 	lb hl, 6, 1
 	lb de, 12, 1
 	lb bc, 8, 6
-	call FillRectangle
-	call ApplyBGP6ToCardImage
+	call FillRectangle ; updated 2/16/25
+	call ApplyBGP6OrSGB3ToCardImage ; updated 2/16/25
 .place_other_elements
-	call SwapTurn
 	ld hl, DuelEAndHPTileData
 	call WriteDataBlocksToBGMap0
 	call DrawDuelHorizontalSeparator
@@ -2293,7 +2293,7 @@ DrawDuelMainScene::
 ; and color symbols, attached cards, and other information, of both duelists.
 DrawDuelHUDs::
 	ld a, DUELVARS_DUELIST_TYPE
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	cp DUELIST_TYPE_PLAYER
 	jr z, .draw_hud
 	ldh a, [hWhoseTurn]
@@ -2310,20 +2310,19 @@ DrawDuelHUDs::
 	call DrawDuelHUD
 	lb bc, 8, 5
 	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	call CheckPrintCnfSlpPrz
 	inc c
 	call CheckPrintPoisoned
 	inc c
 	call CheckPrintDoublePoisoned ; if double poisoned, print a second poison icon
-	call SwapTurn
+	rst SwapTurn
 	lb de, 7, 0 ; coordinates for opponent's arena card name and info icons
 	lb bc, 3, 1 ; coordinates for opponent's attached energies and HP bar
-	call GetNonTurnDuelistVariable
 	call DrawDuelHUD
 	lb bc, 11, 6
 	ld a, DUELVARS_ARENA_CARD_STATUS
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	call CheckPrintCnfSlpPrz
 	dec c
 	call CheckPrintPoisoned
@@ -2343,8 +2342,8 @@ DrawDuelHUD:
 	jr z, .go
 	ld d, 15 ; player's info icons start in the 15th tile to the right
 .go
-	push de
-	pop bc
+	ld b, d 
+	ld c, e 
 
 	; print the Pokemon icon along with the no. of play area Pokemon
 	ld a, SYM_POKEMON
@@ -2371,13 +2370,11 @@ DrawDuelHUD:
 	cp -1
 	ret z
 	call LoadCardDataToBuffer1_FromDeckIndex
-	push de
 	ld a, 32
 	call CopyCardNameAndLevel
 	ld [hl], TX_END
 
 	; print the arena Pokemon card color symbol just before the name
-	pop de
 	ld a, e
 	or a
 	jr nz, .print_color_icon
@@ -2386,62 +2383,72 @@ DrawDuelHUD:
 	add SCREEN_WIDTH
 	ld d, a
 .print_color_icon
-	call InitTextPrinting
 	ld hl, wDefaultText
-	call ProcessText
-	push de
-	pop bc
+	call InitTextPrinting_ProcessText
+	ld b, d 
+	ld c, e 
 	call GetArenaCardColor
 	inc a ; TX_SYMBOL color tiles start at 1
 	dec b ; place the color symbol one tile to the left of the start of the card's name
-	call JPWriteByteToBGMap0
+	call WriteByteToBGMap0
 
 	; print attached energies
 	ld hl, wHUDEnergyAndHPBarsX
 	ld b, [hl]
 	inc hl
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
-	lb de, 9, PLAY_AREA_ARENA
+	push bc 
+	ld e, PLAY_AREA_ARENA
 	call PrintPlayAreaCardAttachedEnergies
 
-	; print HP bar
+	; print HP as #/# (current HP/Max HP)
 	ld a, DUELVARS_ARENA_CARD
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	call LoadCardDataToBuffer1_FromDeckIndex
-	ld a, [wLoadedCard1HP]
-	ld d, a ; max HP
-	ld a, DUELVARS_ARENA_CARD_HP
-	call GetTurnDuelistVariable
-	ld e, a ; cur HP
-	call DrawHPBar
-	ld hl, wHUDEnergyAndHPBarsX
-	ld b, [hl]
-	inc hl
-	ld c, [hl] ; wHUDEnergyAndHPBarsY
+	pop bc
 	inc c ; [wHUDEnergyAndHPBarsY] + 1
-	call BCCoordToBGMap0Address
-	push de
-	ld hl, wDefaultText
-	ld b, HP_BAR_LENGTH / 2 ; first row of the HP bar
-	call SafeCopyDataHLtoDE
-	pop de
-	ld hl, BG_MAP_WIDTH
-	add hl, de
-	ld e, l
-	ld d, h
-	ld hl, wDefaultText + HP_BAR_LENGTH / 2
-	ld b, HP_BAR_LENGTH / 2 ; second row of the HP bar
-	call SafeCopyDataHLtoDE
+	ld a, DUELVARS_ARENA_CARD_HP
+	get_turn_duelist_var
+	cp 100
+	jr nc, .threedigits
+	dec b
+.threedigits
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	inc b 
+	inc b 
+	inc b 
+	ld a, [wLoadedCard1HP]
+	cp 100
+	jr c, .twodigits 
+	ld e, a 
+	ld a, SYM_SLASH 
+	call WriteByteToBGMap0
+	inc b 
+	ld a, e 
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	; might need to erase the last number from the previous printing,
+	; in case the Active Pokémon's current HP went from 3 digits to 2.
+	inc b
+	inc b
+	inc b
+	xor a ; SYM_SPACE
+	call WriteByteToBGMap0
+	jr .check_pluspower
+.twodigits
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	ld a, SYM_SLASH
+	call WriteByteToBGMap0
 
-	; print number of attached Pluspower and Defender with respective icon, if any
+; print number of attached Pluspower and Defender with respective icon, if any
+.check_pluspower
 	ld hl, wHUDEnergyAndHPBarsX
 	ld a, [hli]
-	add 6
+	add 7
 	ld b, a
 	ld c, [hl] ; wHUDEnergyAndHPBarsY
 	inc c
 	ld a, DUELVARS_ARENA_CARD_ATTACHED_PLUSPOWER
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	or a
 	jr z, .check_defender
 	ld a, SYM_PLUSPOWER
@@ -2453,9 +2460,9 @@ DrawDuelHUD:
 	dec b
 .check_defender
 	ld a, DUELVARS_ARENA_CARD_ATTACHED_DEFENDER
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	or a
-	jr z, .done
+	ret z
 	inc c
 	ld a, SYM_DEFENDER
 	call WriteByteToBGMap0
@@ -2463,8 +2470,14 @@ DrawDuelHUD:
 	ld a, [hl] ; number of attached Defender
 	add SYM_0
 	call WriteByteToBGMap0
-.done
-	ret
+
+DuelEAndHPTileData:
+; x, y, tiles[], 0
+	db 1, 1, SYM_E,  0
+	db 1, 2, SYM_HP, 0
+	db 9, 8, SYM_E,  0
+	db 9, 9, SYM_HP, 0
+	db $ff
 
 ; draws an horizontal line that separates the arena side of each duelist
 ; also colorizes the line on CGB
@@ -2476,13 +2489,7 @@ DrawDuelHorizontalSeparator:
 	call WriteDataBlocksToBGMap0
 	jp BankswitchVRAM0
 
-DuelEAndHPTileData:
-; x, y, tiles[], 0
-	db 1, 1, SYM_E,  0
-	db 1, 2, SYM_HP, 0
-	db 9, 8, SYM_E,  0
-	db 9, 9, SYM_HP, 0
-	db $ff
+
 
 DuelHorizontalSeparatorTileData:
 ; x, y, tiles[], 0
@@ -3055,7 +3062,7 @@ DrawCardListScreenLayout:
 	lb de, 12, 12
 	lb bc, 8, 6
 	call FillRectangle
-	call ApplyBGP6ToCardImage
+	call ApplyBGP6OrSGB3ToCardImage
 	call PrintSortNumberInCardList_CallFromPointer
 	ld a, [wDuelTempList]
 	cp $ff
@@ -3366,12 +3373,12 @@ OpenCardPage:
 	ld de, v0Tiles1 + $20 tiles
 	call LoadLoaded1CardGfx
 	call SetOBP1ToCardPalette
-	call SetBGP6ToCardPalette
+	call SetBGP6OrSGB3ToCardPalette
 	call FlushAllPalettesOrSendPal23Packet
 	lb de, $38, $30 ; X Position and Y Position of top-left corner
 	call PlaceCardImageOAM
 	lb de, 6, 4
-	call ApplyBGP6ToCardImage
+	call ApplyBGP6OrSGB3ToCardImage
 	; display the initial card page for the card at wLoadedCard1
 	xor a
 	ld [wCardPageNumber], a
@@ -3525,7 +3532,7 @@ LoadSelectedCardGfx:
 	call LoadCardDataToBuffer1_FromCardID
 	ld de, v0Tiles1 + $20 tiles
 	call LoadLoaded1CardGfx
-	call SetBGP6ToCardPalette
+	call SetBGP6OrSGB3ToCardPalette
 	jp FlushAllPalettesOrSendPal23Packet
 
 CardPageDisplayPointerTable:
@@ -3717,12 +3724,6 @@ CardPageSwitch_TrainerEnd:
 	scf
 	ret
 
-ZeroObjectPositionsAndToggleOAMCopy:
-	call ZeroObjectPositions
-	ld a, $01
-	ld [wVBlankOAMCopyToggle], a
-	ret
-
 ; place OAM for a 8x6 image, using object size 8x16 and obj palette 1.
 ; d, e: X Position and Y Position of the top-left corner.
 ; starting tile number is $a0 (v0Tiles1 + $20 tiles).
@@ -3757,32 +3758,49 @@ PlaceCardImageOAM:
 	ld [wVBlankOAMCopyToggle], a
 	ret
 
-; given the deck index of a card in the play area (i.e. -1 indicates empty)
-; load the graphics (tiles and palette) of the card to de
+; given the deck index of a card in the play area,
+; loads the card's graphics (tiles and palette) to de
+; input:
+;	a = card's deck index (0-59)
+;	de = where in vram to copy the card's graphic data
+; updated 2/16/25
 LoadPlayAreaCardGfx:
 	cp -1
-	ret z
-	push de
+	ret z ; return if the play area slot is empty
 	call LoadCardDataToBuffer1_FromDeckIndex
-	pop de
 ;	fallthrough
 
 ; load the graphics (tiles and palette) of the card loaded in wLoadedCard1 to de
+; input:
+;	de = where in vram to copy the card's graphic data
+;	[wLoadedCard1Gfx] = pointer for the card's graphic data (2 bytes)
+; updated 2/16/25
 LoadLoaded1CardGfx:
 	ld hl, wLoadedCard1Gfx
 	ld a, [hli]
 	ld h, [hl]
 	ld l, a
 	lb bc, $30, TILE_SIZE
-	jp LoadCardGfx
+	jp LoadCardGfx ; updated 2/16/25
 
-SetBGP7ToCardPalette:
+SetBGP7OrSGB2ToCardPalette:
+	ld a, [wConsole]
+	or a ; CONSOLE_DMG
+	ret z
+	cp CONSOLE_SGB
+	jr z, SetSGB2ToCardPalette
 	ld a, $07 ; CGB BG Palette 7
 	jp CopyCGBCardPalette
 
-SetBGP6ToCardPalette:
-	ld a, $06 ; CGB BG Palette 6
-	jp CopyCGBCardPalette
+; updated 2/16/25
+SetBGP6OrSGB3ToCardPalette:
+	ld a, [wConsole]
+	or a ; CONSOLE_DMG
+	ret z
+	cp CONSOLE_SGB
+	jr z, SetSGB2ToCardPalette
+	ld a, $07 ; CGB BG Palette 7
+	jr CopyCGBCardPalette
 
 SetOBP1ToCardPalette:
 	ld a, %11100100
@@ -3809,15 +3827,37 @@ CopyCGBCardPalette:
 	ret
 
 FlushAllPalettesOrSendPal23Packet:
-	jp FlushAllPalettes
+	ld a, [wConsole]
+	or a ; CONSOLE_DMG
+	ret z
+	cp CONSOLE_SGB
+	jp nz, FlushAllPalettes ; not sgb
 
-ApplyBGP6ToCardImage:
+; input:
+;	de = screen coordinates of card image's top left tile
+; updated 2/16/25
+ApplyBGP6OrSGB3ToCardImage:
+	ld a, [wConsole]
+	or a ; CONSOLE_DMG
+	ret z
+	cp CONSOLE_SGB
+	jr z, ApplySGB3 ; updated 2/16/25
 	ld a, $06 ; CGB BG Palette 6
-	jp ApplyCardCGBAttributes
+;	fallthrough
 
-ApplyBGP7ToCardImage:
+; input:
+;	de = screen coordinates of card image's top left tile
+ApplyBGP7OrSGB2ToCardImage:
+	ld a, [wConsole]
+	or a ; CONSOLE_DMG
+	ret z
+	cp CONSOLE_SGB
+	jr z, .sgb
 	ld a, $07 ; CGB BG Palette 7
-	jp ApplyCardCGBAttributes
+	jr ApplyCardCGBAttributes
+.sgb
+	ld a, 2 << 0 + 2 << 2 ; Color Palette Designation
+	jr SendCardAttrBlkPacket
 
 ; given the 8x6 card image with coordinates at de, fill its BGMap attributes with a
 ApplyCardCGBAttributes:
@@ -4141,7 +4181,7 @@ DrawCardPageSurroundingBox:
 	lb bc, 20, 18
 	call DrawRegularTextBox
 	lb de, 6, 4
-	jp ApplyBGP6ToCardImage
+	jp ApplyBGP6OrSGB3ToCardImage
 
 CardPageRetreatWRTextData:
 	textitem 1, 14, RetreatCostText
@@ -4339,7 +4379,7 @@ DisplayEnergyOrTrainerCardPage:
 	call InitTextPrinting_ProcessTextFromPointerToID
 	; colorize the card image
 	lb de, 6, 4
-	call ApplyBGP6ToCardImage
+	call ApplyBGP6OrSGB3ToCardImage
 	; display the card type header
 	ld a, $e0
 	lb hl, 1, 8
@@ -4387,12 +4427,12 @@ DrawLargePictureOfCard:
 	call LoadCardTypeHeaderTiles
 	ld de, v0Tiles1 + $20 tiles
 	call LoadLoaded1CardGfx
-	call SetBGP6ToCardPalette
+	call SetBGP6OrSGB3ToCardPalette
 	call FlushAllPalettesOrSendPal23Packet
 	ld hl, LargeCardTileData
 	call WriteDataBlocksToBGMap0
 	lb de, 6, 3
-	jp ApplyBGP6ToCardImage
+	jp ApplyBGP6OrSGB3ToCardImage
 
 LargeCardTileData:
 	db  5,  0, $d0, $d4, $d4, $d4, $d4, $d4, $d4, $d4, $d4, $d1, 0 ; top border
@@ -4975,7 +5015,7 @@ PrintPlayAreaCardInformation:
 	ld b, 5
 	ld a, SYM_E
 	call WriteByteToBGMap0
-	; print the HP bar
+	; print the HP as #/# (current HP/Max HP)
 	inc c
 	ld a, SYM_HP
 	call WriteByteToBGMap0
@@ -4984,19 +5024,34 @@ PrintPlayAreaCardInformation:
 	call GetTurnDuelistVariable
 	or a
 	jr z, .zero_hp
-	ld e, a
+	cp 100
+	jr c, .twodigits
+	inc b 
+.twodigits
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	inc b 
+	inc b 
+	inc b 
 	ld a, [wLoadedCard1HP]
-	ld d, a
-	call DrawHPBar
-	ld a, [wCurPlayAreaY]
-	inc a
-	inc a
-	ld c, a
-	ld b, 7
-	call BCCoordToBGMap0Address
-	ld hl, wDefaultText
-	ld b, 12
-	jp SafeCopyDataHLtoDE
+	cp 100
+	jr nc, .threedigits
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	ld a, SYM_SLASH
+	jp WriteByteToBGMap0
+.threedigits
+	ld e, a 
+	ld a, SYM_SLASH
+	call WriteByteToBGMap0
+	inc b 
+	ld a, e 
+	call WriteOneByteNumberInTxSymbolFormat_TrimLeadingZeros
+	; might need to erase the last number from the previous printing,
+	; in case the Active Pokémon's current HP went from 3 digits to 2.
+	inc b
+	inc b
+	inc b
+	ld a, SYM_SPACE
+	jp WriteByteToBGMap0
 .zero_hp
 	; if fainted, print "Knock Out" in place of the HP bar
 	ld a, [wCurPlayAreaY]
@@ -5181,23 +5236,23 @@ CheckPrintCnfSlpPrz:
 	;  NO_STATUS, CONFUSED,     ASLEEP,     PARALYZED
 	db SYM_SPACE, SYM_CONFUSED, SYM_ASLEEP, SYM_PARALYZED
 
-; print the symbols of the attached energies of a turn holder's play area card
+; prints the symbols of any Energy attached to a turn holder's Pokemon in the play area
 ; input:
-; - e: PLAY_AREA_*
-; - b, c: where to print (x, y)
-; - wAttachedEnergies and wTotalAttachedEnergies
+;	e = Pokemon's play area location offset (PLAY_AREA_* constant)
+;	bc = screen coordinates at which to begin printing the Energy symbols
 PrintPlayAreaCardAttachedEnergies:
 	push bc
 	call GetPlayAreaCardAttachedEnergies
 	ld hl, wDefaultText
 	push hl
+	; clear 8 bytes from wDefaultText
 	ld c, NUM_TYPES
 	xor a
 .empty_loop
 	ld [hli], a
 	dec c
 	jr nz, .empty_loop
-	pop hl
+	pop hl ; wDefaultText
 	ld de, wAttachedEnergies
 	lb bc, SYM_FIRE, NUM_TYPES - 1
 .next_color
@@ -5217,13 +5272,14 @@ PrintPlayAreaCardAttachedEnergies:
 	ld a, [wTotalAttachedEnergies]
 	cp 9
 	jr c, .place_tiles
+	; if there are more than 8 symbols, then replace the 8th symbol with SYM_PLUS
 	ld a, SYM_PLUS
 	ld [wDefaultText + 7], a
 .place_tiles
 	pop bc
 	call BCCoordToBGMap0Address
 	ld hl, wDefaultText
-	ld b, NUM_TYPES
+	ld b, 8 ; only print the first 8 symbols
 	jp SafeCopyDataHLtoDE
 
 DisplayPlayAreaScreenToUsePkmnPower:
@@ -6130,7 +6186,7 @@ OppAction_PlayAttackAnimationDealAttackDamage:
 OppAction_ForceSwitchActive:
 	ldtx hl, SelectPkmnOnBenchToSwitchWithActiveText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	call HasAlivePokemonInBench
 	ld a, $01
 	ld [wPlayAreaSelectAction], a
@@ -6208,9 +6264,9 @@ OppAction_UseMetronomeAttack:
 	jp WaitForWideTextBoxInput
 .asm_6b56
 	push bc
-	call SwapTurn
+	rst SwapTurn
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempCardIndex_ff9f]
 	ld [wPlayerAttackingCardIndex], a
 	ld a, [wSelectedAttack]
@@ -6257,12 +6313,12 @@ HandleBetweenTurnsEvents:
 	jr c, .something_to_handle
 	cp PARALYZED
 	jr z, .something_to_handle
-	call SwapTurn
+	rst SwapTurn
 	call IsArenaPokemonAsleepOrPoisoned
-	call SwapTurn
+	rst SwapTurn
 	jr c, .something_to_handle
 	call DiscardAttachedPluspowers
-	call SwapTurn
+	rst SwapTurn
 	call DiscardAttachedDefenders
 	jp SwapTurn
 
@@ -6310,7 +6366,7 @@ HandleBetweenTurnsEvents:
 
 .discard_pluspower
 	call DiscardAttachedPluspowers
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
@@ -6326,7 +6382,7 @@ HandleBetweenTurnsEvents:
 	call nc, HandleSleepCheck
 .asm_6c3a
 	call DiscardAttachedDefenders
-	call SwapTurn
+	rst SwapTurn
 	jp HandleBetweenTurnKnockOuts
 
 ; discard any PLUSPOWER attached to the turn holder's arena and/or bench Pokemon
@@ -6384,7 +6440,7 @@ RedrawTurnDuelistsMainSceneOrDuelHUD:
 	ldh a, [hWhoseTurn]
 	cp [hl]
 	jp z, DrawDuelMainScene
-	call SwapTurn
+	rst SwapTurn
 	call DrawDuelMainScene
 	jp SwapTurn
 
@@ -6393,7 +6449,7 @@ RedrawTurnDuelistsDuelHUD:
 	ldh a, [hWhoseTurn]
 	cp [hl]
 	jp z, DrawDuelHUDs
-	call SwapTurn
+	rst SwapTurn
 	call DrawDuelHUDs
 	jp SwapTurn
 
@@ -6407,10 +6463,10 @@ PlayBetweenTurnsAnimation:
 	ld a, [wWhoseTurn]
 	cp PLAYER_TURN
 	jr z, .store_duelist_turn
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hWhoseTurn]
 	ld [wDuelAnimDuelistSide], a
-	call SwapTurn
+	rst SwapTurn
 	jr .asm_6ccb
 
 .store_duelist_turn
@@ -6678,9 +6734,9 @@ HandleBetweenTurnKnockOuts:
 	call .ClearDamageReductionSubstatus2OfKnockedOutPokemon
 	xor a
 	ld [wDuelFinishParam], a
-	call SwapTurn
+	rst SwapTurn
 	call .Func_6ef6
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wDuelFinishParam]
 	or a
 	jr z, .asm_6e86
@@ -6688,16 +6744,16 @@ HandleBetweenTurnKnockOuts:
 	jr c, .asm_6e86
 	call CountKnockedOutPokemon
 	ld c, a
-	call SwapTurn
+	rst SwapTurn
 	call CountPrizes
-	call SwapTurn
+	rst SwapTurn
 	dec a
 	cp c
 	jr c, .asm_6e86
 	ld a, c
-	call SwapTurn
+	rst SwapTurn
 	call TakeAPrizes
-	call SwapTurn
+	rst SwapTurn
 	ld a, TURN_PLAYER_WON
 	jr .set_duel_finished
 .asm_6e86
@@ -6705,16 +6761,16 @@ HandleBetweenTurnKnockOuts:
 	ld a, [wDuelFinishParam]
 	cp TRUE
 	jr nz, .asm_6e9f
-	call SwapTurn
+	rst SwapTurn
 	call CheckIfTurnDuelistPlayAreaPokemonAreAllKnockedOut
-	call SwapTurn
+	rst SwapTurn
 	jr c, .asm_6e9f
 	ld a, TURN_PLAYER_LOST
 	jr .set_duel_finished
 .asm_6e9f
-	call SwapTurn
+	rst SwapTurn
 	call .Func_6eff
-	call SwapTurn
+	rst SwapTurn
 	call .Func_6eff
 	ld a, [wDuelFinishParam]
 	or a
@@ -6723,9 +6779,9 @@ HandleBetweenTurnKnockOuts:
 .asm_6eb2
 	push af
 	call MoveAllTurnHolderKnockedOutPokemonToDiscardPile
-	call SwapTurn
+	rst SwapTurn
 	call MoveAllTurnHolderKnockedOutPokemonToDiscardPile
-	call SwapTurn
+	rst SwapTurn
 	call ShiftAllPokemonToFirstPlayAreaSlots
 	pop af
 	ret
@@ -6750,9 +6806,9 @@ HandleBetweenTurnKnockOuts:
 ; clears SUBSTATUS2_REDUCE_BY_20, SUBSTATUS2_POUNCE, SUBSTATUS2_GROWL,
 ; SUBSTATUS2_TAIL_WAG, and SUBSTATUS2_LEER for each arena Pokemon with 0 HP
 .ClearDamageReductionSubstatus2OfKnockedOutPokemon:
-	call SwapTurn
+	rst SwapTurn
 	call .clear
-	call SwapTurn
+	rst SwapTurn
 .clear
 	ld a, DUELVARS_ARENA_CARD_HP
 	call GetNonTurnDuelistVariable
@@ -6860,15 +6916,15 @@ Func_6fa5:
 	call CountKnockedOutPokemon
 	ret nc
 	; at least one Pokemon knocked out
-	call SwapTurn
+	rst SwapTurn
 	bank1call TurnDuelistTakePrizes
-	call SwapTurn
+	rst SwapTurn
 	ret nc
-	call SwapTurn
+	rst SwapTurn
 	bank1call DrawDuelMainScene
 	ldtx hl, TookAllThePrizesText
 	call DrawWideTextBox_WaitForInput
-	call SwapTurn
+	rst SwapTurn
 	scf
 	ret
 
@@ -7618,3 +7674,15 @@ PlayAttackAnimation::
 	pop af
 	ldh [hWhoseTurn], a
 	ret
+
+; updated 2/16/25
+ApplySGB3:
+	ld a, 3 << 0 + 3 << 2 ; Color Palette Designation
+;	fallthrough
+
+; input:
+;	a = SGB palette information
+;	de = screen coordinates of card image's top left tile
+SendCardAttrBlkPacket:
+	call CreateCardAttrBlkPacket
+	jp SendSGB

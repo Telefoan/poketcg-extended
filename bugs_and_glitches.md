@@ -340,7 +340,7 @@ AIDecide_FullHeal:
 +; returns carry if player's Arena card
 +; is card in register a
 +.CheckPlayerArenaCard:
-+	call SwapTurn
++	rst SwapTurn
 +	ld b, PLAY_AREA_ARENA
 +	call LookForCardIDInPlayArea_Bank8
 +	jp SwapTurn

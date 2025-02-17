@@ -3001,15 +3001,6 @@ GetCardTypeIconPalette:
 	db ICON_TILE_TRAINER,         2
 	db $00, $ff
 
-; copies b bytes from hl to de
-CopyNBytesFromHLToDE:
-	ld a, [hli]
-	ld [de], a
-	inc de
-	dec b
-	jr nz, CopyNBytesFromHLToDE
-	ret
-
 ; copies bc bytes from hl to de
 CopyNBytesFromHLToDE_Long:
 	ld a, [hli]

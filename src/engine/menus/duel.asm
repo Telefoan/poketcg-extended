@@ -447,9 +447,9 @@ _DrawYourOrOppPlayAreaScreen::
 	call PrintTextNoDelay
 	jr .draw
 .swap
-	call SwapTurn
+	rst SwapTurn
 	call PrintTextNoDelay
-	call SwapTurn
+	rst SwapTurn
 
 .draw
 	ld a, [wCheckMenuPlayAreaWhichDuelist]
@@ -536,10 +536,10 @@ DrawInPlayAreaScreen:
 	ld hl, PlayAreaIconCoordinates.player2
 	call DrawInPlayArea_Icons
 
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hWhoseTurn]
 	ld [wCheckMenuPlayAreaWhichDuelist], a
-	call SwapTurn
+	rst SwapTurn
 
 ; opponent prize cards
 	ld hl, PrizeCardsCoordinateData_InPlayArea.opponent
@@ -550,11 +550,11 @@ DrawInPlayAreaScreen:
 	ld c, 3
 	call DrawPlayArea_BenchCards
 
-	call SwapTurn
+	rst SwapTurn
 	ld hl, PlayAreaIconCoordinates.opponent2
 	call DrawInPlayArea_Icons
 
-	call SwapTurn
+	rst SwapTurn
 	jp DrawInPlayArea_ActiveCardGfx
 
 ; draws the active card gfx at coordinates de
@@ -581,10 +581,10 @@ DrawYourOrOppPlayArea_ActiveCardGfx:
 	call LoadCardDataToBuffer1_FromDeckIndex
 	jr .draw
 .swap
-	call SwapTurn
+	rst SwapTurn
 	ld a, d
 	call LoadCardDataToBuffer1_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 
 .draw
 	ld de, v0Tiles1 + $20 tiles ; destination offset of loaded gfx
@@ -594,7 +594,7 @@ DrawYourOrOppPlayArea_ActiveCardGfx:
 	ld l, a
 	lb bc, $30, TILE_SIZE
 	call LoadCardGfx
-	bank1call SetBGP6ToCardPalette
+	bank1call SetBGP6OrSGB3ToCardPalette
 	bank1call FlushAllPalettesOrSendPal23Packet
 	pop de
 
@@ -603,7 +603,7 @@ DrawYourOrOppPlayArea_ActiveCardGfx:
 	lb hl, 6, 1
 	lb bc, 8, 6
 	call FillRectangle
-	bank1call ApplyBGP6ToCardImage
+	bank1call ApplyBGP6OrSGB3ToCardImage
 	ret
 
 .no_pokemon
@@ -636,7 +636,7 @@ DrawInPlayArea_ActiveCardGfx:
 	ld l, a
 	lb bc, $30, TILE_SIZE
 	call LoadCardGfx
-	bank1call SetBGP6ToCardPalette
+	bank1call SetBGP6OrSGB3ToCardPalette
 
 .opponent1
 	ld a, DUELVARS_ARENA_CARD
@@ -651,7 +651,7 @@ DrawInPlayArea_ActiveCardGfx:
 	pop af
 
 ; load card gfx
-	call SwapTurn
+	rst SwapTurn
 	call LoadCardDataToBuffer1_FromDeckIndex
 	lb de, $95, $00
 	ld hl, wLoadedCard1Gfx
@@ -660,8 +660,8 @@ DrawInPlayArea_ActiveCardGfx:
 	ld l, a
 	lb bc, $30, TILE_SIZE
 	call LoadCardGfx
-	bank1call SetBGP7ToCardPalette
-	call SwapTurn
+	bank1call SetBGP7OrSGB2ToCardPalette
+	rst SwapTurn
 
 .draw
 	ld a, [wArenaCardsInPlayArea]
@@ -679,7 +679,7 @@ DrawInPlayArea_ActiveCardGfx:
 	lb hl, 6, 1
 	lb bc, 8, 6
 	call FillRectangle
-	bank1call ApplyBGP6ToCardImage
+	bank1call ApplyBGP6OrSGB3ToCardImage
 
 .opponent2
 	ld a, [wArenaCardsInPlayArea]
@@ -687,13 +687,13 @@ DrawInPlayArea_ActiveCardGfx:
 	ret z
 
 ; draw opponent arena card
-	call SwapTurn
+	rst SwapTurn
 	ld a, $50
 	lb de, 6, 2
 	lb hl, 6, 1
 	lb bc, 8, 6
 	call FillRectangle
-	bank1call ApplyBGP7ToCardImage
+	bank1call ApplyBGP7OrSGB2ToCardImage
 	jp SwapTurn
 
 ; draws prize cards depending on the turn
@@ -1312,7 +1312,7 @@ _HandlePeekSelection::
 	or a
 	jr z, .draw_menu_1
 ; if wIsSwapTurnPending is TRUE, swap turn
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ld [wIsSwapTurnPending], a
 
@@ -1473,7 +1473,7 @@ ENDR
 	ld a, [wIsSwapTurnPending]
 	or a
 	jr z, .dont_swap
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wce5c]
 	or %10000000
 	ret
@@ -1517,7 +1517,7 @@ ENDR
 	inc hl
 	ld [hl], d
 
-	call SwapTurn
+	rst SwapTurn
 	ld a, TRUE
 	ld [wIsSwapTurnPending], a ; mark pending to swap turn
 	jp .loop_input_2
@@ -1556,7 +1556,7 @@ _DrawAIPeekScreen::
 	jr z, .draw_play_area
 
 ; AI chose the hand
-	call SwapTurn
+	rst SwapTurn
 	ld a, TRUE
 	ld [wIsSwapTurnPending], a ; mark pending to swap turn
 	ldh a, [hWhoseTurn]
@@ -1955,7 +1955,7 @@ _DrawPlayAreaToPlacePrizeCards::
 	lb bc, 4, 3
 	call FillRectangle
 
-	call SwapTurn
+	rst SwapTurn
 	ld a, TRUE
 	ld [wIsSwapTurnPending], a ; mark pending to swap turn
 	ldh a, [hWhoseTurn]

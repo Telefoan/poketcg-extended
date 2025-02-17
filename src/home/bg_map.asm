@@ -49,6 +49,10 @@ WriteDataBlockToBGMap0::
 	ret
 
 ; writes a to [v*BGMap0 + BG_MAP_WIDTH * c + b]
+; preserves all registers except af
+; input:
+;	a = byte to draw
+;	bc = screen coordinates at which to draw the byte
 WriteByteToBGMap0::
 	push af
 	ld a, [wLCDC]
@@ -58,9 +62,7 @@ WriteByteToBGMap0::
 	push hl
 	push de
 	push bc
-	push af
 	call BCCoordToBGMap0Address
-	pop af
 	ld [de], a
 	pop bc
 	pop de
@@ -68,6 +70,14 @@ WriteByteToBGMap0::
 	ret
 .lcd_on
 	pop af
+;	fallthrough
+
+; writes a to [v*BGMap0 + BG_MAP_WIDTH * c + b] during hblank
+; preserves all registers except af
+; input:
+;	a = byte to draw
+;	bc = screen coordinates at which to draw the byte
+HblankWriteByteToBGMap0::
 	push hl
 	push de
 	push bc
@@ -83,13 +93,16 @@ WriteByteToBGMap0::
 	pop hl
 	ret
 
-; copy a bytes of data from hl to vBGMap0 address pointed to by coord at bc
+; copies a bytes of data from hl to vBGMap0 address pointed to by bc coordinates
+; preserves bc
+; input:
+;	a = number of bytes to copy
+;	hl = data to copy
+;	bc = screen coordinates at which to draw the data
 CopyDataToBGMap0::
 	push bc
 	push hl
-	push af
 	call BCCoordToBGMap0Address
-	pop af
 	ld b, a
 	pop hl
 	call SafeCopyDataHLtoDE
@@ -111,3 +124,26 @@ SafeCopyDataHLtoDE::
 	ret
 JPHblankCopyDataHLtoDE::
 	jp HblankCopyDataHLtoDE
+
+; maps coordinates at de to a BGMap0 address.
+; preserves bc and de
+; input:
+;	de = screen coordinates
+; output:
+;	hl = v*BGMap0 + BG_MAP_WIDTH * e + d
+; updated 2/16/25
+DECoordToBGMap0Address::
+	ld l, e
+	ld h, $0
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	add hl, hl
+	ld a, l
+	add d
+	ld l, a
+	ld a, h
+	adc HIGH(v0BGMap0)
+	ld h, a
+	ret

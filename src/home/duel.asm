@@ -30,7 +30,7 @@ SaveDuelStateToSRAM::
 	ld [wTempTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
@@ -38,7 +38,7 @@ SaveDuelStateToSRAM::
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 	pop hl
 	push hl
 	call EnableSRAM
@@ -126,7 +126,7 @@ CopyDeckData::
 CountPrizes::
 	push hl
 	ld a, DUELVARS_PRIZES
-	call GetTurnDuelistVariable
+	get_turn_duelist_var
 	ld l, a
 	xor a
 .count_loop
@@ -778,22 +778,36 @@ _GetCardIDFromDeckIndex::
 	ld d, [hl]
 	ret
 
-; load data of card with deck index a (0-59) to wLoadedCard1
+; loads the data of a card to wLoadedCard1 by using its deck index
+; preserves all registers except af
+; input:
+;	a = card's deck index (0-59)
+; output:
+;	a = card's ID
+;	[wLoadedCard1] = all of the card's data (65 bytes)
 LoadCardDataToBuffer1_FromDeckIndex::
 	push hl
 	push de
 	push bc
-	push af
+	ld l, a
 	call GetCardIDFromDeckIndex
 	call LoadCardDataToBuffer1_FromCardID
-	pop af
+	ldh a, [hWhoseTurn]
+	ld h, a 
+	ld a, [hl] ; given card's location
+	bit CARD_LOCATION_PLAY_AREA_F, a 
+	jr z, .done 
+	; this card is in the play area, so check if it has alternate card data
+	ld a, l 
 	ld hl, wLoadedCard1
-	bank1call ConvertSpecialTrainerCardToPokemon
-	ld a, e
-	pop bc
-	pop de
-	pop hl
-	ret
+.after_load
+	farcall ConvertSpecialTrainerCardToPokemon
+.done
+	ld a, e 
+	pop bc 
+	pop de 
+	pop hl 
+	ret 
 
 ; load data of card with deck index a (0-59) to wLoadedCard2
 LoadCardDataToBuffer2_FromDeckIndex::
@@ -1117,7 +1131,7 @@ EmptyPlayAreaSlot::
 ; shift play area Pokemon of both players to the first available play area (arena + benchx) slots
 ShiftAllPokemonToFirstPlayAreaSlots::
 	call ShiftTurnPokemonToFirstPlayAreaSlots
-	call SwapTurn
+	rst SwapTurn
 	call ShiftTurnPokemonToFirstPlayAreaSlots
 	jp SwapTurn
 
@@ -1321,17 +1335,12 @@ CountCardIDInLocation::
 	pop bc
 	ret
 
-; returns [[hWhoseTurn] << 8 + a] in a and in [hl]
-; i.e. duelvar a of the player whose turn it is
-GetTurnDuelistVariable::
-	ld l, a
-	ldh a, [hWhoseTurn]
-	ld h, a
-	ld a, [hl]
-	ret
-
-; returns [([hWhoseTurn] ^ $1) << 8 + a] in a and in [hl]
-; i.e. duelvar a of the player whose turn it is not
+; returns [([hWhoseTurn] ^ $1) << 8 + a] in a and in [hl],
+; i.e. duelvar a of the player whose turn it is not.
+; preserves bc and de
+; input:
+;	a = wOpponentDuelVariables constant
+; updated 2/16/25
 GetNonTurnDuelistVariable::
 	ld l, a
 	ldh a, [hWhoseTurn]
@@ -1484,7 +1493,7 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	ld [wTempTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call GetCardIDFromDeckIndex
@@ -1492,7 +1501,7 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, d
 	ld [wTempNonTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 	xor a
 	ld [wccec], a
 	ld [wStatusConditionQueueIndex], a
@@ -1553,9 +1562,9 @@ PlayAttackAnimation_DealAttackDamage::
 	ld a, [wLoadedAttackCategory]
 	and RESIDUAL
 	jr nz, .deal_damage
-	call SwapTurn
+	rst SwapTurn
 	call HandleNoDamageOrEffectSubstatus
-	call SwapTurn
+	rst SwapTurn
 .deal_damage
 	xor a ; PLAY_AREA_ARENA
 	ldh [hTempPlayAreaLocation_ff9d], a
@@ -1686,11 +1695,11 @@ ApplyTransparencyIfApplicable::
 	ret z
 .asm_18b9
 	push de
-	call SwapTurn
+	rst SwapTurn
 	xor a ; PLAY_AREA_ARENA
 	ld [wTempPlayAreaLocation_cceb], a
 	call HandleTransparency
-	call SwapTurn
+	rst SwapTurn
 	pop de
 	ret nc
 	bank1call DrawDuelMainScene
@@ -1860,9 +1869,9 @@ ApplyDamageModifiers_DamageToTarget::
 	call GetPlayAreaCardColor
 	call TranslateColorToWR
 	ld b, a
-	call SwapTurn
+	rst SwapTurn
 	call GetArenaCardWeakness
-	call SwapTurn
+	rst SwapTurn
 	and b
 	jr z, .not_weak
 	sla e
@@ -1870,9 +1879,9 @@ ApplyDamageModifiers_DamageToTarget::
 	ld hl, wDamageEffectiveness
 	set WEAKNESS, [hl]
 .not_weak
-	call SwapTurn
+	rst SwapTurn
 	call GetArenaCardResistance
-	call SwapTurn
+	rst SwapTurn
 	and b
 	jr z, .check_pluspower_and_defender ; jump if not resistant
 	ld hl, -30
@@ -1884,7 +1893,7 @@ ApplyDamageModifiers_DamageToTarget::
 .check_pluspower_and_defender
 	ld b, CARD_LOCATION_ARENA
 	call ApplyAttachedPluspower
-	call SwapTurn
+	rst SwapTurn
 	ld b, CARD_LOCATION_ARENA
 	call ApplyAttachedDefender
 	call HandleDamageReduction
@@ -2119,10 +2128,10 @@ DealDamageToPlayAreaPokemon::
 	call ApplyAttachedPluspower
 	jr .next
 .turn_swapped
-	call SwapTurn
+	rst SwapTurn
 	ld b, CARD_LOCATION_ARENA
 	call ApplyAttachedPluspower
-	call SwapTurn
+	rst SwapTurn
 .next
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
@@ -2341,20 +2350,6 @@ CheckLoadedAttackFlag::
 	pop bc
 	pop de
 	pop hl
-	ret
-
-; returns [hWhoseTurn] <-- ([hWhoseTurn] ^ $1)
-;   As a side effect, this also returns a duelist variable in a similar manner to
-;   GetNonTurnDuelistVariable, but this function appears to be
-;   only called to swap the turn value.
-SwapTurn::
-	push af
-	push hl
-	call GetNonTurnDuelistVariable
-	ld a, h
-	ldh [hWhoseTurn], a
-	pop hl
-	pop af
 	ret
 
 ; copy the TX_END-terminated player's name from sPlayerName to de

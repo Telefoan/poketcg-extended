@@ -58,10 +58,10 @@ AnimationCommand_AnimPlayer:
 	jr AnimationCommand_AnimNormal
 
 AnimationCommand_AnimOpponent:
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hWhoseTurn]
 	ld [wDuelAnimDuelistSide], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wDuelType]
 	cp $00
 	jr nz, AnimationCommand_AnimNormal

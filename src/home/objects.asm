@@ -26,12 +26,12 @@ SetOneObjectAttributes::
 	ret
 
 ; set the Y Position and X Position of all sprites in wOAM to $00
+; preserves de 
 ZeroObjectPositions::
 	xor a
 	ld [wOAMOffset], a
 	ld hl, wOAM
 	ld c, 40
-	xor a
 .loop
 	ld [hli], a
 	ld [hli], a
@@ -39,4 +39,10 @@ ZeroObjectPositions::
 	inc hl
 	dec c
 	jr nz, .loop
+	ret
+
+ZeroObjectPositionsAndToggleOAMCopy::
+	call ZeroObjectPositions
+	ld a, $01
+	ld [wVBlankOAMCopyToggle], a
 	ret

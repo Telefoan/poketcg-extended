@@ -16,6 +16,8 @@ WaitForVBlank::
 	ret
 
 ; turn LCD on
+; preserves all registers except af 
+; updated 2/16/25
 EnableLCD::
 	ld a, [wLCDC]        ;
 	bit LCDC_ENABLE_F, a ;
@@ -28,6 +30,7 @@ EnableLCD::
 	ret
 
 ; wait for vblank, then turn LCD off
+; preserves all registers except af 
 DisableLCD::
 	ldh a, [rLCDC]       ;
 	bit LCDC_ENABLE_F, a ;

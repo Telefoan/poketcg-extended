@@ -1,38 +1,3 @@
-
-; copy c bytes of data from de to hl
-; if LCD on, copy during h-blank only
-SafeCopyDataDEtoHL::
-	ld a, [wLCDC]        ;
-	bit LCDC_ENABLE_F, a ;
-	jr nz, .lcd_on       ; assert that LCD is on
-.lcd_off_loop
-	ld a, [de]
-	inc de
-	ld [hli], a
-	dec c
-	jr nz, .lcd_off_loop
-	ret
-.lcd_on
-	jp HblankCopyDataDEtoHL
-
-; returns v*BGMap0 + BG_MAP_WIDTH * e + d in hl.
-; used to map coordinates at de to a BGMap0 address.
-DECoordToBGMap0Address::
-	ld l, e
-	ld h, $0
-	add hl, hl
-	add hl, hl
-	add hl, hl
-	add hl, hl
-	add hl, hl
-	ld a, l
-	add d
-	ld l, a
-	ld a, h
-	adc HIGH(v0BGMap0)
-	ld h, a
-	ret
-
 ; Apply SCX and SCY correction to xy coordinates at de
 AdjustCoordinatesForBGScroll::
 	push af

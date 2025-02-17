@@ -19,11 +19,11 @@ _AddStarterDeck:
 	ld hl, sDeck1
 	call StoreDeckIDInSRAM
 	pop hl
-	call SwapTurn
+	rst SwapTurn
 	ld a, [hli] ; extra deck
 	add 2
 	call LoadDeck
-	call SwapTurn
+	rst SwapTurn
 
 ; wPlayerDeck = main starter deck
 ; wOpponentDeck = extra cards

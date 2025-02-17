@@ -116,7 +116,7 @@ _CalculateDamage_VersusDefendingPokemon:
 	ld [wTempTurnDuelistCardID + 1], a
 
 	; load player's arena card data
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
@@ -124,7 +124,7 @@ _CalculateDamage_VersusDefendingPokemon:
 	ld [wTempNonTurnDuelistCardID + 0], a
 	ld a, [wLoadedCard2ID + 1]
 	ld [wTempNonTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 
 	push de
 	call HandleNoDamageOrEffectSubstatus
@@ -147,9 +147,9 @@ _CalculateDamage_VersusDefendingPokemon:
 	call GetPlayAreaCardColor
 	call TranslateColorToWR
 	ld b, a
-	call SwapTurn
+	rst SwapTurn
 	call GetArenaCardWeakness
-	call SwapTurn
+	rst SwapTurn
 	and b
 	jr z, .not_weak
 	; double de
@@ -158,9 +158,9 @@ _CalculateDamage_VersusDefendingPokemon:
 
 .not_weak
 ; handle resistance
-	call SwapTurn
+	rst SwapTurn
 	call GetArenaCardResistance
-	call SwapTurn
+	rst SwapTurn
 	and b
 	jr z, .not_resistant
 	ld hl, -30
@@ -174,7 +174,7 @@ _CalculateDamage_VersusDefendingPokemon:
 	add CARD_LOCATION_ARENA
 	ld b, a
 	call ApplyAttachedPluspower
-	call SwapTurn
+	rst SwapTurn
 	ld b, CARD_LOCATION_ARENA
 	call ApplyAttachedDefender
 	call HandleDamageReduction
@@ -200,7 +200,7 @@ _CalculateDamage_VersusDefendingPokemon:
 	adc d
 	ld d, a
 .not_poisoned
-	call SwapTurn
+	rst SwapTurn
 
 .done
 	pop hl
@@ -221,14 +221,14 @@ _CalculateDamage_VersusDefendingPokemon:
 ;	[hTempPlayAreaLocation_ff9d] = location of card to calculate
 ;	                               damage as the receiver
 EstimateDamage_FromDefendingPokemon:
-	call SwapTurn
+	rst SwapTurn
 	ld [wSelectedAttack], a
 	ld e, a
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	ld d, a
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
 	jr nz, .is_attack
@@ -252,7 +252,7 @@ EstimateDamage_FromDefendingPokemon:
 	ld a, [wDamage]
 	ld [wAIMinDamage], a
 	ld [wAIMaxDamage], a
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	push af
 	xor a ; PLAY_AREA_ARENA
@@ -261,7 +261,7 @@ EstimateDamage_FromDefendingPokemon:
 	call TryExecuteEffectCommandFunction
 	pop af
 	ldh [hTempPlayAreaLocation_ff9d], a
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wAIMinDamage]
 	ld hl, wAIMaxDamage
 	or [hl]
@@ -334,7 +334,7 @@ CalculateDamage_FromDefendingPokemon:
 	push hl
 
 	; load player active card's data
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	call LoadCardDataToBuffer2_FromDeckIndex
@@ -342,7 +342,7 @@ CalculateDamage_FromDefendingPokemon:
 	ld [wTempTurnDuelistCardID + 0], a
 	ld a, [wLoadedCard2ID + 1]
 	ld [wTempTurnDuelistCardID + 1], a
-	call SwapTurn
+	rst SwapTurn
 
 	; load opponent's card data
 	ldh a, [hTempPlayAreaLocation_ff9d]
@@ -354,7 +354,7 @@ CalculateDamage_FromDefendingPokemon:
 	ld a, [wLoadedCard2ID + 1]
 	ld [wTempNonTurnDuelistCardID + 1], a
 
-	call SwapTurn
+	rst SwapTurn
 	call HandleDoubleDamageSubstatus
 	bit UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
 	res UNAFFECTED_BY_WEAKNESS_RESISTANCE_F, d
@@ -364,7 +364,7 @@ CalculateDamage_FromDefendingPokemon:
 	call GetArenaCardColor
 	call TranslateColorToWR
 	ld b, a
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	or a
 	jr nz, .bench_weak
@@ -412,10 +412,10 @@ CalculateDamage_FromDefendingPokemon:
 
 .not_resistant
 	; apply pluspower and defender boosts
-	call SwapTurn
+	rst SwapTurn
 	ld b, CARD_LOCATION_ARENA
 	call ApplyAttachedPluspower
-	call SwapTurn
+	rst SwapTurn
 	ldh a, [hTempPlayAreaLocation_ff9d]
 	add CARD_LOCATION_ARENA
 	ld b, a

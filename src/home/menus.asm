@@ -669,11 +669,23 @@ CardSymbolTable::
 	db $d8, $01 ; TYPE_PKMN_*, Stage 2
 	db $dc, $02 ; TYPE_TRAINER
 
-; copy the name and level of the card at wLoadedCard1 to wDefaultText
-; a = length in number of tiles (the resulting string will be padded with spaces to match it)
+; copies the name and level of the card at wLoadedCard1 to wDefaultText
+; preserves bc and de
+; input:
+;	a = length in number of tiles (the resulting string will be padded with spaces to match it)
+;	[wLoadedCard1] = all of the card's data (card_data_struct)
+; output:
+;	hl = first empty space at the end of the text string that was stored in wDefaultText
 CopyCardNameAndLevel::
-	farcall _CopyCardNameAndLevel
-	ret
+	ld h, a
+	ldh a, [hBankROM]
+	push af
+	ld a, BANK(_CopyCardNameAndLevel)
+	rst BankswitchROM
+	ld a, h
+	call _CopyCardNameAndLevel
+	pop af
+	jp BankswitchROM
 
 ; sets cursor parameters for navigating in a text box, but using
 ; default values for the cursor tile (SYM_CURSOR_R) and the tile behind it (SYM_SPACE).

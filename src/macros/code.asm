@@ -86,3 +86,8 @@ MACRO cphl
 	cp LOW(\1)
 :
 ENDM
+
+
+MACRO get_turn_duelist_var
+	rst GetTurnDuelistVariable
+ENDM

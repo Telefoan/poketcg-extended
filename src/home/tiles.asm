@@ -1,14 +1,21 @@
-; Fill a bxc rectangle at de and at sp-$26,
-; using tile a and the subsequent ones in the following pattern:
-; | a+0*l+0*h | a+0*l+1*h | a+0*l+2*h |
-; | a+1*l+0*h | a+1*l+1*h | a+1*l+2*h |
-; | a+2*l+0*h | a+2*l+1*h | a+2*l+2*h |
+; Fills a bxc rectangle at de and at sp-$26 using tiles,
+; starting with the one from a, in the following pattern:
+;	| a+0*l+0*h | a+0*l+1*h | a+0*l+2*h |
+;	| a+1*l+0*h | a+1*l+1*h | a+1*l+2*h |
+;	| a+2*l+0*h | a+2*l+1*h | a+2*l+2*h |
+; preserves de
+; input:
+;	a = starting tile number
+;	bc = width and height of the image being drawn
+;	de = screen coordinates at which to start drawing the image
+;	hl = ?
+; updated 2/16/25
 FillRectangle::
 	push de
 	push af
 	push hl
 	add sp, -BG_MAP_WIDTH
-	call DECoordToBGMap0Address
+	call DECoordToBGMap0Address ; updated 2/16/25
 .next_row
 	push hl
 	push bc
@@ -30,7 +37,7 @@ FillRectangle::
 	push bc
 	ld c, b
 	ld b, 0
-	call SafeCopyDataDEtoHL
+	call SafeCopyDataDEtoHL ; updated 2/16/25
 	ld hl, sp+$24
 	ld a, [hl]
 	ld hl, sp+$27
@@ -150,10 +157,11 @@ LoadDuelCoinTossResultTiles::
 	jr CopyFontsOrDuelGraphicsTiles
 
 ; load the tiles of the text characters used with TX_SYMBOL
+; updated 2/16/25
 LoadSymbolsFont::
 	ld hl, SymbolsFont - $4000
 	ld de, v0Tiles2 ; destination
-	ld b, (DuelCardHeaderGraphics - SymbolsFont) / TILE_SIZE ; number of tiles
+	ld b, (SymbolsFontEnd - SymbolsFont) / TILE_SIZE ; number of tiles ; updated 2/16/25
 ;	fallthrough
 
 ; if hl ≤ $3fff

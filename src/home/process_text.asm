@@ -32,6 +32,15 @@ ProcessText::
 	pop de
 	ret
 
+; like ProcessText, except it calls InitTextPrinting first
+; preserves bc and de
+; input:
+;	de = screen coordinates at which to begin printing the text
+;	[hl] = first byte of a TX_END/null-terminated text string
+InitTextPrinting_ProcessText::
+	call InitTextPrinting
+;	fallthrough
+
 ; processes the text character provided in a checking for specific control characters.
 ; hl points to the text character coming right after the one loaded into a.
 ; returns carry if the character was not processed by this function.
@@ -123,13 +132,18 @@ ProcessSpecialTextCharacter::
 ; calls InitTextFormat, selects tiles at $8800-$97FF for text, and clears the wc600.
 ; selects the first and last tile to be reserved for constructing text tiles in VRAM
 ; based on the values given in d and e respectively.
+; preserves bc and de 
+; input:
+;	d = start of the text files (in vram)
+;	e = end of the text tiles (in vram)
+; updated 2/16/25
 SetupText::
 	ld a, d
 	dec a
 	ld [wcd04], a
 	ld a, e
 	ldh [hffa8], a
-	call InitTextFormat
+	call InitTextFormat ; updated 2/16/25
 	xor a
 	ldh [hffb0], a
 	ldh [hffa9], a
@@ -145,13 +159,16 @@ SetupText::
 	jr nz, .clear_loop
 	ret
 
-; wFontWidth <- FULL_WIDTH
-; hTextLineCurPos <- 0
-; wHalfWidthPrintState <- 0
-; hJapaneseSyllabary <- TX_KATAKANA
+; preserves all registers except af
+; output: 
+;	[wFontWidth] = FULL_WIDTH
+;	[hTextLineCurPos] = 0
+;	[wHalfWidthPrintState] = 0
+;	[hJapaneseSyllabary] = TX_KATAKANA
+; updated 2/16/25
 InitTextFormat::
-	xor a ; FULL_WIDTH
-	ld [wFontWidth], a
+	xor a 
+	ld [wFontWidth], a ; FULL_WIDTH
 	ldh [hTextLineCurPos], a
 	ld [wHalfWidthPrintState], a
 	ld a, TX_KATAKANA
@@ -167,11 +184,18 @@ InitTextPrintingInTextbox::
 	ldh [hTextLineLength], a
 	ret
 
-; hTextHorizontalAlign <- d
-; hTextLineLength <- 0
-; wCurTextLine <- 0
-; write BGMap0-translated DE to hTextBGMap0Address
-; call InitTextFormat
+; preserves all registers except af
+; input:
+;	de = coordinates at which to begin printing the text
+; output:
+;	[hTextHorizontalAlign] = d
+;	[hTextLineLength] = 0
+;	[wCurTextLine] = 0
+;	[hTextBGMap0Address] = set from DE coordinates
+;	[wFontWidth] = FULL_WIDTH
+;	[hTextLineCurPos] = 0
+;	[wHalfWidthPrintState] = 0
+;	[hJapaneseSyllabary] = TX_KATAKANA
 InitTextPrinting::
 	push hl
 	ld a, d
@@ -185,8 +209,8 @@ InitTextPrinting::
 	ld a, h
 	ldh [hTextBGMap0Address + 1], a
 	call InitTextFormat
-	xor a
-	ld [wHalfWidthPrintState], a
+;	xor a
+;	ld [wHalfWidthPrintState], a
 	pop hl
 	ret
 
@@ -393,10 +417,13 @@ CaseHalfWidthLetter::
 
 ; iterates over text at hl until TX_END is found, and sets wFontWidth to
 ; FULL_WIDTH if the first character is TX_HALFWIDTH
-; returns:
-;   b = length of text in tiles
-;   c = length of text in bytes
-;   a = -b
+; preserves de and hl
+; input:
+;	[hl] = first byte of a TX_END/null-terminated text string
+; output:
+;	b = length of text from input in tiles
+;	c = length of text from input in bytes
+;	a = -b
 GetTextLengthInTiles::
 	ld a, [hl]
 	cp TX_HALFWIDTH
@@ -537,62 +564,16 @@ CopyTextData::
 	or a
 	ret
 
-; convert the number at hl to TX_SYMBOL text format and write it to wStringBuffer
-; replace leading zeros with SYM_SPACE
+; converts the number at hl to TX_SYMBOL text format and writes it to wStringBuffer,
+; replacing any leading zeros with SYM_SPACE
+; input:
+;	hl = number to convert to text symbols
+; output:
+;	hl = pointer for first non-zero digit in wStringBuffer
+;	[wStringBuffer] = number in text symbol format (6 bytes, but the last one is empty)
 TwoByteNumberToTxSymbol_TrimLeadingZeros::
-	push de
-	push bc
 	ld de, wStringBuffer
-	push de
-	ld bc, -10000
-	call .get_digit
-	ld bc, -1000
-	call .get_digit
-	ld bc, -100
-	call .get_digit
-	ld bc, -10
-	call .get_digit
-	ld bc, -1
-	call .get_digit
-	xor a ; TX_END
-	ld [de], a
-	pop hl
-	ld e, 5
-.digit_loop
-	inc hl
-	ld a, [hl]
-	cp SYM_0
-	jr nz, .done ; jump if not zero
-	ld [hl], SYM_SPACE ; trim leading zero
-	inc hl
-	dec e
-	jr nz, .digit_loop
-	dec hl
-	ld [hl], SYM_0
-.done
-	dec hl
-	pop bc
-	pop de
-	ret
-
-.get_digit
-	ld a, TX_SYMBOL
-	ld [de], a
-	inc de
-	ld a, SYM_0 - 1
-.subtract_loop
-	inc a
-	add hl, bc
-	jr c, .subtract_loop
-	ld [de], a
-	inc de
-	ld a, l
-	sub c
-	ld l, a
-	ld a, h
-	sbc b
-	ld h, a
-	ret
+;	fallthrough
 
 ; generates a text tile and copies it to VRAM
 ; if wFontWidth == FULL_WIDTH

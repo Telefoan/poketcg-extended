@@ -563,13 +563,13 @@ AIDecidePlayLegendaryBirds:
 	jr nz, .subtract
 
 	; checks for player's Pokemon Power
-	call SwapTurn
+	rst SwapTurn
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
 	ld d, a
 	ld e, $00
 	call CopyAttackDataAndDamage_FromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	ld a, [wLoadedAttackCategory]
 	cp POKEMON_POWER
 	jr z, .check_muk_and_snorlax
@@ -589,9 +589,9 @@ AIDecidePlayLegendaryBirds:
 	; checks if player's active card is Snorlax
 	ld a, DUELVARS_ARENA_CARD
 	call GetNonTurnDuelistVariable
-	call SwapTurn
+	rst SwapTurn
 	call GetCardIDFromDeckIndex
-	call SwapTurn
+	rst SwapTurn
 	cp16 SNORLAX
 	jr z, .subtract
 

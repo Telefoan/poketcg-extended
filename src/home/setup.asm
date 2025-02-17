@@ -102,9 +102,23 @@ SetupVRAM::
 	jr nz, .loop
 	ret
 
+; preserves de
+; input:
+;	bc = number of bytes to clear
+;	hl = address from which to start clearing
+ClearData::
+	xor a 
+	ld [hli], a 
+	dec bc
+	ld a, c 
+	or b 
+	jr nz, ClearData
+	ret 
+
 ; fill VRAM0 BG map 0 with [wTileMapFill] and VRAM1 BG map 0 with $00
+; preserves de
 FillTileMap::
-	call BankswitchVRAM0
+	call BankswitchVRAM0 ; updated 2/16/25
 	ld hl, v0BGMap0
 	ld bc, v0BGMap1 - v0BGMap0
 .vram0_loop
@@ -117,17 +131,11 @@ FillTileMap::
 	ld a, [wConsole]
 	cp CONSOLE_CGB
 	ret nz
-	call BankswitchVRAM1
+	call BankswitchVRAM1 ; updated 2/16/25
 	ld hl, v1BGMap0
 	ld bc, v1BGMap1 - v1BGMap0
-.vram1_loop
-	xor a
-	ld [hli], a
-	dec bc
-	ld a, c
-	or b
-	jr nz, .vram1_loop
-	jp BankswitchVRAM0
+	call ClearData ; updated 2/16/25
+	jp BankswitchVRAM0 ; updated 2/16/25
 
 ; zero work RAM, stack area, and high RAM ($C000-$DFFF, $FF80-$FFEF)
 ZeroRAM::
