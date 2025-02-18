@@ -1505,7 +1505,7 @@ GrimerCard:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw GRIMER
-	db 60 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
@@ -1530,9 +1530,9 @@ GrimerCard:
 	dw NONE ; description (cont)
 	db 20 ; damage
 	db DAMAGE_PLUS ; category
-	dw GrimerMinimizeEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	dw TinglyGelEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
+	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_GOO ; animation

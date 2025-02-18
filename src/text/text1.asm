@@ -900,7 +900,7 @@ DamageCheckIfTailsNoDamageText:
 	line "If Tails, no damage!!!"
 	done
 
-TinglyGooIfHeadsDamageAndParText:
+TinglyGelIfHeadsDamageAndParText:
 	text "If heads,"
 	line "deals 10 extra damage"
 	line "and PARALYZEs."
