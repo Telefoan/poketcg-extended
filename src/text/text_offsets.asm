@@ -2913,3 +2913,4 @@ TextOffsets::
 	textpointer WouldYouLikeToConcedeText
 	textpointer IcyWindName
 	textpointer HypnosisAbilityDescription
+	textpointer TinglyGooIfHeadsDamageAndParText
