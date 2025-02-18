@@ -1525,7 +1525,7 @@ GrimerCard:
 
 	; attack 2
 	energy GRASS, 1 ; energies
-	tx MinimizeName ; name
+	tx TinglyGelName ; name
 	tx TinglyGelDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
