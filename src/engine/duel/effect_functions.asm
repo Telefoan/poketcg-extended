@@ -9307,8 +9307,7 @@ BillEffect:
 	dec c
 	jr nz, .loop_draw
 .done
-	call Supporter_SetUsedThisTurn
-	ret
+	jp Supporter_SetUsedThisTurn
 
 LassEffect:
 ; first discard Lass card that was used
@@ -10177,13 +10176,16 @@ HealPlayAreaCardHP:
 Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another
 	ld a, [wOncePerTurnFlags]
 	and ALREADY_PLAYED_SUPPORTER
-	;ret c
-	ldtx hl, MayOnlyPlayOneSupporterCardText
+	jr nz, .already_used
 	scf
 	ret
+.already_used
+	ldtx hl, MayOnlyPlayOneSupporterCardText
+	ret
+
 
 Supporter_SetUsedThisTurn: 
 	ld hl, wOncePerTurnFlags
-	set ALREADY_PLAYED_SUPPORTER_F, [hl]
+	set [hl], ALREADY_PLAYED_SUPPORTER_F
 	ret
 	
