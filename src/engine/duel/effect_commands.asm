@@ -261,12 +261,15 @@ VenusaurEnergyTransEffectCommands:
 	db  $00
 
 GrimerNastyGooEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
 	db  $00
 
 GrimerMinimizeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MinimizeEffect
 	db  $00
+
+TinglyGelEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, 
 
 MukToxicGasEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ToxicGasEffect

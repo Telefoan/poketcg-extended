@@ -1505,19 +1505,19 @@ GrimerCard:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw GRIMER
-	db 50 ; hp
+	db 60 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy GRASS, 1 ; energies
 	tx NastyGooName ; name
-	tx MayInflictParalysisDescription ; description
+	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
 	dw GrimerNastyGooEffectCommands ; effect commands
-	db INFLICT_PARALYSIS ; flags 1
+	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
@@ -1526,7 +1526,7 @@ GrimerCard:
 	; attack 2
 	energy GRASS, 1 ; energies
 	tx MinimizeName ; name
-	tx GrimersMinimizeDescription ; description
+	tx TinglyGelDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
 	db RESIDUAL ; category

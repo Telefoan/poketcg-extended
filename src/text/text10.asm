@@ -546,12 +546,22 @@ MinimizeName:
 	text "Minimize"
 	done
 
+TinglyGelName:
+	text "Tingly Gel"
+	done 
+
 GrimersMinimizeDescription:
 	text "All damage done by attacks to Grimer"
 	line "during your opponent's next turn is"
 	line "reduced by 20 (after applying"
 	line "Weakness and Resistance)."
 	done
+
+TinglyGelDescription:
+	text "Flip a coin. If heads, the attack"
+	line "deals 10 extra damage, and the"
+	line "opponent is PARALYZED"
+	done 
 
 SludgeName:
 	text "Sludge"

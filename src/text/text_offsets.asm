@@ -2124,6 +2124,8 @@ TextOffsets::
 	textpointer NastyGooName
 	textpointer MinimizeName
 	textpointer GrimersMinimizeDescription
+	textpointer TinglyGelName
+	textpointer TinglyGelDescription
 	textpointer SludgeName
 	textpointer GrimerDescription
 	textpointer MukName

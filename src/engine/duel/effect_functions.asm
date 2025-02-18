@@ -1955,6 +1955,20 @@ HornHazard_NoDamage50PercentEffect:
 	ld [wLoadedAttackAnimation], a
 	ret
 
+TinglyGooIfHeadsDamageAndParEffect:
+	ldtx de, TinglyGooIfHeadsDamageAndParText
+	call TossCoin_BankB 
+	jr c, .heads 
+	xor a 
+	call 
+	jp SetWasUnsuccessful
+.heads 
+	ld a, ATK_ANIM_GOO
+	ld [wLoadedAttackAnimation], a 
+	ld a, 10
+	jp AddToDamage
+	ret 
+
 DoubleKick30_AIEffect:
 	ld a, 60 / 2
 	lb de, 0, 60

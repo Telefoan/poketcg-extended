@@ -900,6 +900,12 @@ DamageCheckIfTailsNoDamageText:
 	line "If Tails, no damage!!!"
 	done
 
+TinglyGooIfHeadsDamageAndParText:
+	text "If heads,"
+	line "deals 10 extra damage"
+	line "and PARALYZEs."
+	done 
+
 IfHeadsDraw1CardFromDeckText:
 	text "If Heads,"
 	line "Draw 1 card from Deck!"
