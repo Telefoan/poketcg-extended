@@ -1524,7 +1524,7 @@ GrimerCard:
 	db ATK_ANIM_GOO ; animation
 
 	; attack 2
-	energy GRASS, 1 ; energies
+	energy GRASS, 2 ; energies
 	tx TinglyGelName ; name
 	tx TinglyGelDescription ; description
 	dw NONE ; description (cont)
