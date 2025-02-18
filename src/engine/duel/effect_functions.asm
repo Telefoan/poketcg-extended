@@ -1960,7 +1960,7 @@ TinglyGooIfHeadsDamageAndParEffect:
 	call TossCoin_BankB 
 	jr c, .heads 
 	xor a 
-	call 
+	call SetDefiniteDamage
 	jp SetWasUnsuccessful
 .heads 
 	ld a, ATK_ANIM_GOO
