@@ -269,7 +269,8 @@ GrimerMinimizeEffectCommands:
 	db  $00
 
 TinglyGelEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, 
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TinglyGooIfHeadsDamageAndParEffect
+	db 	$00
 
 MukToxicGasEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ToxicGasEffect

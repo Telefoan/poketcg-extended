@@ -797,7 +797,7 @@ DisplayRetreatScreen:
 	ld c, [hl]
 	inc [hl]
 	ldh a, [hTempCardIndex_ff98]
-	ld [$ff00+c], a
+	ldh [$ff00+c], a
 	; accumulate selected energy card
 	ld c, 1
 	ld a, [wLoadedCard2Type]
@@ -822,7 +822,7 @@ DisplayRetreatScreen:
 	ld a, [wTempRetreatCostCardsPos]
 	ld c, a
 	ld a, $ff
-	ld [$ff00+c], a
+	ldh [$ff00+c], a
 	or a
 	ret
 
