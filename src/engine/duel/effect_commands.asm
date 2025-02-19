@@ -1622,3 +1622,8 @@ GustOfWindEffectCommands:
 IcyWindEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, IcyWindEffect
 	db  $00
+
+SludgeBombEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
+	dbw EFFECTCMDTYPE_AI, Sludge_AIEffect
+	db  $00
