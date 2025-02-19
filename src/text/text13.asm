@@ -247,3 +247,9 @@ MayInflictSleepDescription:
 IcyWindName:
 	text "Icy Wind"
 	done
+
+HypnosisAbilityDescription:
+	text "Once per turn, flip a coin."
+	line "If heads, the Defending Pokemon"
+	line "is now asleep"
+	done

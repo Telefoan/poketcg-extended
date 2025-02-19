@@ -80,7 +80,8 @@ hTempCardIndex_ff9f:: ; ff9f
 UNION
 
 ; multipurpose temp storage (card's deck index, selected attack index, status condition...)
-hTemp_ffa0:: ; ffa0
+
+hTempStorage:: ; ffa0 , formerly known as: hTempStorage
 	ds $1
 
 ; a PLAY_AREA_* constant (0: arena card, 1-5: bench card)

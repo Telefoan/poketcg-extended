@@ -261,12 +261,16 @@ VenusaurEnergyTransEffectCommands:
 	db  $00
 
 GrimerNastyGooEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, Paralysis50PercentEffect
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, PoisonEffect
 	db  $00
 
 GrimerMinimizeEffectCommands:
 	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, MinimizeEffect
 	db  $00
+
+TinglyGelEffectCommands:
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, TinglyGelIfHeadsDamageAndParEffect
+	db 	$00
 
 MukToxicGasEffectCommands:
 	dbw EFFECTCMDTYPE_INITIAL_EFFECT_1, ToxicGasEffect
@@ -729,7 +733,8 @@ GastlyEnergyConversionEffectCommands:
 	db  $00
 
 HaunterHypnosisEffectCommands:
-	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, SleepEffect
+	dbw EFFECTCMDTYPE_INITIAL_EFFECT_2, Hypnosis_OncePerTurnCheck
+	dbw EFFECTCMDTYPE_BEFORE_DAMAGE, HypnosisAbilityEffect
 	db  $00
 
 HaunterDreamEaterEffectCommands:

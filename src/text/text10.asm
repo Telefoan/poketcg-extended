@@ -441,8 +441,7 @@ ShiftName:
 ShiftDescription:
 	text "Once during your turn (before your"
 	line "attack), you may change the type of"
-	line "Venomoth to the type of any other"
-	line "Pokémon in play other than"
+	line "Venomoth to any type other than"
 	line "Colorless."
 	line "This power can't be used if Venomoth"
 	line "is Asleep, Confused, or Paralyzed."
@@ -547,12 +546,22 @@ MinimizeName:
 	text "Minimize"
 	done
 
+TinglyGelName:
+	text "Tingly Gel"
+	done 
+
 GrimersMinimizeDescription:
 	text "All damage done by attacks to Grimer"
 	line "during your opponent's next turn is"
 	line "reduced by 20 (after applying"
 	line "Weakness and Resistance)."
 	done
+
+TinglyGelDescription:
+	text "Flip a coin. If heads, the attack"
+	line "deals 10 extra damage, and the"
+	line "opponent is PARALYZED"
+	done 
 
 SludgeName:
 	text "Sludge"

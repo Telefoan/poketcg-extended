@@ -2124,6 +2124,8 @@ TextOffsets::
 	textpointer NastyGooName
 	textpointer MinimizeName
 	textpointer GrimersMinimizeDescription
+	textpointer TinglyGelName
+	textpointer TinglyGelDescription
 	textpointer SludgeName
 	textpointer GrimerDescription
 	textpointer MukName
@@ -2911,3 +2913,5 @@ TextOffsets::
 	textpointer LovebirdsDeckChoiceText
 	textpointer WouldYouLikeToConcedeText
 	textpointer IcyWindName
+	textpointer HypnosisAbilityDescription
+	textpointer TinglyGelIfHeadsDamageAndParText

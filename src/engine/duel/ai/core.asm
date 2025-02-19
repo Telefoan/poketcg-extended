@@ -132,7 +132,7 @@ LoadDefendingPokemonColorWRAndPrizeCards:
 ; handles AI choosing parameters for certain attacks as well.
 AITryUseAttack:
 	ld a, [wSelectedAttack]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld e, a
 	ld a, DUELVARS_ARENA_CARD
 	call GetTurnDuelistVariable
@@ -777,7 +777,7 @@ LookForCardIDInPlayArea_Bank5:
 AIAttachEnergyInHandToCardInPlayArea:
 	call LookForCardIDInHandList_Bank5
 	ret nc ; not in hand
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld d, b
 	ld e, c
 	ld b, PLAY_AREA_ARENA
@@ -794,7 +794,7 @@ AIAttachEnergyInHandToCardInPlayArea:
 AIAttachEnergyInHandToCardInBench:
 	call LookForCardIDInHandList_Bank5
 	ret nc
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld d, b
 	ld e, c
 	ld b, PLAY_AREA_BENCH_1
@@ -1957,7 +1957,7 @@ AISelectSpecialAttackParameters:
 	jp z, .no_carry ; can be jr
 
 	ld a, $01 ; always target the Player's play area
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	call LookForCardThatIsKnockedOutOnDevolution
 	ldh [hTempPlayAreaLocation_ffa1], a
 
@@ -1980,13 +1980,13 @@ AISelectSpecialAttackParameters:
 	ld de, PSYCHIC_ENERGY
 	ld a, CARD_LOCATION_DISCARD_PILE
 	call LookForCardIDInLocation_Bank5
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	farcall CreateEnergyCardListFromDiscardPile_AllEnergy
 
 ; find any energy card different from
 ; the one found by LookForCardIDInLocation_Bank5.
 ; since using this attack requires a Psychic energy card,
-; and another one is in hTemp_ffa0,
+; and another one is in hTempStorage,
 ; then any other energy card would account
 ; for the Energy Cost of Psyburn.
 	ld hl, wDuelTempList
@@ -1995,7 +1995,7 @@ AISelectSpecialAttackParameters:
 	cp $ff
 	jr z, .set_carry_2
 	ld b, a
-	ldh a, [hTemp_ffa0]
+	ldh a, [hTempStorage]
 	cp b
 	jr z, .loop_energy_cards ; same card, keep looking
 
@@ -2016,7 +2016,7 @@ AISelectSpecialAttackParameters:
 	jp nz, .no_carry  ; can be jr
 	call AIDecideBenchPokemonToSwitchTo
 	jr c, .no_carry
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	scf
 	ret
 
@@ -2032,7 +2032,7 @@ AISelectSpecialAttackParameters:
 
 ; if none were found in Deck, return carry...
 	call LookForCardIDInLocation_Bank5
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	jp nc, .no_carry  ; can be jr
 
 ; ...else find a suitable Play Area Pokemon to

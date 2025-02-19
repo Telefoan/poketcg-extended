@@ -409,7 +409,7 @@ AIDecideEvolution:
 	ld a, [wTempAI]
 	ldh [hTempPlayAreaLocation_ffa1], a
 	ld a, [wTempAIPokemonCard]
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ld a, OPPACTION_EVOLVE_PKMN
 	bank1call AIMakeDecision
 +
@@ -529,7 +529,7 @@ HandleAICowardice:
 	...
 .CheckWhetherToUseCowardice
 	ld a, c
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage]a
 	ld e, a
 +	add DUELVARS_ARENA_CARD_FLAGS
 +	call GetTurnDuelistVariable

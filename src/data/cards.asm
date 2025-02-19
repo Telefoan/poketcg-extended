@@ -1326,11 +1326,11 @@ VenomothCard:
 	; attack 2
 	energy GRASS, 2 ; energies
 	tx VenomPowderName ; name
-	tx VenomPowderDescription ; description
+	tx FoulGasDescription ; description
 	dw NONE ; description (cont)
-	db 10 ; damage
+	db 20 ; damage
 	db DAMAGE_NORMAL ; category
-	dw VenomothVenomPowderEffectCommands ; effect commands
+	dw FoulGas_PoisonOrConfusionEffect ; effect commands
 	db INFLICT_POISON | INFLICT_CONFUSION ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
@@ -1505,37 +1505,37 @@ GrimerCard:
 	db CIRCLE ; rarity
 	db LABORATORY | FOSSIL ; sets
 	dw GRIMER
-	db 50 ; hp
+	db 40 ; hp
 	db BASIC ; stage
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy COLORLESS, 1 ; energies
+	energy GRASS, 1 ; energies
 	tx NastyGooName ; name
-	tx MayInflictParalysisDescription ; description
+	tx InflictPoisonDescription ; description
 	dw NONE ; description (cont)
 	db 10 ; damage
 	db DAMAGE_NORMAL ; category
 	dw GrimerNastyGooEffectCommands ; effect commands
-	db INFLICT_PARALYSIS ; flags 1
+	db INFLICT_POISON ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
 	db ATK_ANIM_GOO ; animation
 
 	; attack 2
-	energy GRASS, 1 ; energies
-	tx MinimizeName ; name
-	tx GrimersMinimizeDescription ; description
+	energy GRASS, 2 ; energies
+	tx TinglyGelName ; name
+	tx TinglyGelDescription ; description
 	dw NONE ; description (cont)
-	db 0 ; damage
-	db RESIDUAL ; category
-	dw GrimerMinimizeEffectCommands ; effect commands
-	db NONE ; flags 1
-	db NULLIFY_OR_WEAKEN_ATTACK ; flags 2
+	db 20 ; damage
+	db DAMAGE_PLUS ; category
+	dw TinglyGelEffectCommands ; effect commands
+	db INFLICT_PARALYSIS ; flags 1
+	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_PROTECT ; animation
+	db ATK_ANIM_GOO ; animation
 
 	db 1 ; retreat cost
 	db WR_PSYCHIC ; weakness
@@ -7160,21 +7160,21 @@ HaunterLv22Card:
 	tx GastlyName ; pre-evo name
 
 	; attack 1
-	energy PSYCHIC, 1 ; energies
+	energy 0 ; energies
 	tx HypnosisName ; name
-	tx InflictSleepDescription ; description
+	tx HypnosisAbilityDescription ; description
 	dw NONE ; description (cont)
 	db 0 ; damage
-	db DAMAGE_NORMAL ; category
+	db POKEMON_POWER ; category
 	dw HaunterHypnosisEffectCommands ; effect commands
 	db INFLICT_SLEEP ; flags 1
 	db NONE ; flags 2
 	db NONE ; flags 3
 	db 0
-	db ATK_ANIM_HYPNOSIS ; animation
+	db ATK_ANIM_PKMN_POWER_1 ; ATK_ANIM_HYPNOSIS ; animation
 
 	; attack 2
-	energy PSYCHIC, 2 ; energies
+	energy PSYCHIC, 3 ; energies
 	tx DreamEaterName ; name
 	tx DreamEaterDescription ; description
 	dw NONE ; description (cont)

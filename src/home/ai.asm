@@ -62,7 +62,7 @@ AIDoAction_ForcedSwitch::
 AIDoAction_KOSwitch::
 	ld a, AIACTION_KO_SWITCH
 	call AIDoAction
-	ldh [hTemp_ffa0], a
+	ldh [hTempStorage], a
 	ret
 
 AIDoAction_TakePrize::
