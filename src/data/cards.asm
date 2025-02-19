@@ -1598,6 +1598,58 @@ MukCard:
 	tx MukDescription ; description
 	db 0
 
+MukBCard:
+	db TYPE_PKMN_GRASS ; type
+	gfx MukCardGfx ; gfx
+	tx MukBName ; name
+	db STAR ; rarity
+	db LABORATORY | FOSSIL ; sets
+	dw MUKB
+	db 100 ; hp
+	db STAGE1 ; stage
+	tx GrimerName ; pre-evo name
+
+	; attack 1
+	energy GRASS, 3 ; energies
+	tx SludgeBombName ; name
+	tx SludgeBombDescription ; description
+	dw NONE ; description (cont)
+	db 30 ; damage
+	db DAMAGE_NORMAL ; category
+	dw SludgeBombEffectCommands ; effect commands
+	db INFLICT_POISON ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_GOO; animation
+
+	; attack 2
+	energy 0 ; energies
+	dw NONE ; name
+	dw NONE ; description
+	dw NONE ; description (cont)
+	db 0 ; damage
+	db DAMAGE_NORMAL ; category
+	dw NONE ; effect commands
+	db NONE ; flags 1
+	db NONE ; flags 2
+	db NONE ; flags 3
+	db 0
+	db ATK_ANIM_NONE ; animation
+
+
+	db 2 ; retreat cost
+	db WR_PSYCHIC ; weakness
+	db NONE ; resistance
+	tx SludgeName ; category
+	db 89 ; Pokedex number
+	db 34 ; level
+	db 3, 11 ; length
+	dw 66 * 10 ; weight
+	tx MukDescription ; description
+	db 0
+
+
 ExeggcuteCard:
 	db TYPE_PKMN_GRASS ; type
 	gfx ExeggcuteCardGfx ; gfx

@@ -2915,3 +2915,7 @@ TextOffsets::
 	textpointer IcyWindName
 	textpointer HypnosisAbilityDescription
 	textpointer TinglyGelIfHeadsDamageAndParText
+	textpointer MukBName
+	textpointer SludgeBombName
+	textpointer SludgeBombDescription
+	

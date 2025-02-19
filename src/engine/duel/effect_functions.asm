@@ -10210,9 +10210,6 @@ IcyWindEffect:
 	ld a, SUBSTATUS2_LEER
 	jp ApplySubstatus2ToDefendingCard
 	ret
-Supporter_SetUsedThisTurn:     
-    ld hl, wOncePerTurnFlags
-    set ALREADY_PLAYED_SUPPORTER_F, [hl]
 
 Hypnosis_OncePerTurnCheck:
 	ldh a, [hTempPlayAreaLocation_ff9d]

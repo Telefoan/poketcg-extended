@@ -253,3 +253,16 @@ HypnosisAbilityDescription:
 	line "If heads, the Defending Pokemon"
 	line "is now asleep"
 	done
+
+MukBName:
+	text "Muk B"
+	done
+
+SludgeBombName:
+	text "Sludge Bomb"
+	done
+
+SludgeBombDescription:
+	text "The defending pokemon is"
+	line "now poisoned"
+	done 
