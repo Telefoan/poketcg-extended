@@ -10173,19 +10173,18 @@ HealPlayAreaCardHP:
 	ld [hl], a
 	ret
 
-Supporter_OncePerTurnCheck: ;checks to see if we have played a supporter this turn. if yes, prevent playing another
-	ld a, [wOncePerTurnFlags]
-	and ALREADY_PLAYED_SUPPORTER
-	jr nz, .already_used
-	scf
-	ret
-.already_used
-	ldtx hl, MayOnlyPlayOneSupporterCardText
-	ret
+; output:
+;    carry = set:  if a Supporter was already played this turn
+;    hl = ID for notification text:  if a Supporter was already played this turn
+Supporter_OncePerTurnCheck:
+    ld a, [wOncePerTurnFlags]
+    and ALREADY_PLAYED_SUPPORTER
+    ret z
+    ldtx hl, MayOnlyPlayOneSupporterCardText
+    scf
+    ret
 
-
-Supporter_SetUsedThisTurn: 
-	ld hl, wOncePerTurnFlags
-	set [hl], ALREADY_PLAYED_SUPPORTER_F
-	ret
-	
+Supporter_SetUsedThisTurn:     
+    ld hl, wOncePerTurnFlags
+    set ALREADY_PLAYED_SUPPORTER_F, [hl]
+    ret
