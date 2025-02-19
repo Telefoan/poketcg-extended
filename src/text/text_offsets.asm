@@ -2899,3 +2899,7 @@ TextOffsets::
 	textpointer GamblerDescription
 	textpointer RecycleName
 	textpointer RecycleDescription
+	textpointer ThereWasNoEnergyText
+	textpointer EnergyZoneName
+	textpointer EnergyZoneDescription
+	textpointer DrewEnergyFromTheEnergyZoneText

@@ -183,3 +183,23 @@ RecycleDescription:
 	line "in your discard pile on top of your"
 	line "deck."
 	done
+
+ThereWasNoEnergyText:
+	text "There was no energy"
+	line "in the deck (which"
+	line "means something is wrong)"
+	done
+
+EnergyZoneName:
+	text "Energy Zone Debug"
+	done
+
+EnergyZoneDescription:
+	text "should draw 1-3 random energies"
+	line "from your deck"
+	done
+
+DrewEnergyFromTheEnergyZoneText:
+	text "<RAMNAME> drew"
+	line "1 energy from the Energy Zone"
+	done 

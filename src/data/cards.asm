@@ -10,15 +10,15 @@ BulbasaurCard:
 	dw NONE ; pre-evo name
 
 	; attack 1
-	energy GRASS, 2 ; energies
-	tx LeechSeedName ; name
-	tx BulbasaursLeechSeedDescription ; description
+	energy GRASS, 1 ; energies
+	tx EnergyZoneName ; name
+	tx EnergyZoneDescription ; description
 	dw NONE ; description (cont)
-	db 20 ; damage
-	db DAMAGE_NORMAL ; category
-	dw BulbasaurLeechSeedEffectCommands ; effect commands
+	db 0 ; damage
+	db RESIDUAL ; category
+	dw EnergyZoneEffectCommands ; effect commands
 	db NONE ; flags 1
-	db HEAL_USER ; flags 2
+	db NONE ; flags 2
 	db NONE ; flags 3
 	db 1
 	db ATK_ANIM_DRAIN ; animation

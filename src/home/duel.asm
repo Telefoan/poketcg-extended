@@ -197,9 +197,11 @@ ReturnCardToDeck::
 	pop hl
 	ret
 
-; search a card in the turn holder's deck, extract it, and set its location to
-; CARD_LOCATION_JUST_DRAWN. AddCardToHand is meant to be called next.
-; the card is identified by register a, which contains the deck index (0-59) of the card.
+; search a card in the turn holder's deck, extract it, 
+; and set its location to CARD_LOCATION_JUST_DRAWN.
+; AddCardToHand is meant to be called next.
+; the card is identified by register a, 
+; which contains the deck index (0-59) of the card.
 SearchCardInDeckAndAddToHand::
 	push af
 	push hl
