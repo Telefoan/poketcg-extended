@@ -215,7 +215,7 @@ HandleTurn:
 	call SwapTurn
 	call c, DisplayPlayerDrawCardScreen
 	jr DuelMainInterface
-
+	
 ; player's turn
 .player_turn
 	call DisplayPlayerDrawCardScreen

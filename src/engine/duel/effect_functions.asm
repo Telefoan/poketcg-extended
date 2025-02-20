@@ -10235,7 +10235,7 @@ EnergyZone_AddToHandEffect:
 	pop bc
 	pop hl
 
-; load Fire Energy card index and add to hand
+; load Energy card index and add to hand
 	ld a, [hli]
 	call SearchCardInDeckAndAddToHand
 	call AddCardToHand
