@@ -1692,25 +1692,31 @@ HandleDuelSetup:
 	call ChooseInitialArenaAndBenchPokemon
 	call SwapTurn
 	jp c, .error
-	call DrawPlayAreaToPlacePrizeCards
-	ldtx hl, PlacingThePrizesText
+	call DrawPlayAreaToPlacePrizeCards ; i guess i dont need This
+	ldtx hl, PlacingThePrizesText 
+	; ldtx hl, SettingUpTheEnergyZoneText
 	call DrawWideTextBox_WaitForInput
 
 	ld a, [wDuelInitialPrizes]
+	;ld a, [wDuelInitialEnergyZone]
 	ld l, a
 	ld h, 0
 	call LoadTxRam3
 	ldtx hl, PleasePlacePrizesText
+	;ldtx hl, SetAsideEnergiesText
 	call DrawWideTextBox_PrintText
 	call EnableLCD
 	call .PlacePrizes
+	;call .SetAsideEnergies
 	call WaitForWideTextBoxInput
 	pop af
 
 	ldh [hWhoseTurn], a
 	call InitTurnDuelistPrizes
+	;call InitTurnDuelistEnergyZone
 	call SwapTurn
 	call InitTurnDuelistPrizes
+	;call InitTurnDuelistEnergyZone
 	call SwapTurn
 	call EmptyScreen
 	ld a, BOXMSG_COIN_TOSS

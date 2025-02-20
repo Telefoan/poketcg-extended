@@ -2394,3 +2394,56 @@ CopyOpponentName::
 .print_player2
 	ldtx hl, Player2Text
 	jp CopyText
+
+;; Energy Zone
+; 
+;; add a card to the top of the turn holder's deck
+;; the card is identified by register a, which contains the deck index (0-59) of the card
+;ReturnCardToEnergyZone::
+;	push hl
+;	push af
+;	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+;	call GetTurnDuelistVariable
+;	dec a
+;	ld [hl], a ; decrement number of cards not in deck
+;	add DUELVARS_DECK_CARDS
+;	ld l, a ; point to top deck card
+;	pop af
+;	ld [hl], a ; set top deck card
+;	ld l, a
+;	ld [hl], CARD_LOCATION_ENERGY_ZONE
+;	ld a, l
+;	pop hl
+;	ret
+;
+;; draw [wDuelInitialPrizes] cards from the turn holder's deck and place them as prizes:
+;; write their deck indexes to DUELVARS_PRIZE_CARDS, set their location to
+;; CARD_LOCATION_PRIZE, and set [wDuelInitialPrizes] bits of DUELVARS_PRIZES.
+;InitTurnDuelistEnergyZone:
+;	ldh a, [hWhoseTurn]
+;	ld d, a
+;	ld e, DUELVARS_ENERGY_ZONE
+;	ld a, [wDuelInitialEnergyZone]
+;	ld c, a
+;	ld b, 0
+;.draw_energy_zone_loop
+;	call DrawCardFromDeck
+;	ld [de], a
+;	inc de
+;	ld h, d
+;	ld l, a
+;	ld [hl], CARD_LOCATION_ENERGY_ZONE
+;	inc b
+;	ld a, b
+;	cp c
+;	jr nz, .draw_energy_zone_loop
+;	push hl
+;	ld e, c
+;;	ld d, $00				; i think this is 
+;;	ld hl, PrizeBitmasks	; not needed for me
+;;	add hl, de				; idk what it do
+;;	ld a, [hl]				; 
+;;	pop hl					;
+;	ld l, DUELVARS_PRIZES
+;	ld [hl], a
+;	ret
