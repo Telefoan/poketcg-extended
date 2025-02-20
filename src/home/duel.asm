@@ -261,6 +261,44 @@ AddCardToHand::
 	pop af
 	ret
 
+; search a card in the turn holder's deck, extract it, 
+; and set its location to CARD_LOCATION_ENERGY_ZONE.
+; the card is identified by register a, 
+; which contains the deck index (0-59) of the card.
+SearchCardInDeckAndAddToEnergyZone::
+	push af
+	push hl
+	push de
+	push bc
+	ld c, a
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetTurnDuelistVariable
+	ld a, DECK_SIZE
+	sub [hl]
+	inc [hl] ; increment number of cards not in deck
+	ld b, a ; DECK_SIZE - [DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK] (number of cards in deck)
+	ld l, c
+	set CARD_LOCATION_ENERGY_ZONE, [hl]
+	ld l, DUELVARS_DECK_CARDS + DECK_SIZE - 1
+	ld e, l
+	ld d, h ; hl = de = DUELVARS_DECK_CARDS + DECK_SIZE - 1 (last card)
+	inc b
+	jr .match
+.loop
+	ld a, [hld]
+	cp c
+	jr z, .match
+	ld [de], a
+	dec de
+.match
+	dec b
+	jr nz, .loop
+	pop bc
+	pop de
+	pop hl
+	pop af
+	ret
+
 ; removes a card from the turn holder's hand and decrements the number of cards in the hand
 ; the card is identified by register a, which contains the deck index (0-59) of the card
 RemoveCardFromHand::

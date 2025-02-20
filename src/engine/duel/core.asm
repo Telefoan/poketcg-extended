@@ -1630,6 +1630,8 @@ HandleDuelSetup:
 	call SwapTurn
 	call InitializeDuelVariables
 	call SwapTurn
+	; put energy zone stuff here
+	; then put the coin flip before the shuffle and draw
 	call PlayShuffleAndDrawCardsAnimation_BothDuelists
 	call ShuffleDeckAndDrawSevenCards
 	ldh [hTemp_ffa0], a
@@ -1820,6 +1822,94 @@ HandleDuelSetup:
 	db 6, 7, 13, 4 ; Prize 4
 	db 5, 8, 14, 3 ; Prize 5
 	db 6, 8, 13, 3 ; Prize 6
+
+EnergyZone_AddToHandEffect:
+; fill wDuelTempList with all Energy card
+; deck indices that are in the Deck.
+	ld a, DUELVARS_CARD_LOCATIONS
+	call GetTurnDuelistVariable
+	ld de, wDuelTempList
+	ld c, 0
+	call PickBasicEnergyCardFromDeck
+
+; check how many were found
+	ld a, c
+	ld a, 1
+	cp c 
+	jr c, .ok 
+	ld a, c
+.ok
+	ldh [hCurSelectionItem], a
+	ld a, [wDuelistType]
+	cp DUELIST_TYPE_PLAYER
+	jr z, .player_1
+.player_1
+	ld a, d
+;	ld [wLoadedAttackAnimation], a
+
+; start loop for adding Energy cards to hand
+	ldh a, [hCurSelectionItem]
+	ld c, a
+	ld hl, wDuelTempList
+.loop_energy
+	push hl
+	push bc
+	lb bc, PLAY_AREA_ARENA, $0
+	ldh a, [hWhoseTurn]
+	ld h, a
+
+.player_2
+; update and print number of cards in hand
+	ld a, DUELVARS_NUMBER_OF_CARDS_IN_HAND
+	call GetTurnDuelistVariable
+	inc a
+	bank1call WriteTwoDigitNumberInTxSymbolFormat
+; update and print number of cards in deck
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetTurnDuelistVariable
+	ld a, DECK_SIZE - 1
+	sub [hl]
+	ld c, e
+	bank1call WriteTwoDigitNumberInTxSymbolFormat
+	pop bc
+	pop hl
+
+; load Energy card index and add to Energy Zone
+	ld a, [hli]
+	call SearchCardInDeckAndAddToEnergyZone
+	;call AddCardToHand
+	dec c
+	jr nz, .loop_energy
+
+; load the number of cards added to hand and print text
+	ldh a, [hCurSelectionItem]
+	ld l, a
+	ld h, $00
+	call LoadTxRam3
+	ldtx hl, DrewEnergyFromTheEnergyZoneText
+	call DrawWideTextBox_WaitForInput
+
+; returns in a and [hTempCardIndex_ff98] the deck index
+; of random Basic Energy card in deck.
+; if none are found, return carry.
+PickBasicEnergyCardFromDeck:
+	call CreateDeckCardList
+	ret c ; return if empty deck
+	ld hl, wDuelTempList
+.loop_deck
+	ld a, [hli]
+	ldh [hTempCardIndex_ff98], a
+	cp $ff
+	jr z, .set_carry
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wLoadedCard2Type]
+	cp TYPE_ENERGY
+	jr c, .loop_deck ; skip if not Energy card
+	ldh a, [hTempCardIndex_ff98]
+	ret
+.set_carry
+	scf
+	ret
 
 ; have the turn duelist place, at the beginning of the duel, the active Pokemon
 ; and 0 more bench Pokemon, all of which must be basic Pokemon cards.

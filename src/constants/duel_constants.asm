@@ -264,7 +264,7 @@ DEF PRIZES_4    EQU $04
 DEF PRIZES_5    EQU $05
 DEF PRIZES_6    EQU $06
 
-DEF ENERGY_ZONE_AMT EQU $40
+DEF ENERGY_ZONE_AMT EQU $28
 
 ; constants to use as input to LookForCardInDeck
 	const_def $80
