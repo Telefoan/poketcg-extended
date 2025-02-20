@@ -264,6 +264,8 @@ DEF PRIZES_4    EQU $04
 DEF PRIZES_5    EQU $05
 DEF PRIZES_6    EQU $06
 
+DEF ENERGY_ZONE_AMT EQU $40
+
 ; constants to use as input to LookForCardInDeck
 	const_def $80
 	const SEARCHEFFECT_POKEMON        ; $80

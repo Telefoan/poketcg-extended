@@ -2903,3 +2903,5 @@ TextOffsets::
 	textpointer EnergyZoneName
 	textpointer EnergyZoneDescription
 	textpointer DrewEnergyFromTheEnergyZoneText
+	textpointer SettingUpTheEnergyZoneText
+	textpointer SetAsideEnergiesText

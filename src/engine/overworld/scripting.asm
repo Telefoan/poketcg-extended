@@ -736,7 +736,7 @@ AaronDeckIDs:
 	db GRASS_AND_PSYCHIC_DECK_ID
 
 SetNPCDuelParams:
-	ld a, c
+	ld a, ENERGY_ZONE_AMT
 	ld [wNPCDuelPrizes], a
 	ld a, b
 	ld [wNPCDuelDeckID], a

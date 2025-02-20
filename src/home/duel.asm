@@ -1496,7 +1496,7 @@ UpdateArenaCardIDsAndClearTwoTurnDuelVars::
 	ld [wTempNonTurnDuelistCardID + 1], a
 	call SwapTurn
 	xor a
-	ld [wccec], a
+;	ld [wccec], a
 	ld [wStatusConditionQueueIndex], a
 	ld [wEffectFailed], a
 	ld [wIsDamageToSelf], a

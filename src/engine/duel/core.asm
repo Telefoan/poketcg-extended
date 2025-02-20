@@ -7058,9 +7058,9 @@ InitVariablesToBeginDuel:
 	xor a
 	ld [wDuelFinished], a
 	ld [wDuelTurns], a
-	ld [wcce7], a
+	;ld [wcce7], a
 	ld a, $ff
-	ld [wcc0f], a
+	;ld [wcc0f], a
 	ld [wPlayerAttackingCardIndex], a
 	ld [wPlayerAttackingAttackIndex], a
 	call EnableSRAM

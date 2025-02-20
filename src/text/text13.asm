@@ -203,3 +203,12 @@ DrewEnergyFromTheEnergyZoneText:
 	text "<RAMNAME> drew"
 	line "1 energy from the Energy Zone"
 	done 
+
+SettingUpTheEnergyZoneText:
+	text "Setting up the"
+	line "Energy Zone"
+	done
+
+SetAsideEnergiesText:
+	text "Setting aside the energy cards"
+	done

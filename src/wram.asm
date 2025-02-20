@@ -533,9 +533,6 @@ wDuelistType:: ; cc0d
 wOpponentDeckID:: ; cc0e
 	ds $1
 
-wcc0f:: ; cc0f
-	ds $1
-
 ; index (0-1) of the attack or Pokemon Power being used by the player's arena card
 ; set to $ff when the duel starts and at the end of the opponent's turn
 wPlayerAttackingAttackIndex:: ; cc10
@@ -608,9 +605,6 @@ wAIMinDamage:: ; ccbb
 wAIMaxDamage:: ; ccbc
 	ds $1
 
-wccbd:: ; ccbd
-	ds $2
-
 ; damage dealt by an attack to a target
 wDealtDamage:: ; ccbf
 	ds $2
@@ -672,9 +666,6 @@ wStatusConditionQueue:: ; ccce
 wIsDamageToSelf:: ; cce6
 	ds $1
 
-wcce7:: ; cce7
-	ds $1
-
 wDuelFinishParam:: ; cce8
 	ds $1
 
@@ -686,7 +677,8 @@ wDeckName:: ; cce9
 wTempPlayAreaLocation_cceb:: ; cceb
 	ds $1
 
-wccec:: ; ccec
+;wccec:: ; ccec
+wFreeSpace1::
 	ds $1
 
 ; used by the effect functions to return the cause of an effect to fail
@@ -718,6 +710,23 @@ wNoEffectFromWhichStatus:: ; ccf1
 ; when non-0, allows the player to skip some delays during a duel by pressing B.
 ; value read from sSkipDelayAllowed. probably only used for debugging.
 wSkipDelayAllowed:: ; ccf2
+	ds $1
+
+SECTION "WRAMX Energy Zone", WRAMX
+
+wAmtOfEnergiesToSetAsideForEnergyZone::
+	ds ENERGY_ZONE_AMT
+
+;wccbd:: ; ccbd
+wwDuelInitialEnergyZoneUpperBitsSet::
+	ds $2
+
+;wcce7:: ; cce7
+wPlayerEnergyZone::
+	ds $1
+
+;wcc0f:: ; cc0f
+wDuelInitialEnergyZone::
 	ds $1
 
 SECTION "WRAM0 2", WRAM0
