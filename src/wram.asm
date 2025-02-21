@@ -506,6 +506,10 @@ wDuelFinished:: ; cc07
 	ds $1
 
 ; current duel is a [wDuelInitialPrizes]-prize match
+; is initiallized at the start of the duel,
+; 	then is set with the data from [wNPCDuelPrizes] in 
+; 	the function StartDuel_VSAIOpp 
+; also called when claiming prizes
 wDuelInitialPrizes:: ; cc08
 	ds $1
 
@@ -714,8 +718,14 @@ wSkipDelayAllowed:: ; ccf2
 
 SECTION "WRAMX Energy Zone", WRAMX
 
-wAmtOfEnergiesToSetAsideForEnergyZone::
+; the number of energies that need to be removed from the deck
+; prior to shuffling and drawing at the start of the duel
+wAmtOfEnergiesToSetAsideForEnergyZone:: 
 	ds ENERGY_ZONE_AMT
+
+;wcc0f:: ; cc0f
+wDuelInitialEnergyZone::
+	ds $1
 
 ;wccbd:: ; ccbd
 wwDuelInitialEnergyZoneUpperBitsSet::
@@ -723,10 +733,6 @@ wwDuelInitialEnergyZoneUpperBitsSet::
 
 ;wcce7:: ; cce7
 wPlayerEnergyZone::
-	ds $1
-
-;wcc0f:: ; cc0f
-wDuelInitialEnergyZone::
 	ds $1
 
 SECTION "WRAM0 2", WRAM0

@@ -278,7 +278,8 @@ SearchCardInDeckAndAddToEnergyZone::
 	inc [hl] ; increment number of cards not in deck
 	ld b, a ; DECK_SIZE - [DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK] (number of cards in deck)
 	ld l, c
-	set CARD_LOCATION_ENERGY_ZONE, [hl]
+	ld [hl], CARD_LOCATION_ENERGY_ZONE
+	ld [hl], a
 	ld l, DUELVARS_DECK_CARDS + DECK_SIZE - 1
 	ld e, l
 	ld d, h ; hl = de = DUELVARS_DECK_CARDS + DECK_SIZE - 1 (last card)

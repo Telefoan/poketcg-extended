@@ -33,7 +33,7 @@ StartDuel_VSAIOpp::
 	xor a
 	ld [wCurrentDuelMenuItem], a
 	call SetupDuel
-	ld a, [wNPCDuelPrizes]
+	ld a, [wNPCDuelPrizes] ; in the NPC data in src\data\duel\duel_configurations.asm
 	ld [wDuelInitialPrizes], a
 	call InitVariablesToBeginDuel
 	ld a, [wDuelTheme]
@@ -1632,6 +1632,15 @@ HandleDuelSetup:
 	call SwapTurn
 	; put energy zone stuff here
 	; then put the coin flip before the shuffle and draw
+
+	;ldtx hl, SettingUpTheEnergyZoneText
+	;call DrawWideTextBox_WaitForInput
+
+	;call SendEnergyToTheEnergyZone
+	;call SwapTurn
+	;call SendEnergyToTheEnergyZone
+	;call SwapTurn
+
 	call PlayShuffleAndDrawCardsAnimation_BothDuelists
 	call ShuffleDeckAndDrawSevenCards
 	ldh [hTemp_ffa0], a
@@ -1696,7 +1705,7 @@ HandleDuelSetup:
 	jp c, .error
 	call DrawPlayAreaToPlacePrizeCards ; i guess i dont need This
 	ldtx hl, PlacingThePrizesText 
-	; ldtx hl, SettingUpTheEnergyZoneText
+	
 	call DrawWideTextBox_WaitForInput
 
 	ld a, [wDuelInitialPrizes]
@@ -1822,6 +1831,46 @@ HandleDuelSetup:
 	db 6, 7, 13, 4 ; Prize 4
 	db 5, 8, 14, 3 ; Prize 5
 	db 6, 8, 13, 3 ; Prize 6
+
+SendEnergyToTheEnergyZone:
+	; create a deck list
+	; pull all energies
+	; send them to the energy zone
+	call CreateDeckCardList
+	ret c ; return if empty deck
+	ld hl, wDuelTempList
+.loop_deck
+	ld a, [hli]
+	ldh [hTempCardIndex_ff98], a
+	cp $ff
+	jr z, .set_carry
+	call LoadCardDataToBuffer2_FromDeckIndex
+	ld a, [wLoadedCard2Type]
+	cp TYPE_ENERGY
+	jr c, .loop_deck ; skip if not Energy card
+	ldh a, [hTempCardIndex_ff98]
+	call .load_to_energy_zone
+	ret
+.set_carry
+	scf
+	ret
+
+; load Energy card index and add to Energy Zone
+.load_to_energy_zone
+	ld a, [hli]
+	call SearchCardInDeckAndAddToEnergyZone
+	dec c
+	
+; update and print number of cards in deck
+	ld a, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+	call GetTurnDuelistVariable
+	ld a, DECK_SIZE - 1
+	sub [hl]
+	ld c, e
+	bank1call WriteTwoDigitNumberInTxSymbolFormat
+	pop bc
+	pop hl
+	jr nz, .loop_deck
 
 EnergyZone_AddToHandEffect:
 ; fill wDuelTempList with all Energy card
