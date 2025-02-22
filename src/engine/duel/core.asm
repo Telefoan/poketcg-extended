@@ -1627,8 +1627,10 @@ DisplayCardListDetails:
 HandleDuelSetup:
 ; init variables and shuffle cards
 	call InitializeDuelVariables
+	call SendEnergyToTheEnergyZone
 	call SwapTurn
 	call InitializeDuelVariables
+	call SendEnergyToTheEnergyZone
 	call SwapTurn
 	call PlayShuffleAndDrawCardsAnimation_BothDuelists
 	call ShuffleDeckAndDrawSevenCards
@@ -1814,6 +1816,35 @@ HandleDuelSetup:
 	db 6, 7, 13, 4 ; Prize 4
 	db 5, 8, 14, 3 ; Prize 5
 	db 6, 8, 13, 3 ; Prize 6
+
+SendEnergyToTheEnergyZone:
+    ldh a, [hWhoseTurn]
+    ld h, a
+    ld l, DUELVARS_NUMBER_OF_CARDS_NOT_IN_DECK
+    ld a, 40 ; You could make this a contant (e.g. ENERGY_ZONE_SIZE)
+    ld [hld], a
+    ; hl now points to the last card in the deck list
+    ld b, h
+    xor a
+    ld c, a ;  0 (initial deck index to check, also DUELVARS_CARD_LOCATIONS)
+.loop
+    call GetCardIDFromDeckIndex
+    call GetCardType
+    and TYPE_ENERGY
+    jr z, .keep_in_deck
+    ; this card is an Energy, so reassign it to the Energy Zone
+    ld a, CARD_LOCATION_ENERGY_ZONE
+    ld [bc], a
+    jr .next_card
+.keep_in_deck
+    ld [hl], c ; write current deck index to the list of deck cards
+    dec l
+.next_card
+    inc c
+    ld a, c
+    cp DECK_SIZE
+    jr c, .loop
+    ret
 
 ; have the turn duelist place, at the beginning of the duel, the active Pokemon
 ; and 0 more bench Pokemon, all of which must be basic Pokemon cards.

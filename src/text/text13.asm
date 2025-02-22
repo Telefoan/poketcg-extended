@@ -196,3 +196,19 @@ BoyText:
 GirlText:
 	text "Girl"
 	done
+
+DebugSendEnergyToTheEnergyZoneText:
+	text "SendEnergyToTheEnergyZone"
+	done
+
+DebugLoopText:
+	text ".loop"
+	done
+
+DebugKeepInDeckText:
+	text ".keep_in_deck"
+	done
+
+DebugNextCardText:
+	text ".next_card"
+	done

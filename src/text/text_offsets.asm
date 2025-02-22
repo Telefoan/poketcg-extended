@@ -2902,3 +2902,7 @@ TextOffsets::
 	textpointer AreYouBoyOrGirlText
 	textpointer BoyText
 	textpointer GirlText
+	textpointer DebugSendEnergyToTheEnergyZoneText
+	textpointer DebugLoopText
+	textpointer DebugKeepInDeckText
+	textpointer DebugNextCardText
