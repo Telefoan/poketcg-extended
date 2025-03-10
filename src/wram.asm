@@ -2664,7 +2664,7 @@ wd698:: ; d698
 ; stores the list of all card IDs that filtered by its card type
 ; (Fire, Water, ..., Energy card, Trainer card)
 wFilteredCardList::
-	ds DECK_SIZE * 2
+	ds (MAX_NUM_CARDS_PER_TYPE + 1) * 2
 
 ; list of all the different cards in a deck configuration
 wUniqueDeckCardList::

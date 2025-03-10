@@ -1014,7 +1014,7 @@ CreateFilteredCardList:
 	ld a, DECK_SIZE
 	ld hl, wOwnedCardsCountList
 	call ClearMemory_Bank2
-	ld a, DECK_SIZE * 2
+	ld a, (MAX_NUM_CARDS_PER_TYPE + 1) * 2
 	ld hl, wFilteredCardList
 	call ClearMemory_Bank2
 	pop af
