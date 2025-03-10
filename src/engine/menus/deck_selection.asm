@@ -5,7 +5,7 @@ INCLUDE "data/glossary_menu_transitions.asm"
 WriteCardListsTerminatorBytes:
 	xor a
 	ld hl, wFilteredCardList
-	ld bc, DECK_SIZE * 2
+	ld bc, MAX_NUM_CARDS_PER_TYPE * 2
 	add hl, bc
 	ld [hli], a ; terminator byte
 	ld [hl], a ; terminator byte
