@@ -103,23 +103,7 @@ wCurDeckCardChanges:: ; c590
 
 ENDU
 
-	ds $1d
-
-; signals what error, if any, occurred
-; during IR communications
-; 0 means there was no error
-wIRCommunicationErrorCode:: ; c5ea
-	ds $1
-
-; parameters set for IR communications on own device
-; and received from the other device respectively
-; these must match for successful communication
-wOwnIRCommunicationParams:: ; c5eb
-	ds $4
-wOtherIRCommunicationParams:: ; c5ef
-	ds $4
-
-	ds $d
+	ds $33
 
 SECTION "WRAM0 Text Engine", WRAM0
 
@@ -460,14 +444,7 @@ wNumCardsTryingToDraw:: ; cbe8
 wNumCardsBeingDrawn:: ; cbe9
 	ds $1
 
-	ds $3
-
-; temporarily stores 8 bytes for serial send/recv.
-; used by SerialSend8Bytes and SerialRecv8Bytes
-wTempSerialBuf:: ; cbed
-	ds $8
-
-	ds $4
+	ds $f
 
 ; when non-0, AIMakeDecision doesn't wait 60 frames and print DuelistIsThinkingText
 wSkipDuelistIsThinkingDelay:: ; cbf9
