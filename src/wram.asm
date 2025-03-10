@@ -317,61 +317,6 @@ wObjectPalettesCGB:: ; cb30
 wListPointer:: ; cb72
 	ds $2
 
-SECTION "WRAM0 Serial Transfer", WRAM0
-
-wSerialOp:: ; cb74
-	ds $1
-
-wSerialFlags:: ; cb75
-	ds $1
-
-wSerialCounter:: ; cb76
-	ds $1
-
-wSerialCounter2:: ; cb77
-	ds $1
-
-wSerialTimeoutCounter:: ; cb78
-	ds $1
-
-wcb79:: ; cb79
-	ds $2
-
-wcb7b:: ; cb7b
-	ds $2
-
-wSerialSendSave:: ; cb7d
-	ds $1
-
-wSerialSendBufToggle:: ; cb7e
-	ds $1
-
-wSerialSendBufIndex:: ; cb7f
-	ds $1
-
-wcb80:: ; cb80
-	ds $1
-
-wSerialSendBuf:: ; cb81
-	ds $20
-
-wSerialLastReadCA:: ; cba1
-	ds $1
-
-wSerialRecvCounter:: ; cba2
-	ds $1
-
-wcba3:: ; cba3
-	ds $1
-
-wSerialRecvIndex:: ; cba4
-	ds $1
-
-wSerialRecvBuf:: ; cba5
-	ds $20
-
-wSerialEnd:: ; cbc5
-
 SECTION "WRAM0 Duels 2", WRAM0
 
 	ds $1
