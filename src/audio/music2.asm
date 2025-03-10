@@ -10,20 +10,11 @@ _PlaySong_2::
 _PlaySFX_2::
 	jp Music2_PlaySFX
 
-Music2_f400c_2::
-	jp Music2_f404e
-
 _AssertSongFinished_2::
 	jp Music2_AssertSongFinished
 
 _AssertSFXFinished_2::
 	jp Music2_AssertSFXFinished
-
-Music2_f4015_2::
-	jp Music2_f4066
-
-Music2_f4018_2::
-	jp Music2_f406f
 
 _PauseSong_2::
 	jp Music2_PauseSong
@@ -66,10 +57,6 @@ Music2_PlaySFX:
 	pop bc
 	ret
 
-Music2_f404e:
-	ld [wddf0], a
-	ret
-
 Music2_AssertSongFinished:
 	ld a, [wCurSongID]
 	cp $80
@@ -84,24 +71,6 @@ Music2_AssertSFXFinished:
 	ld a, $1
 	ret nz
 	xor a
-	ret
-
-Music2_f4066:
-	ld a, [wddf2]
-	xor $1
-	ld [wddf2], a
-	ret
-
-Music2_f406f:
-	push bc
-	push af
-	and $7
-	ld b, a
-	swap b
-	or b
-	ld [wMusicPanning], a
-	pop af
-	pop bc
 	ret
 
 Music2_Init:

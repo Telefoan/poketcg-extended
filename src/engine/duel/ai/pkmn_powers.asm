@@ -452,27 +452,31 @@ HandleAIPkmnPowers:
 	call GetCardIDFromDeckIndex
 	push bc
 
-; check heal
+; heal
 	cp16 VILEPLUME
-	jr nz, .check_shift
+	jr nz, .shift
 	call HandleAIHeal
 	jr .next_1
-.check_shift
+
+.shift
 	cp16 VENOMOTH
-	jr nz, .check_peek
+	jr nz, .peek
 	call HandleAIShift
 	jr .next_1
-.check_peek
+
+.peek
 	cp16 MANKEY
-	jr nz, .check_strange_behavior
+	jr nz, .strange_behavior
 	call HandleAIPeek
 	jr .next_1
-.check_strange_behavior
+
+.strange_behavior
 	cp16 SLOWBRO
-	jr nz, .check_curse
+	jr nz, .curse
 	call HandleAIStrangeBehavior
 	jr .next_1
-.check_curse
+
+.curse
 	cp16 GENGAR
 	jr nz, .next_1
 	call z, HandleAICurse
@@ -983,7 +987,7 @@ HandleAICowardice:
 ; return carry if Pkmn Power was used.
 ; input:
 ;	c = Play Area location (PLAY_AREA_*) of Tentacool.
-.CheckWhetherToUseCowardice
+.CheckWhetherToUseCowardice:
 	ld a, c
 	ldh [hTemp_ffa0], a
 	ld e, a

@@ -63,7 +63,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 	jr nc, .check_evolution
 .atk_kos_defending
 	ld a, 20
-	call AddToAIScore
+	call AIEncourage
 
 -; this is possibly a bug.
 -; this is an identical check as above to test whether this card is active.
@@ -72,7 +72,7 @@ DetermineAIScoreOfAttackEnergyRequirement:
 	or a
 	jr nz, .check_evolution
 	ld a, 10
-	call AddToAIScore
+	call AIEncourage
 	...
 ```
 
@@ -397,7 +397,7 @@ AIDecide_FullHeal:
 
 Under very specific conditions, the AI might attempt to use its Arena card's Pkmn Power as an attack. This is because when the AI plays Pluspower, it is hardcoding which attack to use when it finally decides to attack. This does not account for the case where afterwards, for example, the AI plays a Professor Oak and obtains an evolution of that card, and then evolves that card. If the new evolved Pokémon has Pkmn Power on the first "attack slot", and the AI hardcoded to use that attack, then it will be used. This specific combination can be seen when playing with John, since his deck contains Professor Oak, Pluspower, and Doduo and its evolution Dodrio (which has the Pkmn Power Retreat Aid).
 
-**Fix:** Edit `AIDecideEvolution` in [src/engine/duel/ai/trainer_cards.asm](https://github.com/pret/poketcg/blob/master/src/engine/duel/ai/trainer_cards.asm):
+**Fix:** Edit `AIDecideEvolution` in [src/engine/duel/ai/hand_pokemon.asm](https://github.com/pret/poketcg/blob/master/src/engine/duel/ai/hand_pokemon.asm):
 ```diff
 AIDecideEvolution:
 	...
